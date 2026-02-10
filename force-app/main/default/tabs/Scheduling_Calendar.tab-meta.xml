@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <auraComponent>SchedulingCalendarContainer</auraComponent>
+    <description>Calendar view for Peer Visits - view and manage scheduled visits with participants</description>
+    <label>Peer Visits</label>
+    <motif>Custom66: Dice</motif>
+</CustomTab>

@@ -1,0 +1,128 @@
+<template>
+    <lightning-card title="My Peer Visits" icon-name="utility:event">
+        <div slot="actions">
+            <lightning-button-icon
+                icon-name="utility:refresh"
+                alternative-text="Refresh"
+                onclick={handleRefresh}>
+            </lightning-button-icon>
+        </div>
+
+        <div class="slds-p-horizontal_medium">
+            <!-- Filters -->
+            <div class="slds-grid slds-wrap slds-gutters_x-small slds-p-bottom_small filter-bar">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-bottom_x-small">
+                    <lightning-input
+                        type="date"
+                        label="From"
+                        value={startDate}
+                        onchange={handleStartDateChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-bottom_x-small">
+                    <lightning-input
+                        type="date"
+                        label="To"
+                        value={endDate}
+                        onchange={handleEndDateChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-bottom_x-small">
+                    <lightning-combobox
+                        label="Status"
+                        value={selectedStatus}
+                        options={statusOptions}
+                        onchange={handleStatusChange}>
+                    </lightning-combobox>
+                </div>
+            </div>
+
+            <!-- Loading -->
+            <template if:true={isLoading}>
+                <div class="slds-p-around_medium slds-align_absolute-center">
+                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Error -->
+            <template if:true={error}>
+                <div class="slds-p-around_medium">
+                    <div class="slds-notify slds-notify_alert slds-theme_error" role="alert">
+                        <span class="slds-assistive-text">Error</span>
+                        <h2>{error}</h2>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Visits List -->
+            <template if:false={isLoading}>
+                <template if:true={hasVisits}>
+                    <div class="slds-p-bottom_x-small">
+                        <span class="slds-text-body_small slds-text-color_weak">{visitCount} visits</span>
+                    </div>
+                    <ul class="slds-has-dividers_bottom-space">
+                        <template for:each={visits} for:item="visit">
+                            <li key={visit.id} class="slds-item visit-item">
+                                <div class="slds-grid slds-grid_vertical-align-center">
+                                    <div class="slds-col slds-grow">
+                                        <div class="slds-grid slds-grid_vertical">
+                                            <span class="slds-text-body_regular slds-text-title_bold">
+                                                {visit.participantName}
+                                            </span>
+                                            <span class="slds-text-body_small slds-text-color_weak">
+                                                {visit.formattedDateTime}
+                                            </span>
+                                            <span class="slds-text-body_small">
+                                                {visit.appointmentType}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-no-flex slds-p-right_small">
+                                        <span class={visit.statusClass}>{visit.statusLabel}</span>
+                                    </div>
+                                    <div class="slds-col slds-no-flex">
+                                        <lightning-button-menu
+                                            alternative-text="Actions"
+                                            menu-alignment="right"
+                                            icon-size="x-small">
+                                            <lightning-menu-item
+                                                value="view"
+                                                label="View Visit"
+                                                data-id={visit.id}
+                                                onclick={handleViewVisit}>
+                                            </lightning-menu-item>
+                                            <lightning-menu-item
+                                                value="participant"
+                                                label="View Participant"
+                                                data-id={visit.id}
+                                                data-caseid={visit.caseId}
+                                                onclick={handleViewParticipant}>
+                                            </lightning-menu-item>
+                                            <template if:false={visit.isComplete}>
+                                                <lightning-menu-item
+                                                    value="complete"
+                                                    label="Mark Complete"
+                                                    data-id={visit.id}
+                                                    onclick={handleMarkComplete}>
+                                                </lightning-menu-item>
+                                            </template>
+                                        </lightning-button-menu>
+                                    </div>
+                                </div>
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+
+                <template if:false={hasVisits}>
+                    <div class="slds-p-around_medium slds-align_absolute-center">
+                        <div class="slds-text-align_center">
+                            <lightning-icon icon-name="utility:event" size="large" class="slds-m-bottom_small"></lightning-icon>
+                            <p class="slds-text-body_regular slds-text-color_weak">No visits found for this period</p>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

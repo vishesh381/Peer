@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <description>Sends notifications for Service Appointments scheduled for tomorrow</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>formulaTomorrowEnd</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(TEXT({!$Flow.CurrentDate} + 2) &amp; &quot; 00:00:00&quot;)</expression>
+    </formulas>
+    <formulas>
+        <name>formulaTomorrowStart</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(TEXT({!$Flow.CurrentDate} + 1) &amp; &quot; 00:00:00&quot;)</expression>
+    </formulas>
+    <interviewLabel>Scheduled Service Notification {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Scheduled Service Notification</label>
+    <loops>
+        <name>Loop_Appointments</name>
+        <label>Loop Appointments</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <collectionReference>Get_Tomorrow_Appointments</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Create_Reminder_Task</targetReference>
+        </nextValueConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Reminder_Task</name>
+        <label>Create Reminder Task</label>
+        <locationX>264</locationX>
+        <locationY>398</locationY>
+        <connector>
+            <targetReference>Loop_Appointments</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>You have a Service Appointment scheduled for tomorrow. Please confirm attendance and prepare for the visit.</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Appointment Reminder - Tomorrow</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>Loop_Appointments.ParentRecordId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Tomorrow_Appointments</name>
+        <label>Get Tomorrow Appointments</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Appointments</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SchedStartTime</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>formulaTomorrowStart</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>SchedStartTime</field>
+            <operator>LessThan</operator>
+            <value>
+                <elementReference>formulaTomorrowEnd</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Scheduled</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>ServiceAppointment</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>ParentRecordId</queriedFields>
+        <queriedFields>Subject</queriedFields>
+        <queriedFields>SchedStartTime</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Tomorrow_Appointments</targetReference>
+        </connector>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2026-02-03</startDate>
+            <startTime>16:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

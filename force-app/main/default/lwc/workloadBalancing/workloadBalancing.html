@@ -1,0 +1,110 @@
+<template>
+    <lightning-card title="Specialist Workload Distribution" icon-name="standard:capacity_plan">
+        <div slot="actions">
+            <div class="sort-controls">
+                <lightning-combobox
+                    label="Sort By"
+                    value={sortedBy}
+                    options={sortOptions}
+                    onchange={handleSortChange}
+                    variant="label-hidden"
+                    class="sort-combobox"
+                ></lightning-combobox>
+                <lightning-button-icon
+                    icon-name={sortDirectionIcon}
+                    alternative-text={sortDirectionLabel}
+                    title={sortDirectionLabel}
+                    onclick={handleToggleSortDirection}
+                    variant="border-filled"
+                    class="sort-direction-btn"
+                ></lightning-button-icon>
+            </div>
+        </div>
+
+        <div class="slds-p-around_medium">
+            <template lwc:if={isLoading}>
+                <lightning-spinner alternative-text="Loading workload data"></lightning-spinner>
+            </template>
+
+            <template lwc:if={error}>
+                <div class="slds-text-color_error slds-p-around_medium">
+                    <lightning-icon icon-name="utility:error" size="small" variant="error"></lightning-icon>
+                    <span class="slds-m-left_x-small">{error}</span>
+                </div>
+            </template>
+
+            <template lwc:if={hasData}>
+                <div class="average-caseload-banner slds-m-bottom_medium">
+                    <div class="slds-grid slds-grid_align-center">
+                        <div class="slds-col">
+                            <div class="average-label">Average Caseload</div>
+                            <div class="average-value">{averageCaseload}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workload-table-container">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered workload-table">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Specialist Name">Specialist Name</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Caseload">Caseload</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="New This Week">New This Week</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Capacity">Capacity</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Status">Status</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={workloadData} for:item="specialist">
+                                <tr key={specialist.userId} class="workload-row">
+                                    <td data-label="Specialist Name">
+                                        <div class="slds-truncate specialist-name" title={specialist.name}>
+                                            {specialist.name}
+                                        </div>
+                                    </td>
+                                    <td data-label="Caseload">
+                                        <div class="caseload-count">{specialist.caseload}</div>
+                                    </td>
+                                    <td data-label="New This Week">
+                                        <div class="appointments-count">{specialist.newThisWeek}</div>
+                                    </td>
+                                    <td data-label="Capacity">
+                                        <div class="capacity-bar-container">
+                                            <div class="capacity-bar" style={specialist.capacityBarStyle}></div>
+                                            <span class="capacity-percentage">{specialist.capacityPercentage}%</span>
+                                        </div>
+                                    </td>
+                                    <td data-label="Status">
+                                        <span class={specialist.statusBadgeClass}>{specialist.capacityStatus}</span>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+
+            <template lwc:if={noData}>
+                <template lwc:if={notLoading}>
+                    <template lwc:if={noError}>
+                        <div class="slds-text-align_center slds-p-around_large empty-state">
+                            <lightning-icon icon-name="utility:user" size="large"></lightning-icon>
+                            <p class="slds-m-top_medium slds-text-heading_small">No Workload Data Available</p>
+                            <p class="slds-text-body_regular slds-text-color_weak">There are no specialists with workload data to display.</p>
+                        </div>
+                    </template>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

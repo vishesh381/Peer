@@ -1,0 +1,119 @@
+<template>
+    <lightning-card title="Referral Aging Dashboard" icon-name="standard:opportunity">
+        <!-- Summary Cards Section -->
+        <div class="slds-p-around_medium">
+            <div class="slds-grid slds-wrap slds-gutters">
+                <!-- All Card -->
+                <div class="slds-col slds-size_1-of-4 slds-p-around_x-small">
+                    <div class={allCardClass} data-urgency="All" onclick={handleCardClick}>
+                        <div class="card-content">
+                            <span class="card-count">{totalCount}</span>
+                            <span class="card-label">Total Referrals</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Critical Card -->
+                <div class="slds-col slds-size_1-of-4 slds-p-around_x-small">
+                    <div class={criticalCardClass} data-urgency="Critical" onclick={handleCardClick}>
+                        <div class="card-content">
+                            <span class="card-count">{criticalCount}</span>
+                            <span class="card-label">Critical</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warning Card -->
+                <div class="slds-col slds-size_1-of-4 slds-p-around_x-small">
+                    <div class={warningCardClass} data-urgency="Warning" onclick={handleCardClick}>
+                        <div class="card-content">
+                            <span class="card-count">{warningCount}</span>
+                            <span class="card-label">Warning</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- On Track Card -->
+                <div class="slds-col slds-size_1-of-4 slds-p-around_x-small">
+                    <div class={onTrackCardClass} data-urgency="On Track" onclick={handleCardClick}>
+                        <div class="card-content">
+                            <span class="card-count">{onTrackCount}</span>
+                            <span class="card-label">On Track</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="slds-p-horizontal_medium slds-p-bottom_small">
+            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                <div class="slds-col">
+                    <lightning-combobox
+                        name="urgencyFilter"
+                        label="Filter by Urgency"
+                        value={selectedUrgency}
+                        options={urgencyOptions}
+                        onchange={handleUrgencyChange}
+                        variant="label-hidden"
+                        class="filter-combobox"
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col">
+                    <span class="slds-text-body_small slds-text-color_weak">
+                        Showing {filteredCount} of {totalCount} referrals
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <template lwc:if={error}>
+            <div class="slds-p-around_medium">
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    <span class="slds-assistive-text">error</span>
+                    <h2>Error loading referral data. Please try again later.</h2>
+                </div>
+            </div>
+        </template>
+
+        <!-- Loading Spinner -->
+        <template lwc:if={isLoading}>
+            <div class="slds-p-around_large slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Data Table -->
+        <template lwc:if={notLoading}>
+            <template lwc:if={hasReferrals}>
+                <div class="datatable-container slds-p-horizontal_medium slds-p-bottom_medium">
+                    <lightning-datatable
+                        key-field="id"
+                        data={filteredReferrals}
+                        columns={columns}
+                        sorted-by={sortedBy}
+                        sorted-direction={sortedDirection}
+                        onsort={handleSort}
+                        hide-checkbox-column
+                        show-row-number-column
+                        class="referral-datatable"
+                    ></lightning-datatable>
+                </div>
+            </template>
+
+            <template lwc:else>
+                <div class="slds-p-around_large slds-align_absolute-center">
+                    <div class="slds-illustration slds-illustration_small">
+                        <div class="slds-text-longform">
+                            <h3 class="slds-text-heading_medium">No Referrals Found</h3>
+                            <p class="slds-text-body_regular">
+                                There are no referrals matching the selected filter criteria.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </template>
+    </lightning-card>
+</template>

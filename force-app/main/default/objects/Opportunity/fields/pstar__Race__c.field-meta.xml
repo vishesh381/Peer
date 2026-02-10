@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>pstar__Race__c</fullName>
+    <label>Race</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>African American</fullName>
+                <default>false</default>
+                <label>African American</label>
+            </value>
+            <value>
+                <fullName>American Indian/Eskimo/Aleut</fullName>
+                <default>false</default>
+                <label>American Indian/Eskimo/Aleut</label>
+            </value>
+            <value>
+                <fullName>Asian</fullName>
+                <default>false</default>
+                <label>Asian</label>
+            </value>
+            <value>
+                <fullName>More than one race</fullName>
+                <default>false</default>
+                <label>More than one race</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Pacific Islander</fullName>
+                <default>false</default>
+                <label>Pacific Islander</label>
+            </value>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>White or Caucasian</fullName>
+                <default>false</default>
+                <label>White or Caucasian</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

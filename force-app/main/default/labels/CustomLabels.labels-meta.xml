@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Credible_Export_BaseUrl</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Credible_Export_BaseUrl</shortDescription>
+        <value>https://reportservices.crediblebh.com/reports/ExportService.asmx/ExportDataSet</value>
+    </labels>
+    <labels>
+        <fullName>Credible_Import_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Credible Import URL</shortDescription>
+        <value>https://reports.crediblebh.com/reports/Importservice.asmx/Import</value>
+    </labels>
+    <labels>
+        <fullName>Unassigned_Referral_Queue_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unassigned Referral Queue Id</shortDescription>
+        <value>00GfJ000002O0vOUAS</value>
+    </labels>
+</CustomLabels>

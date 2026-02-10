@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>pstar__Gender_Identity__c</fullName>
+    <label>Gender Identity</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Choose not to disclose</fullName>
+                <default>false</default>
+                <label>Choose not to disclose</label>
+            </value>
+            <value>
+                <fullName>Female</fullName>
+                <default>false</default>
+                <label>Female</label>
+            </value>
+            <value>
+                <fullName>Genderqueer, neither exclusively male nor female</fullName>
+                <default>false</default>
+                <label>Genderqueer, neither exclusively male nor female</label>
+            </value>
+            <value>
+                <fullName>Male</fullName>
+                <default>false</default>
+                <label>Male</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Transgender Female/Trans Woman/ Male-to-Female (MTF)</fullName>
+                <default>false</default>
+                <label>Transgender Female/Trans Woman/ Male-to-Female (MTF)</label>
+            </value>
+            <value>
+                <fullName>Transgender Male/Trans Man/ Female-to-Male (FTM)</fullName>
+                <default>false</default>
+                <label>Transgender Male/Trans Man/ Female-to-Male (FTM)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

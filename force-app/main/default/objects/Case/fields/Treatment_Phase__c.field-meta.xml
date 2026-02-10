@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Treatment_Phase__c</fullName>
+    <description>Current phase of treatment/recovery journey</description>
+    <label>Treatment Phase</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Engagement</fullName>
+                <default>true</default>
+                <label>Engagement</label>
+            </value>
+            <value>
+                <fullName>Assessment</fullName>
+                <default>false</default>
+                <label>Assessment</label>
+            </value>
+            <value>
+                <fullName>Active Treatment</fullName>
+                <default>false</default>
+                <label>Active Treatment</label>
+            </value>
+            <value>
+                <fullName>Maintenance</fullName>
+                <default>false</default>
+                <label>Maintenance</label>
+            </value>
+            <value>
+                <fullName>Discharge Planning</fullName>
+                <default>false</default>
+                <label>Discharge Planning</label>
+            </value>
+            <value>
+                <fullName>Aftercare</fullName>
+                <default>false</default>
+                <label>Aftercare</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

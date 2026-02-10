@@ -1,0 +1,127 @@
+<template>
+    <lightning-card title="Intake Staff Performance" icon-name="standard:user">
+        <!-- Date Range Picker -->
+        <div slot="actions" class="date-range-container">
+            <lightning-input
+                type="date"
+                label="Start Date"
+                value={startDate}
+                max={startDateMax}
+                onchange={handleStartDateChange}
+                class="date-input"
+            ></lightning-input>
+            <lightning-input
+                type="date"
+                label="End Date"
+                value={endDate}
+                min={endDateMin}
+                max={maxDate}
+                onchange={handleEndDateChange}
+                class="date-input"
+            ></lightning-input>
+        </div>
+
+        <div class="slds-p-around_medium">
+            <!-- Date Validation Error -->
+            <template lwc:if={dateError}>
+                <div class="slds-text-color_error slds-p-bottom_small slds-text-body_small">
+                    <lightning-icon icon-name="utility:error" size="xx-small" variant="error" class="slds-m-right_xx-small"></lightning-icon>
+                    {dateError}
+                </div>
+            </template>
+
+            <!-- Loading State -->
+            <template lwc:if={isLoading}>
+                <div class="slds-align_absolute-center slds-p-around_large">
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Error State -->
+            <template lwc:if={error}>
+                <div class="slds-text-color_error slds-p-around_medium slds-text-align_center">
+                    <lightning-icon icon-name="utility:error" alternative-text="Error" size="small"></lightning-icon>
+                    <span class="slds-p-left_x-small">{error}</span>
+                </div>
+            </template>
+
+            <!-- Data Display -->
+            <template lwc:if={hasData}>
+                <div class="leaderboard-container">
+                    <!-- Header Row -->
+                    <div class="leaderboard-header">
+                        <div class="header-rank">Rank</div>
+                        <div class="header-name">Staff Member</div>
+                        <div class="header-stat">Referrals</div>
+                        <div class="header-stat">Admitted</div>
+                        <div class="header-stat">Conversion</div>
+                        <div class="header-stat">Avg Days</div>
+                    </div>
+
+                    <!-- Staff Rows -->
+                    <template for:each={staffPerformanceData} for:item="staff">
+                        <div key={staff.staffId} class={staff.rowClass}>
+                            <!-- Rank -->
+                            <div class="rank-cell">
+                                <span class={staff.rankClass}>{staff.rank}</span>
+                            </div>
+
+                            <!-- Name with Trophy for Top Performer -->
+                            <div class="name-cell">
+                                <template lwc:if={staff.isTopPerformer}>
+                                    <lightning-icon
+                                        icon-name="utility:favorite"
+                                        alternative-text="Top Performer"
+                                        size="x-small"
+                                        class="trophy-icon"
+                                    ></lightning-icon>
+                                </template>
+                                <span class="staff-name">{staff.staffName}</span>
+                            </div>
+
+                            <!-- Total Referrals -->
+                            <div class="stat-cell">
+                                <span class="stat-value">{staff.totalReferrals}</span>
+                                <span class="stat-label slds-hide_medium-up">Referrals</span>
+                            </div>
+
+                            <!-- Admitted Count -->
+                            <div class="stat-cell">
+                                <span class="stat-value admitted-value">{staff.admittedReferrals}</span>
+                                <span class="stat-label slds-hide_medium-up">Admitted</span>
+                            </div>
+
+                            <!-- Conversion Rate -->
+                            <div class="stat-cell">
+                                <span class={staff.conversionRateBadgeClass}>{staff.formattedConversionRate}</span>
+                                <span class="stat-label slds-hide_medium-up">Conversion</span>
+                            </div>
+
+                            <!-- Avg Days to Admission -->
+                            <div class="stat-cell">
+                                <span class="stat-value">{staff.formattedAvgDays}</span>
+                                <span class="stat-label slds-hide_medium-up">Avg Days</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- No Data State -->
+            <template lwc:if={notLoading}>
+                <template lwc:if={noData}>
+                    <template lwc:if={noError}>
+                        <div class="slds-text-align_center slds-p-around_large slds-text-color_weak">
+                            <lightning-icon
+                                icon-name="utility:info"
+                                alternative-text="No data"
+                                size="small"
+                            ></lightning-icon>
+                            <p class="slds-p-top_small">{noDataMessage}</p>
+                        </div>
+                    </template>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

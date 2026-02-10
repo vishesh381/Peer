@@ -1,0 +1,39 @@
+<template>
+    <lightning-card title="Quick Actions" icon-name="utility:quick_actions">
+        <div class="slds-p-around_medium">
+            <div class="slds-grid slds-wrap slds-gutters_small">
+                <!-- Schedule New Visit -->
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                    <button class="action-button" onclick={handleNewVisit}>
+                        <lightning-icon icon-name="utility:event" size="medium" alternative-text="Schedule Visit"></lightning-icon>
+                        <span class="action-label">Schedule Visit</span>
+                    </button>
+                </div>
+
+                <!-- View Calendar -->
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                    <button class="action-button" onclick={handleViewCalendar}>
+                        <lightning-icon icon-name="utility:date_input" size="medium" alternative-text="View Calendar"></lightning-icon>
+                        <span class="action-label">View Calendar</span>
+                    </button>
+                </div>
+
+                <!-- View My Participants -->
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                    <button class="action-button" onclick={handleViewParticipants}>
+                        <lightning-icon icon-name="utility:people" size="medium" alternative-text="My Participants"></lightning-icon>
+                        <span class="action-label">My Participants</span>
+                    </button>
+                </div>
+
+                <!-- New Meeting -->
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                    <button class="action-button" onclick={handleNewMeeting}>
+                        <lightning-icon icon-name="utility:groups" size="medium" alternative-text="New Meeting"></lightning-icon>
+                        <span class="action-label">New Meeting</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

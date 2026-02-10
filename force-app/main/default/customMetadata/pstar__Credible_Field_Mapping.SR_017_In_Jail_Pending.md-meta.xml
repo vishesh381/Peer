@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Status Reason - In Jail Pending release</label>
+    <protected>false</protected>
+    <values>
+        <field>pstar__Field_Category__c</field>
+        <value xsi:type="xsd:string">Status Reason</value>
+    </values>
+    <values>
+        <field>pstar__Credible_Code__c</field>
+        <value xsi:type="xsd:string">1374</value>
+    </values>
+    <values>
+        <field>pstar__Credible_Value__c</field>
+        <value xsi:type="xsd:string">In Jail - Pending release</value>
+    </values>
+    <values>
+        <field>pstar__Salesforce_Value__c</field>
+        <value xsi:type="xsd:string">In Jail - Pending release</value>
+    </values>
+</CustomMetadata>

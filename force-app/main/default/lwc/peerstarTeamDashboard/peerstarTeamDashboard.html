@@ -1,0 +1,223 @@
+<template>
+    <lightning-card title="Team Dashboard" icon-name="standard:dashboard">
+        <div slot="actions">
+            <lightning-button-group>
+                <lightning-button
+                    label="Overview"
+                    variant={overviewButtonVariant}
+                    data-view="overview"
+                    onclick={handleViewChange}>
+                </lightning-button>
+                <lightning-button
+                    label="Visits"
+                    variant={visitsButtonVariant}
+                    data-view="visits"
+                    onclick={handleViewChange}>
+                </lightning-button>
+            </lightning-button-group>
+        </div>
+
+        <!-- Filters -->
+        <div class="slds-p-around_medium slds-border_bottom">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                    <lightning-input
+                        type="date"
+                        label="Start Date"
+                        value={startDate}
+                        onchange={handleStartDateChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                    <lightning-input
+                        type="date"
+                        label="End Date"
+                        value={endDate}
+                        onchange={handleEndDateChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                    <lightning-combobox
+                        label="Specialist"
+                        value={selectedSpecialistId}
+                        options={specialists}
+                        onchange={handleSpecialistChange}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-grid slds-grid_vertical-align-end">
+                    <lightning-button-group class="slds-m-bottom_xx-small">
+                        <lightning-button label="This Week" onclick={setThisWeek}></lightning-button>
+                        <lightning-button label="This Month" onclick={setThisMonth}></lightning-button>
+                    </lightning-button-group>
+                </div>
+            </div>
+        </div>
+
+        <template if:true={isLoading}>
+            <div class="slds-p-around_large slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <div class="slds-p-around_medium slds-text-color_error">
+                Unable to load team dashboard data.
+            </div>
+        </template>
+
+        <!-- Overview View -->
+        <template if:true={isOverview}>
+            <template if:false={isLoading}>
+                <!-- Metrics Cards -->
+                <div class="slds-p-around_medium">
+                    <div class="slds-text-title_caps slds-m-bottom_small">{dateRangeDisplay}</div>
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                            <div class="metric-card slds-box slds-theme_shade">
+                                <div class="slds-text-heading_large">{metrics.totalVisits}</div>
+                                <div class="slds-text-title">Total Visits</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                            <div class="metric-card slds-box success-bg">
+                                <div class="slds-text-heading_large">{metrics.completedVisits}</div>
+                                <div class="slds-text-title">Completed</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                            <div class="metric-card slds-box warning-bg">
+                                <div class="slds-text-heading_large">{metrics.scheduledVisits}</div>
+                                <div class="slds-text-title">Scheduled</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                            <div class="metric-card slds-box error-bg">
+                                <div class="slds-text-heading_large">{metrics.missedVisits}</div>
+                                <div class="slds-text-title">Missed</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second row metrics -->
+                    <div class="slds-grid slds-gutters slds-wrap slds-m-top_small">
+                        <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-p-bottom_small">
+                            <div class="metric-card slds-box slds-theme_shade">
+                                <div class="slds-text-heading_large">{completionRateDisplay}</div>
+                                <div class="slds-text-title">Completion Rate</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-p-bottom_small">
+                            <div class="metric-card slds-box slds-theme_shade">
+                                <div class="slds-text-heading_large">{metrics.inProgressVisits}</div>
+                                <div class="slds-text-title">In Progress</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-p-bottom_small">
+                            <div class="metric-card slds-box info-bg">
+                                <div class="slds-text-heading_large">{metrics.pendingReviews}</div>
+                                <div class="slds-text-title">Pending Reviews</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specialist Workload Table -->
+                <template if:true={hasSpecialists}>
+                    <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                        <h3 class="slds-text-heading_small slds-m-bottom_small">Specialist Workload</h3>
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col">Specialist</th>
+                                    <th scope="col" class="slds-text-align_center">Total</th>
+                                    <th scope="col" class="slds-text-align_center">Completed</th>
+                                    <th scope="col" class="slds-text-align_center">Missed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={metrics.specialists} for:item="specialist">
+                                    <tr key={specialist.resourceId}>
+                                        <td>
+                                            <a data-userid={specialist.userId} onclick={handleSpecialistClick} class="slds-text-link">
+                                                {specialist.name}
+                                            </a>
+                                        </td>
+                                        <td class="slds-text-align_center">{specialist.totalVisits}</td>
+                                        <td class="slds-text-align_center">{specialist.completedVisits}</td>
+                                        <td class="slds-text-align_center">{specialist.missedVisits}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+
+                <template if:false={hasMetrics}>
+                    <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                        <lightning-icon icon-name="utility:event" size="large" class="slds-m-bottom_small"></lightning-icon>
+                        <p>No visits found for the selected date range.</p>
+                    </div>
+                </template>
+            </template>
+        </template>
+
+        <!-- Visits List View -->
+        <template if:true={isVisitsView}>
+            <template if:false={isLoading}>
+                <!-- Status Filter -->
+                <div class="slds-p-horizontal_medium slds-p-top_small">
+                    <lightning-dual-listbox
+                        label="Filter by Status"
+                        source-label="Available"
+                        selected-label="Selected"
+                        options={statusOptions}
+                        value={selectedStatuses}
+                        onchange={handleStatusChange}
+                        size="4">
+                    </lightning-dual-listbox>
+                </div>
+
+                <template if:true={hasVisits}>
+                    <div class="slds-p-around_medium">
+                        <div class="slds-text-title_caps slds-m-bottom_small">{visitCount} Visits</div>
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col">Visit #</th>
+                                    <th scope="col">Date/Time</th>
+                                    <th scope="col">Specialist</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={visits} for:item="visit">
+                                    <tr key={visit.id}>
+                                        <td>
+                                            <a data-id={visit.id} onclick={handleVisitClick} class="slds-text-link">
+                                                {visit.name}
+                                            </a>
+                                        </td>
+                                        <td>{visit.formattedDate}</td>
+                                        <td>{visit.assignedUserName}</td>
+                                        <td>{visit.serviceType}</td>
+                                        <td>
+                                            <span class={visit.statusClass}>{visit.status}</span>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+
+                <template if:false={hasVisits}>
+                    <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                        <lightning-icon icon-name="utility:event" size="large" class="slds-m-bottom_small"></lightning-icon>
+                        <p>No visits match the selected filters.</p>
+                    </div>
+                </template>
+            </template>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Peer_Specialist__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The CPS/CRS staff member assigned to this peer for ongoing services</description>
+    <label>Peer Specialist</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Referrals_As_Peer_Specialist</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

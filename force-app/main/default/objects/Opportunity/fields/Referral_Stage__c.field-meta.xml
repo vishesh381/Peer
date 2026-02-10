@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Referral_Stage__c</fullName>
+    <description>Current stage of the referral in the intake process</description>
+    <label>Referral Stage</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Referral</fullName>
+                <default>true</default>
+                <label>New Referral</label>
+            </value>
+            <value>
+                <fullName>Eligibility Verification</fullName>
+                <default>false</default>
+                <label>Eligibility Verification</label>
+            </value>
+            <value>
+                <fullName>Authorization Pending</fullName>
+                <default>false</default>
+                <label>Authorization Pending</label>
+            </value>
+            <value>
+                <fullName>Authorization Approved</fullName>
+                <default>false</default>
+                <label>Authorization Approved</label>
+            </value>
+            <value>
+                <fullName>IRP Scheduling</fullName>
+                <default>false</default>
+                <label>IRP Scheduling</label>
+            </value>
+            <value>
+                <fullName>IRP Completed</fullName>
+                <default>false</default>
+                <label>IRP Completed</label>
+            </value>
+            <value>
+                <fullName>On Service</fullName>
+                <default>false</default>
+                <label>On Service</label>
+            </value>
+            <value>
+                <fullName>On Hold</fullName>
+                <default>false</default>
+                <label>On Hold</label>
+            </value>
+            <value>
+                <fullName>Closed - Denied</fullName>
+                <default>false</default>
+                <label>Closed - Denied</label>
+            </value>
+            <value>
+                <fullName>Closed - Withdrawn</fullName>
+                <default>false</default>
+                <label>Closed - Withdrawn</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

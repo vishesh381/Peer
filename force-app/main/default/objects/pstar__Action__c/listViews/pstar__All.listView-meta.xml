@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>pstar__All</fullName>
+    <columns>NAME</columns>
+    <columns>pstar__Config_Action_Id__c</columns>
+    <columns>pstar__Status__c</columns>
+    <columns>pstar__Is_Manual_Action__c</columns>
+    <columns>pstar__Workflow__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>pstar__Referral__c</columns>
+    <columns>pstar__Complete__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

@@ -1,0 +1,47 @@
+.form-scroll-container {
+    max-height: 65vh;
+    overflow-y: auto;
+    border: 1px solid #d8dde6;
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+.info-banner {
+    background-color: #eef4ff;
+    border-left: 4px solid #0176d3;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.warning-banner {
+    background-color: #ffeaa7;
+    border-left: 4px solid #fe9339;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.result-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.success-icon {
+    background-color: #2e844a;
+}
+
+.warning-icon {
+    background-color: #fe9339;
+}
+
+.error-icon {
+    background-color: #ea001e;
+}

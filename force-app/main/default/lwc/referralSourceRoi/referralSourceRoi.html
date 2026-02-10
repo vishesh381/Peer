@@ -1,0 +1,101 @@
+<template>
+    <lightning-card title="Referral Source ROI" icon-name="standard:lead">
+        <!-- Date Range Picker -->
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                    <lightning-input
+                        type="date"
+                        label="Start Date"
+                        value={startDate}
+                        max={startDateMax}
+                        onchange={handleStartDateChange}
+                    ></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                    <lightning-input
+                        type="date"
+                        label="End Date"
+                        value={endDate}
+                        min={endDateMin}
+                        max={maxDate}
+                        onchange={handleEndDateChange}
+                    ></lightning-input>
+                </div>
+            </div>
+            <template lwc:if={dateError}>
+                <div class="slds-text-color_error slds-p-top_x-small slds-text-body_small">
+                    <lightning-icon icon-name="utility:error" size="xx-small" variant="error" class="slds-m-right_xx-small"></lightning-icon>
+                    {dateError}
+                </div>
+            </template>
+        </div>
+
+        <!-- Loading Spinner -->
+        <template lwc:if={isLoading}>
+            <div class="slds-p-around_medium slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Error Message -->
+        <template lwc:if={error}>
+            <div class="slds-p-around_medium">
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    <span class="slds-assistive-text">Error</span>
+                    <h2>{error}</h2>
+                </div>
+            </div>
+        </template>
+
+        <!-- No Data Message -->
+        <template lwc:if={showNoDataMessage}>
+            <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                {noDataMessage}
+            </div>
+        </template>
+
+        <!-- Referral Sources Chart -->
+        <template lwc:if={hasData}>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <!-- Header Row -->
+                <div class="slds-grid slds-p-bottom_x-small header-row">
+                    <div class="slds-col slds-size_3-of-12">
+                        <span class="slds-text-title_caps">Source</span>
+                    </div>
+                    <div class="slds-col slds-size_5-of-12">
+                        <span class="slds-text-title_caps">Total Referrals</span>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12 slds-text-align_center">
+                        <span class="slds-text-title_caps">Admitted</span>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12 slds-text-align_center">
+                        <span class="slds-text-title_caps">Conversion</span>
+                    </div>
+                </div>
+
+                <!-- Data Rows -->
+                <template for:each={referralSources} for:item="source">
+                    <div key={source.key} class="slds-grid slds-p-vertical_x-small source-row">
+                        <div class="slds-col slds-size_3-of-12 source-name">
+                            <span title={source.source}>{source.source}</span>
+                        </div>
+                        <div class="slds-col slds-size_5-of-12 bar-container">
+                            <div class="bar-wrapper">
+                                <div class="referral-bar" style={source.barWidth}>
+                                    <span class="bar-value">{source.totalReferrals}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-text-align_center admitted-count">
+                            {source.admittedReferrals}
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-text-align_center">
+                            <span class={source.conversionBadgeClass}>{source.conversionRateDisplay}</span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+</template>

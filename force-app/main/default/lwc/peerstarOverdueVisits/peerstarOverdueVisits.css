@@ -1,0 +1,53 @@
+/* Overdue Visits Styles */
+.visit-row {
+    border-left: 4px solid #ea001e;
+    background-color: #fef6f6;
+    transition: background-color 0.2s ease;
+}
+
+.visit-row:hover {
+    background-color: #fdeaea;
+}
+
+.visit-type {
+    font-weight: bold;
+    font-size: 0.875rem;
+    color: #080707;
+}
+
+.visit-name {
+    font-size: 0.75rem;
+    color: #706e6b;
+}
+
+.visit-details {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.visit-date {
+    font-size: 0.75rem;
+    color: #ea001e;
+    font-weight: 500;
+}
+
+.empty-state {
+    min-height: 120px;
+}
+
+.empty-state lightning-icon {
+    color: #2e844a;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .visit-row .slds-grid {
+        flex-wrap: wrap;
+    }
+
+    .visit-row .slds-no-flex {
+        width: 100%;
+        margin-top: 8px;
+    }
+}

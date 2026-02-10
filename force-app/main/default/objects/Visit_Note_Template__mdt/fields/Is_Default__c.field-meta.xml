@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Default__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If true, this template will be the default for its Work Type</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Is Default</label>
+    <type>Checkbox</type>
+</CustomField>

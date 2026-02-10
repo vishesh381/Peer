@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>pstar__No_Admit_Reason__c</fullName>
+    <label>No Admit Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Ineligible for Medicaid</fullName>
+                <default>false</default>
+                <label>Ineligible for Medicaid</label>
+            </value>
+            <value>
+                <fullName>No forensic involvement in the past year (Delco)</fullName>
+                <default>false</default>
+                <label>No forensic involvement in the past year (Delco)</label>
+            </value>
+            <value>
+                <fullName>Peer cannot be reached</fullName>
+                <default>false</default>
+                <label>Peer cannot be reached</label>
+            </value>
+            <value>
+                <fullName>Peer does not have a MH diagnosis</fullName>
+                <default>false</default>
+                <label>Peer does not have a MH diagnosis</label>
+            </value>
+            <value>
+                <fullName>Peer has other services</fullName>
+                <default>false</default>
+                <label>Peer has other services</label>
+            </value>
+            <value>
+                <fullName>Peer has private insurance</fullName>
+                <default>false</default>
+                <label>Peer has private insurance</label>
+            </value>
+            <value>
+                <fullName>Peer in D&amp;A services</fullName>
+                <default>false</default>
+                <label>Peer in D&amp;A services</label>
+            </value>
+            <value>
+                <fullName>Peer in rehab</fullName>
+                <default>false</default>
+                <label>Peer in rehab</label>
+            </value>
+            <value>
+                <fullName>Peer incarcerated</fullName>
+                <default>false</default>
+                <label>Peer incarcerated</label>
+            </value>
+            <value>
+                <fullName>Peer is involved with another PSS provider</fullName>
+                <default>false</default>
+                <label>Peer is involved with another PSS provider</label>
+            </value>
+            <value>
+                <fullName>Peer is not appropriate for PSS</fullName>
+                <default>false</default>
+                <label>Peer is not appropriate for PSS</label>
+            </value>
+            <value>
+                <fullName>Peer is out of service area</fullName>
+                <default>false</default>
+                <label>Peer is out of service area</label>
+            </value>
+            <value>
+                <fullName>Peer no longer wants services</fullName>
+                <default>false</default>
+                <label>Peer no longer wants services</label>
+            </value>
+            <value>
+                <fullName>Peer refused Eval</fullName>
+                <default>false</default>
+                <label>Peer refused Eval</label>
+            </value>
+            <value>
+                <fullName>Peer unable to get a script for PSS</fullName>
+                <default>false</default>
+                <label>Peer unable to get a script for PSS</label>
+            </value>
+            <value>
+                <fullName>Peer went inpatient</fullName>
+                <default>false</default>
+                <label>Peer went inpatient</label>
+            </value>
+            <value>
+                <fullName>Peer went to another PSS provider</fullName>
+                <default>false</default>
+                <label>Peer went to another PSS provider</label>
+            </value>
+            <value>
+                <fullName>Peers MA does not include PSS</fullName>
+                <default>false</default>
+                <label>Peers MA does not include PSS</label>
+            </value>
+            <value>
+                <fullName>Peers MA is inactive</fullName>
+                <default>false</default>
+                <label>Peers MA is inactive</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

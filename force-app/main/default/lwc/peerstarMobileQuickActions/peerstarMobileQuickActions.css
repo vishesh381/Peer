@@ -1,0 +1,48 @@
+.header-section {
+    background: linear-gradient(135deg, #0176d3 0%, #014486 100%);
+    color: white;
+    border-radius: 0;
+}
+
+.header-section h1 {
+    color: white;
+}
+
+.header-section p {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.next-visit-card {
+    border-left: 4px solid #0176d3;
+}
+
+.next-visit-card .slds-text-link {
+    cursor: pointer;
+}
+
+.full-width-button {
+    width: 100%;
+}
+
+.full-width-button lightning-button {
+    width: 100%;
+}
+
+:host .full-width-button button {
+    width: 100%;
+}
+
+.success-icon {
+    color: #2e844a;
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+    .header-section {
+        padding: 1rem;
+    }
+
+    .header-section h1 {
+        font-size: 1.25rem;
+    }
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>pstar__Living_Situation__c</fullName>
+    <label>Living Situation</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Family Setting</fullName>
+                <default>false</default>
+                <label>Family Setting</label>
+            </value>
+            <value>
+                <fullName>Homeless (Including Shelter/Mission)</fullName>
+                <default>false</default>
+                <label>Homeless (Including Shelter/Mission)</label>
+            </value>
+            <value>
+                <fullName>Incarcerated</fullName>
+                <default>false</default>
+                <label>Incarcerated</label>
+            </value>
+            <value>
+                <fullName>Living Dependently</fullName>
+                <default>false</default>
+                <label>Living Dependently</label>
+            </value>
+            <value>
+                <fullName>Living Independently</fullName>
+                <default>false</default>
+                <label>Living Independently</label>
+            </value>
+            <value>
+                <fullName>Nursing Home</fullName>
+                <default>false</default>
+                <label>Nursing Home</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Personal Care Home</fullName>
+                <default>false</default>
+                <label>Personal Care Home</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

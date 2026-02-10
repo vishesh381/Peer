@@ -1,0 +1,67 @@
+.time-slots-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.time-slot-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 100px;
+    text-align: center;
+}
+
+.time-slot-button.available {
+    background-color: #ffffff;
+    border: 2px solid #2e844a;
+    color: #2e844a;
+}
+
+.time-slot-button.available:hover {
+    background-color: #e8f5e9;
+    border-color: #1b5e20;
+    color: #1b5e20;
+}
+
+.time-slot-button.available:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(46, 132, 74, 0.3);
+}
+
+.time-slot-button.available.selected {
+    background-color: #2e844a;
+    border-color: #2e844a;
+    color: #ffffff;
+}
+
+.time-slot-button.available.selected:hover {
+    background-color: #1b5e20;
+    border-color: #1b5e20;
+}
+
+.time-slot-button.unavailable {
+    background-color: #f3f3f3;
+    border: 2px solid #c9c9c9;
+    color: #969696;
+    cursor: not-allowed;
+}
+
+.time-slot-button.unavailable:hover {
+    background-color: #f3f3f3;
+    border-color: #c9c9c9;
+    color: #969696;
+}
+
+.selected-time-display {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    background-color: #e8f5e9;
+    border-radius: 0.25rem;
+    color: #2e844a;
+    font-weight: 500;
+}

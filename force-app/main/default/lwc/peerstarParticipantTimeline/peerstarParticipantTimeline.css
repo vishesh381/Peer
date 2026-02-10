@@ -1,0 +1,22 @@
+/* Timeline styling */
+.slds-timeline__item_success {
+    border-left-color: #2e844a;
+}
+
+.slds-timeline__item_error {
+    border-left-color: #c23934;
+}
+
+.slds-timeline__item_basic {
+    border-left-color: #0176d3;
+}
+
+/* Compact timeline items */
+.slds-timeline li {
+    padding-bottom: 0.5rem;
+}
+
+/* Clickable items */
+.slds-text-link {
+    cursor: pointer;
+}

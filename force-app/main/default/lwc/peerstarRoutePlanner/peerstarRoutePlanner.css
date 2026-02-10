@@ -1,0 +1,68 @@
+.route-timeline {
+    position: relative;
+}
+
+.route-stop {
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.route-stop:hover {
+    background-color: #f3f3f3;
+}
+
+.route-order {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 40px;
+    margin-right: 1rem;
+}
+
+.route-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #0176d3;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.route-line {
+    width: 2px;
+    flex-grow: 1;
+    min-height: 20px;
+    background-color: #d8d8d8;
+    margin-top: 4px;
+}
+
+.route-content {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.route-actions {
+    display: flex;
+    align-items: flex-start;
+    margin-left: 0.5rem;
+}
+
+.slds-text-link {
+    cursor: pointer;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .route-actions {
+        flex-direction: column;
+    }
+
+    .route-actions lightning-button-icon {
+        margin-bottom: 0.25rem;
+    }
+}

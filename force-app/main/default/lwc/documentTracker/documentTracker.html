@@ -1,0 +1,111 @@
+<template>
+    <lightning-card title={cardTitle} icon-name="standard:document">
+        <div slot="actions">
+            <template lwc:if={isComplete}>
+                <lightning-badge label="Complete" class="slds-m-right_small complete-badge"></lightning-badge>
+            </template>
+            <lightning-button-icon
+                icon-name="utility:refresh"
+                alternative-text="Refresh"
+                onclick={handleRefresh}
+                class="refresh-button">
+            </lightning-button-icon>
+        </div>
+
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+            <!-- Progress Indicator -->
+            <div class="progress-section slds-m-bottom_medium">
+                <div class="slds-grid slds-grid_align-spread slds-m-bottom_xx-small">
+                    <span class="slds-text-body_small">Completion Progress</span>
+                    <span class="slds-text-body_small percentage-text">{completionPercentage}%</span>
+                </div>
+                <lightning-progress-bar
+                    value={completionPercentage}
+                    size="medium"
+                    variant={progressVariant}>
+                </lightning-progress-bar>
+            </div>
+
+            <!-- Loading State -->
+            <template lwc:if={isLoading}>
+                <div class="slds-align_absolute-center slds-p-around_large">
+                    <lightning-spinner alternative-text="Loading documents" size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Error State -->
+            <template lwc:if={error}>
+                <div class="slds-p-around_medium error-container">
+                    <lightning-icon icon-name="utility:error" alternative-text="Error" variant="error" size="small"></lightning-icon>
+                    <span class="slds-m-left_small">{error}</span>
+                </div>
+            </template>
+
+            <!-- Empty State -->
+            <template lwc:if={notLoading}>
+                <template lwc:if={noDocuments}>
+                    <template lwc:if={noError}>
+                        <div class="slds-align_absolute-center slds-p-around_large empty-state">
+                            <div class="slds-text-align_center">
+                                <lightning-icon icon-name="utility:file" size="large" alternative-text="No documents"></lightning-icon>
+                                <p class="slds-m-top_small slds-text-color_weak">No documents in checklist</p>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+
+                <!-- Document List -->
+                <template lwc:if={hasDocuments}>
+                    <div class="document-list">
+                        <template for:each={documents} for:item="doc">
+                            <div key={doc.id} class={doc.rowClass}>
+                                <div class="slds-grid slds-grid_vertical-align-center slds-wrap">
+                                    <!-- Status Icon -->
+                                    <div class="slds-col slds-size_1-of-12 status-icon-col">
+                                        <lightning-icon
+                                            icon-name={doc.iconName}
+                                            alternative-text={doc.statusLabel}
+                                            variant={doc.iconVariant}
+                                            size="small">
+                                        </lightning-icon>
+                                    </div>
+
+                                    <!-- Document Name and Status -->
+                                    <div class="slds-col slds-size_5-of-12 slds-medium-size_4-of-12">
+                                        <div class="document-name">{doc.documentName}</div>
+                                        <div class="slds-m-top_xx-small">
+                                            <span class={doc.statusClass}>{doc.statusLabel}</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- File Info -->
+                                    <div class="slds-col slds-size_6-of-12 slds-medium-size_7-of-12 file-info-col">
+                                        <template lwc:if={doc.hasFile}>
+                                            <div class="file-details">
+                                                <div class="file-name">
+                                                    <lightning-icon icon-name="utility:attached" size="xx-small" alternative-text="Attached file" class="slds-m-right_xx-small"></lightning-icon>
+                                                    {doc.fileName}
+                                                </div>
+                                                <div class="upload-info slds-text-body_small slds-text-color_weak">
+                                                    <template lwc:if={doc.formattedDate}>
+                                                        Uploaded {doc.formattedDate}
+                                                        <template lwc:if={doc.uploadedBy}>
+                                                            by {doc.uploadedBy}
+                                                        </template>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </template>
+                                        <template lwc:if={doc.noFile}>
+                                            <span class="slds-text-color_weak no-file-text">No file attached</span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

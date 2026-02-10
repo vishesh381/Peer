@@ -1,0 +1,114 @@
+<template>
+    <lightning-card>
+        <template if:true={isLoading}>
+            <div class="slds-p-around_medium slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <!-- Header with greeting -->
+            <div class="slds-p-around_medium header-section">
+                <h1 class="slds-text-heading_medium">{greeting}</h1>
+                <p class="slds-text-body_regular slds-text-color_weak">
+                    {todayVisitsText} | {pendingFollowUpsText}
+                </p>
+            </div>
+
+            <!-- Next Visit Card -->
+            <template if:true={hasNextVisit}>
+                <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                    <div class="next-visit-card slds-box slds-theme_shade">
+                        <div class="slds-grid slds-grid_align-spread slds-m-bottom_x-small">
+                            <span class="slds-text-title_caps">Next Visit</span>
+                            <span class="slds-text-body_small">{nextVisit.formattedTime}</span>
+                        </div>
+
+                        <h3 class="slds-text-heading_small slds-m-bottom_x-small" onclick={handleViewVisit}>
+                            <a class="slds-text-link">{nextVisit.visitNumber}</a>
+                        </h3>
+
+                        <template if:true={nextVisit.visitType}>
+                            <p class="slds-text-body_small slds-m-bottom_x-small">{nextVisit.visitType}</p>
+                        </template>
+
+                        <template if:true={nextVisit.hasAddress}>
+                            <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_small">
+                                <lightning-icon icon-name="utility:location" size="xx-small"></lightning-icon>
+                                {nextVisit.fullAddress}
+                            </p>
+                        </template>
+
+                        <!-- Action Buttons -->
+                        <div class="slds-grid slds-gutters_x-small slds-m-top_small">
+                            <template if:true={nextVisit.canCheckIn}>
+                                <div class="slds-col slds-grow">
+                                    <lightning-button
+                                        label="Check In"
+                                        variant="brand"
+                                        onclick={handleCheckIn}
+                                        disabled={isProcessing}
+                                        class="full-width-button">
+                                    </lightning-button>
+                                </div>
+                            </template>
+
+                            <template if:true={nextVisit.canCheckOut}>
+                                <div class="slds-col slds-grow">
+                                    <lightning-button
+                                        label="Check Out"
+                                        variant="success"
+                                        onclick={handleCheckOut}
+                                        disabled={isProcessing}
+                                        class="full-width-button">
+                                    </lightning-button>
+                                </div>
+                            </template>
+
+                            <template if:true={nextVisit.hasAddress}>
+                                <div class="slds-col slds-shrink">
+                                    <lightning-button-icon
+                                        icon-name="utility:location"
+                                        variant="border-filled"
+                                        alternative-text="Get Directions"
+                                        onclick={handleGetDirections}>
+                                    </lightning-button-icon>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- No Next Visit -->
+            <template if:false={hasNextVisit}>
+                <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                    <lightning-icon icon-name="utility:check" size="medium" class="slds-m-bottom_small success-icon"></lightning-icon>
+                    <p>All visits completed for today!</p>
+                </div>
+            </template>
+
+            <!-- Quick Action Buttons -->
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <div class="slds-grid slds-gutters_x-small">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-button
+                            label="View Calendar"
+                            icon-name="utility:event"
+                            onclick={handleViewCalendar}
+                            class="full-width-button">
+                        </lightning-button>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-button
+                            label="New Visit"
+                            icon-name="utility:add"
+                            onclick={handleNewVisit}
+                            class="full-width-button">
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,209 @@
+<template>
+    <lightning-card title="Authorization Expiration Alerts" icon-name="standard:alert">
+        <template if:true={isLoading}>
+            <div class="slds-p-around_medium">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <div class="slds-p-around_medium slds-text-color_error">
+                <lightning-icon icon-name="utility:error" alternative-text="Error" size="small"></lightning-icon>
+                <span class="slds-m-left_x-small">Error loading authorization alerts.</span>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <template if:false={hasAlerts}>
+                <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                    <lightning-icon icon-name="utility:check" alternative-text="All Clear" size="small" class="slds-m-right_x-small"></lightning-icon>
+                    No expiring authorizations found.
+                </div>
+            </template>
+
+            <template if:true={hasAlerts}>
+                <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                    <!-- Expired Section -->
+                    <template if:true={hasExpired}>
+                        <div class="urgency-section">
+                            <h3 class="slds-text-heading_small slds-m-bottom_x-small section-header expired-header">
+                                <lightning-icon icon-name="utility:ban" alternative-text="Expired" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                Expired ({expiredAlerts.length})
+                            </h3>
+                            <ul class="slds-has-dividers_bottom-space">
+                                <template for:each={expiredAlerts} for:item="alert">
+                                    <li key={alert.id} class="slds-item alert-item">
+                                        <div class="slds-grid slds-wrap slds-gutters_x-small">
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+                                                <a href="#" data-id={alert.id} onclick={handleNavigateToRecord} class="referral-link">
+                                                    {alert.name}
+                                                </a>
+                                                <span class={alert.urgencyClass}>
+                                                    {alert.urgencyLevel}
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="slds-text-body_small slds-text-color_weak">MA ID:</span>
+                                                <span class="slds-m-left_xx-small">{alert.maId}</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="slds-text-body_small slds-text-color_weak">Auth #:</span>
+                                                <span class="slds-m-left_xx-small">{alert.authNumber}</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="slds-text-body_small slds-text-color_weak">Expires:</span>
+                                                <span class="slds-m-left_xx-small">{alert.expirationDate}</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="days-text days-expired">{alert.daysUntilExpiration} days overdue</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-m-top_xx-small">
+                                                <span class="slds-text-body_small slds-text-color_weak">Specialist:</span>
+                                                <span class="slds-m-left_xx-small">{alert.specialistName}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+
+                    <!-- Critical Section -->
+                    <template if:true={hasCritical}>
+                        <div class="urgency-section">
+                            <h3 class="slds-text-heading_small slds-m-bottom_x-small section-header critical-header">
+                                <lightning-icon icon-name="utility:warning" alternative-text="Critical" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                Critical ({criticalAlerts.length})
+                            </h3>
+                            <ul class="slds-has-dividers_bottom-space">
+                                <template for:each={criticalAlerts} for:item="alert">
+                                    <li key={alert.id} class="slds-item alert-item">
+                                        <div class="slds-grid slds-wrap slds-gutters_x-small">
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+                                                <a href="#" data-id={alert.id} onclick={handleNavigateToRecord} class="referral-link">
+                                                    {alert.name}
+                                                </a>
+                                                <span class={alert.urgencyClass}>
+                                                    {alert.urgencyLevel}
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="slds-text-body_small slds-text-color_weak">MA ID:</span>
+                                                <span class="slds-m-left_xx-small">{alert.maId}</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="slds-text-body_small slds-text-color_weak">Auth #:</span>
+                                                <span class="slds-m-left_xx-small">{alert.authNumber}</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="slds-text-body_small slds-text-color_weak">Expires:</span>
+                                                <span class="slds-m-left_xx-small">{alert.expirationDate}</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="days-text days-critical">{alert.daysUntilExpiration} days remaining</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-m-top_xx-small">
+                                                <span class="slds-text-body_small slds-text-color_weak">Specialist:</span>
+                                                <span class="slds-m-left_xx-small">{alert.specialistName}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+
+                    <!-- Warning Section -->
+                    <template if:true={hasWarning}>
+                        <div class="urgency-section">
+                            <h3 class="slds-text-heading_small slds-m-bottom_x-small section-header warning-header">
+                                <lightning-icon icon-name="utility:info" alternative-text="Warning" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                Warning ({warningAlerts.length})
+                            </h3>
+                            <ul class="slds-has-dividers_bottom-space">
+                                <template for:each={warningAlerts} for:item="alert">
+                                    <li key={alert.id} class="slds-item alert-item">
+                                        <div class="slds-grid slds-wrap slds-gutters_x-small">
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+                                                <a href="#" data-id={alert.id} onclick={handleNavigateToRecord} class="referral-link">
+                                                    {alert.name}
+                                                </a>
+                                                <span class={alert.urgencyClass}>
+                                                    {alert.urgencyLevel}
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="slds-text-body_small slds-text-color_weak">MA ID:</span>
+                                                <span class="slds-m-left_xx-small">{alert.maId}</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="slds-text-body_small slds-text-color_weak">Auth #:</span>
+                                                <span class="slds-m-left_xx-small">{alert.authNumber}</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="slds-text-body_small slds-text-color_weak">Expires:</span>
+                                                <span class="slds-m-left_xx-small">{alert.expirationDate}</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="days-text days-warning">{alert.daysUntilExpiration} days remaining</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-m-top_xx-small">
+                                                <span class="slds-text-body_small slds-text-color_weak">Specialist:</span>
+                                                <span class="slds-m-left_xx-small">{alert.specialistName}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+
+                    <!-- Upcoming Section -->
+                    <template if:true={hasUpcoming}>
+                        <div class="urgency-section">
+                            <h3 class="slds-text-heading_small slds-m-bottom_x-small section-header upcoming-header">
+                                <lightning-icon icon-name="utility:clock" alternative-text="Upcoming" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                Upcoming ({upcomingAlerts.length})
+                            </h3>
+                            <ul class="slds-has-dividers_bottom-space">
+                                <template for:each={upcomingAlerts} for:item="alert">
+                                    <li key={alert.id} class="slds-item alert-item">
+                                        <div class="slds-grid slds-wrap slds-gutters_x-small">
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+                                                <a href="#" data-id={alert.id} onclick={handleNavigateToRecord} class="referral-link">
+                                                    {alert.name}
+                                                </a>
+                                                <span class={alert.urgencyClass}>
+                                                    {alert.urgencyLevel}
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="slds-text-body_small slds-text-color_weak">MA ID:</span>
+                                                <span class="slds-m-left_xx-small">{alert.maId}</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="slds-text-body_small slds-text-color_weak">Auth #:</span>
+                                                <span class="slds-m-left_xx-small">{alert.authNumber}</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="slds-text-body_small slds-text-color_weak">Expires:</span>
+                                                <span class="slds-m-left_xx-small">{alert.expirationDate}</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12">
+                                                <span class="days-text days-upcoming">{alert.daysUntilExpiration} days remaining</span>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-m-top_xx-small">
+                                                <span class="slds-text-body_small slds-text-color_weak">Specialist:</span>
+                                                <span class="slds-m-left_xx-small">{alert.specialistName}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </template>
+    </lightning-card>
+</template>

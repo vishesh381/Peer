@@ -1,0 +1,130 @@
+/* Summary Cards */
+.summary-card {
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.summary-card.selected {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.card-content {
+    text-align: center;
+}
+
+.card-count {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.card-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.25rem;
+}
+
+/* Urgency Card Colors */
+.summary-card.all {
+    background: linear-gradient(135deg, #0176d3 0%, #014486 100%);
+    color: #ffffff;
+}
+
+.summary-card.critical {
+    background: linear-gradient(135deg, #c23934 0%, #8e0a0a 100%);
+    color: #ffffff;
+}
+
+.summary-card.warning {
+    background: linear-gradient(135deg, #fe9339 0%, #d47500 100%);
+    color: #ffffff;
+}
+
+.summary-card.on-track {
+    background: linear-gradient(135deg, #2e844a 0%, #1a5c30 100%);
+    color: #ffffff;
+}
+
+/* Filter Section */
+.filter-combobox {
+    min-width: 200px;
+}
+
+/* Datatable Container */
+.datatable-container {
+    overflow-x: auto;
+}
+
+/* Datatable Customizations */
+.referral-datatable {
+    --slds-c-datatable-header-color-background: #f3f3f3;
+    --slds-c-datatable-row-color-background-hover: #f7f9fb;
+}
+
+/* Urgency Cell Styles */
+:host .urgency-critical {
+    font-weight: 700;
+    color: #c23934 !important;
+}
+
+:host .urgency-warning {
+    font-weight: 700;
+    color: #fe9339 !important;
+}
+
+:host .urgency-on-track {
+    font-weight: 700;
+    color: #2e844a !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .summary-card {
+        min-height: 60px;
+        padding: 0.75rem;
+    }
+
+    .card-count {
+        font-size: 1.5rem;
+    }
+
+    .card-label {
+        font-size: 0.75rem;
+    }
+}
+
+/* Error Alert Styling */
+.slds-alert_error {
+    background-color: #fef1ee;
+    border: 1px solid #c23934;
+}
+
+/* Empty State */
+.slds-illustration {
+    padding: 2rem;
+}
+
+.slds-illustration h3 {
+    color: #3e3e3c;
+}
+
+.slds-illustration p {
+    color: #706e6b;
+}

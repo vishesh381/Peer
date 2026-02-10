@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credible_Lookup_Category__c</fullName>
+    <label>Credible Lookup Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Peer Type</fullName>
+                <default>false</default>
+                <label>Peer Type</label>
+            </value>
+            <value>
+                <fullName>State</fullName>
+                <default>false</default>
+                <label>State</label>
+            </value>
+            <value>
+                <fullName>Living Situation</fullName>
+                <default>false</default>
+                <label>Living Situation</label>
+            </value>
+            <value>
+                <fullName>Preferred Contact Method</fullName>
+                <default>false</default>
+                <label>Preferred Contact Method</label>
+            </value>
+            <value>
+                <fullName>Race OMB</fullName>
+                <default>false</default>
+                <label>Race OMB</label>
+            </value>
+            <value>
+                <fullName>Ethnicity OMB</fullName>
+                <default>false</default>
+                <label>Ethnicity OMB</label>
+            </value>
+            <value>
+                <fullName>Preferred Language</fullName>
+                <default>false</default>
+                <label>Preferred Language</label>
+            </value>
+            <value>
+                <fullName>Gender</fullName>
+                <default>false</default>
+                <label>Gender</label>
+            </value>
+            <value>
+                <fullName>Sexual Orientation</fullName>
+                <default>false</default>
+                <label>Sexual Orientation</label>
+            </value>
+            <value>
+                <fullName>Gender Identity</fullName>
+                <default>false</default>
+                <label>Gender Identity</label>
+            </value>
+            <value>
+                <fullName>Assigned Sex at Birth</fullName>
+                <default>false</default>
+                <label>Assigned Sex at Birth</label>
+            </value>
+            <value>
+                <fullName>Preferred Pronouns</fullName>
+                <default>false</default>
+                <label>Preferred Pronouns</label>
+            </value>
+            <value>
+                <fullName>Signature Source Code</fullName>
+                <default>false</default>
+                <label>Signature Source Code</label>
+            </value>
+            <value>
+                <fullName>Release Information Code</fullName>
+                <default>false</default>
+                <label>Release Information Code</label>
+            </value>
+            <value>
+                <fullName>Bullying Last Occurrence</fullName>
+                <default>false</default>
+                <label>Bullying Last Occurrence</label>
+            </value>
+            <value>
+                <fullName>Forensic Status</fullName>
+                <default>false</default>
+                <label>Forensic Status</label>
+            </value>
+            <value>
+                <fullName>Smoking Status</fullName>
+                <default>false</default>
+                <label>Smoking Status</label>
+            </value>
+            <value>
+                <fullName>Referral Source</fullName>
+                <default>false</default>
+                <label>Referral Source</label>
+            </value>
+            <value>
+                <fullName>Providers</fullName>
+                <default>false</default>
+                <label>Providers</label>
+            </value>
+            <value>
+                <fullName>Referring Qualifiers</fullName>
+                <default>false</default>
+                <label>Referring Qualifiers</label>
+            </value>
+            <value>
+                <fullName>No Admit Reason</fullName>
+                <default>false</default>
+                <label>No Admit Reason</label>
+            </value>
+            <value>
+                <fullName>Domain Focus Area Scores</fullName>
+                <default>false</default>
+                <label>Domain Focus Area Scores</label>
+            </value>
+            <value>
+                <fullName>Staff Peer Involvement</fullName>
+                <default>false</default>
+                <label>Staff Peer Involvement</label>
+            </value>
+            <value>
+                <fullName>Employment Status</fullName>
+                <default>false</default>
+                <label>Employment Status</label>
+            </value>
+            <value>
+                <fullName>Regional Director</fullName>
+                <default>false</default>
+                <label>Regional Director</label>
+            </value>
+            <value>
+                <fullName>Marital Status</fullName>
+                <default>false</default>
+                <label>Marital Status</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

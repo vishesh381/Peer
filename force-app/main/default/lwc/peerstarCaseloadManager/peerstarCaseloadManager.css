@@ -1,0 +1,37 @@
+.clickable-row {
+    cursor: pointer;
+}
+
+.clickable-row:hover {
+    background-color: #f3f3f3;
+}
+
+.slds-text-link {
+    cursor: pointer;
+}
+
+/* Workload indicators */
+.workload-high,
+.workload-medium,
+.workload-low {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.workload-high {
+    background-color: #c23934;
+}
+
+.workload-medium {
+    background-color: #dd7a01;
+}
+
+.workload-low {
+    background-color: #2e844a;
+}
+
+.success-icon {
+    color: #2e844a;
+}

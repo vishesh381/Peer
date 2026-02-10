@@ -1,0 +1,186 @@
+<template>
+    <lightning-card title="Documentation Review Queue" icon-name="standard:approval">
+        <div slot="actions">
+            <lightning-button
+                icon-name="utility:refresh"
+                label="Refresh"
+                onclick={handleRefresh}>
+            </lightning-button>
+        </div>
+
+        <template if:true={isLoading}>
+            <div class="slds-p-around_large slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <div class="slds-p-around_medium slds-text-color_error">
+                Unable to load review queue.
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <template if:true={hasVisits}>
+                <div class="slds-p-around_medium">
+                    <div class="slds-text-title_caps slds-m-bottom_small">
+                        {visitCount} Visits Pending Review
+                    </div>
+
+                    <div class="slds-scrollable_y" style="max-height: 600px;">
+                        <template for:each={visits} for:item="visit">
+                            <article key={visit.id} class="slds-card slds-card_boundary slds-m-bottom_small">
+                                <div class="slds-card__header slds-grid">
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon icon-name="standard:service_appointment" size="small"></lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h2 class="slds-card__header-title">
+                                                <a onclick={handleViewVisit} data-id={visit.id} class="slds-card__header-link slds-truncate">
+                                                    <span>{visit.name}</span>
+                                                </a>
+                                            </h2>
+                                            <p class="slds-text-body_small slds-text-color_weak">
+                                                {visit.formattedDate} | {visit.assignedUserName}
+                                            </p>
+                                        </div>
+                                    </header>
+                                </div>
+
+                                <div class="slds-card__body slds-card__body_inner">
+                                    <div class="slds-grid slds-gutters_small slds-wrap">
+                                        <div class="slds-col slds-size_1-of-3">
+                                            <p class="slds-text-title_caps">Check In</p>
+                                            <p class="slds-text-body_regular">{visit.formattedCheckIn}</p>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-3">
+                                            <p class="slds-text-title_caps">Check Out</p>
+                                            <p class="slds-text-body_regular">{visit.formattedCheckOut}</p>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-3">
+                                            <p class="slds-text-title_caps">Duration</p>
+                                            <p class="slds-text-body_regular">{visit.durationDisplay}</p>
+                                        </div>
+                                    </div>
+
+                                    <template if:true={visit.hasNotes}>
+                                        <div class="slds-m-top_small">
+                                            <p class="slds-text-title_caps">Visit Notes</p>
+                                            <div class="notes-preview slds-box slds-box_x-small slds-theme_default">
+                                                <lightning-formatted-rich-text value={visit.visitNotes}></lightning-formatted-rich-text>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <template if:false={visit.hasNotes}>
+                                        <div class="slds-m-top_small slds-text-color_weak">
+                                            <lightning-icon icon-name="utility:warning" size="x-small" class="slds-m-right_xx-small"></lightning-icon>
+                                            No visit notes provided
+                                        </div>
+                                    </template>
+                                </div>
+
+                                <footer class="slds-card__footer">
+                                    <lightning-button-group>
+                                        <lightning-button
+                                            label="Approve"
+                                            variant="success"
+                                            icon-name="utility:check"
+                                            data-id={visit.id}
+                                            onclick={handleApprove}>
+                                        </lightning-button>
+                                        <lightning-button
+                                            label="Request Revision"
+                                            variant="neutral"
+                                            icon-name="utility:edit"
+                                            data-id={visit.id}
+                                            onclick={handleRequestRevision}>
+                                        </lightning-button>
+                                        <lightning-button
+                                            label="View Details"
+                                            variant="neutral"
+                                            icon-name="utility:preview"
+                                            data-id={visit.id}
+                                            onclick={handleViewVisit}>
+                                        </lightning-button>
+                                    </lightning-button-group>
+                                </footer>
+                            </article>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <template if:false={hasVisits}>
+                <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
+                    <lightning-icon icon-name="utility:check" size="large" class="slds-m-bottom_small success-icon"></lightning-icon>
+                    <p class="slds-text-heading_small">All caught up!</p>
+                    <p>No visit documentation pending review.</p>
+                </div>
+            </template>
+        </template>
+    </lightning-card>
+
+    <!-- Review Modal -->
+    <template if:true={showReviewModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={handleCloseModal}>
+                        <lightning-icon icon-name="utility:close" size="small" variant="inverse"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-modal__title slds-hyphenate">{modalTitle}</h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p class="slds-m-bottom_medium">
+                        <strong>Visit:</strong> {selectedVisit.name}<br/>
+                        <strong>Specialist:</strong> {selectedVisit.assignedUserName}<br/>
+                        <strong>Date:</strong> {selectedVisit.formattedDate}
+                    </p>
+
+                    <template if:true={isApproving}>
+                        <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+                            <p>
+                                <lightning-icon icon-name="utility:check" size="x-small" class="slds-m-right_xx-small"></lightning-icon>
+                                This will mark the visit documentation as approved.
+                            </p>
+                        </div>
+                    </template>
+
+                    <template if:true={showRevisionNotes}>
+                        <lightning-textarea
+                            label="Revision Notes"
+                            placeholder="Explain what needs to be corrected or added..."
+                            value={revisionNotes}
+                            onchange={handleRevisionNotesChange}
+                            required
+                            max-length="5000">
+                        </lightning-textarea>
+                        <p class="slds-text-color_weak slds-text-body_small slds-m-top_x-small">
+                            The specialist will receive this feedback and can resubmit.
+                        </p>
+                    </template>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Cancel"
+                        onclick={handleCloseModal}
+                        disabled={isSubmitting}>
+                    </lightning-button>
+                    <lightning-button
+                        label={submitButtonLabel}
+                        variant={submitButtonVariant}
+                        onclick={handleSubmitReview}
+                        disabled={isSubmitting}
+                        class="slds-m-left_x-small">
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

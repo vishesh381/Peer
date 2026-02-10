@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Client Credible Connection</label>
+    <protected>false</protected>
+    <values>
+        <field>Authorization_Export_Connection_String__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>ClientVisit_Export_Connection_String__c</field>
+        <value xsi:type="xsd:string">J-80Ox3utctYPzGKG5Iae3-p!31ZAHNzEMgFPUoND0bQQy47-fwIq2PSmK8J8zU8</value>
+    </values>
+    <values>
+        <field>Client_Export_Connection_String__c</field>
+        <value xsi:type="xsd:string">5GKY8B3BDzh6ngwMLR7WijCbE2lGeez60BdTwBHN8ftN8lorImUno1l-PLe6gVDG</value>
+    </values>
+    <values>
+        <field>Employee_Export_Connection_String__c</field>
+        <value xsi:type="xsd:string">J-80Ox3utctYPzGKG5Iae3-p!31ZAHNzEMgFPUoND0bofSwsEINgiIS-qFwEPdFE</value>
+    </values>
+    <values>
+        <field>Export_Connection_String__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Import_Connection_String__c</field>
+        <value xsi:type="xsd:string">5GKY8B3BDzh6ngwMLR7WijCbE2lGeez60BdTwBHN8fvJ-J997yhauhqyxuSstxX8</value>
+    </values>
+    <values>
+        <field>PeerId_Export_Connection_String__c</field>
+        <value xsi:type="xsd:string">5GKY8B3BDzh6ngwMLR7WijCbE2lGeez60BdTwBHN8fsRO3-NmdTA39knf9GlR!Tw</value>
+    </values>
+</CustomMetadata>

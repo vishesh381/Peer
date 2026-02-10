@@ -1,0 +1,289 @@
+<template>
+    <div class="command-center">
+        <!-- Header -->
+        <div class="header-section">
+            <div class="header-content">
+                <div class="header-title">
+                    <lightning-icon icon-name="standard:dashboard" size="medium" class="header-icon"></lightning-icon>
+                    <div>
+                        <h1 class="title">Executive Command Center</h1>
+                        <p class="subtitle">Peerstar Operations Overview</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <span class="last-updated" lwc:if={lastRefreshTime}>
+                        Last updated: {lastRefreshTime}
+                    </span>
+                    <lightning-button-icon
+                        icon-name="utility:refresh"
+                        alternative-text="Refresh"
+                        onclick={handleRefresh}
+                        variant="border-filled"
+                        class="refresh-button">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <template lwc:if={isLoading}>
+            <div class="loading-container">
+                <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Error State -->
+        <template lwc:if={error}>
+            <div class="error-container">
+                <lightning-icon icon-name="utility:error" variant="error" size="large"></lightning-icon>
+                <p class="error-message">{error}</p>
+            </div>
+        </template>
+
+        <!-- Dashboard Content -->
+        <template lwc:if={hasData}>
+            <template lwc:if={notLoading}>
+                <!-- Hero Metrics Row -->
+                <div class="hero-metrics-row">
+                    <!-- Active Pipeline -->
+                    <div class="hero-metric-card pipeline-card" onclick={navigateToIntakeDashboard}>
+                        <div class="metric-icon-container blue">
+                            <lightning-icon icon-name="standard:opportunity" size="medium"></lightning-icon>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-value large">{totalActiveReferrals}</span>
+                            <span class="metric-label">Active Referrals</span>
+                        </div>
+                        <lightning-icon icon-name="utility:chevronright" size="small" class="nav-arrow"></lightning-icon>
+                    </div>
+
+                    <!-- Admissions This Month -->
+                    <div class="hero-metric-card success-card">
+                        <div class="metric-icon-container green">
+                            <lightning-icon icon-name="standard:task2" size="medium"></lightning-icon>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-value large">{admissionsThisMonth}</span>
+                            <span class="metric-label">Admissions (30 days)</span>
+                        </div>
+                    </div>
+
+                    <!-- Conversion Rate -->
+                    <div class="hero-metric-card rate-card">
+                        <div class="metric-icon-container purple">
+                            <lightning-icon icon-name="standard:lead_insights" size="medium"></lightning-icon>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-value large">{conversionRateDisplay}</span>
+                            <span class="metric-label">Conversion Rate</span>
+                        </div>
+                    </div>
+
+                    <!-- Today's Visits -->
+                    <div class="hero-metric-card visits-card" onclick={navigateToPeerstarHome}>
+                        <div class="metric-icon-container orange">
+                            <lightning-icon icon-name="standard:service_appointment" size="medium"></lightning-icon>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-value large">{visitCompletionDisplay}</span>
+                            <span class="metric-label">Visits Today</span>
+                        </div>
+                        <lightning-icon icon-name="utility:chevronright" size="small" class="nav-arrow"></lightning-icon>
+                    </div>
+                </div>
+
+                <!-- Main Dashboard Grid -->
+                <div class="dashboard-grid">
+                    <!-- Left Column: Pipeline + Alerts -->
+                    <div class="grid-column left-column">
+                        <!-- Pipeline Breakdown -->
+                        <div class="dashboard-card pipeline-breakdown-card">
+                            <div class="card-header">
+                                <h2 class="card-title">
+                                    <lightning-icon icon-name="utility:filterList" size="small" class="card-icon"></lightning-icon>
+                                    Pipeline by Stage
+                                </h2>
+                            </div>
+                            <div class="card-content">
+                                <template for:each={pipelineStages} for:item="stage">
+                                    <div key={stage.key} class="pipeline-stage-row">
+                                        <div class="stage-info">
+                                            <span class="stage-name">{stage.name}</span>
+                                            <span class="stage-count">{stage.count}</span>
+                                        </div>
+                                        <div class="pipeline-bar-container">
+                                            <div class={stage.stageClass} style={stage.barStyle}></div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Critical Alerts -->
+                        <div class="dashboard-card alerts-card">
+                            <div class="card-header">
+                                <h2 class="card-title">
+                                    <lightning-icon icon-name="utility:warning" size="small" class="card-icon alert-icon"></lightning-icon>
+                                    Critical Alerts
+                                    <span class={alertsClass}>{totalAlerts}</span>
+                                </h2>
+                            </div>
+                            <div class="card-content">
+                                <template lwc:if={hasAlerts}>
+                                    <div class="alert-items">
+                                        <template lwc:if={expiringAuthsCount}>
+                                            <div class="alert-item">
+                                                <lightning-icon icon-name="utility:clock" size="x-small" variant="warning"></lightning-icon>
+                                                <span class="alert-text">{expiringAuthsCount} authorizations expiring soon</span>
+                                            </div>
+                                        </template>
+                                        <template lwc:if={overdueVisitsCount}>
+                                            <div class="alert-item">
+                                                <lightning-icon icon-name="utility:error" size="x-small" variant="error"></lightning-icon>
+                                                <span class="alert-text">{overdueVisitsCount} overdue visits</span>
+                                            </div>
+                                        </template>
+                                        <template lwc:if={criticalAgingCount}>
+                                            <div class="alert-item">
+                                                <lightning-icon icon-name="utility:priority" size="x-small" variant="error"></lightning-icon>
+                                                <span class="alert-text">{criticalAgingCount} referrals aging &gt; 14 days</span>
+                                            </div>
+                                        </template>
+                                        <template lwc:if={irpFollowUpsDue}>
+                                            <div class="alert-item">
+                                                <lightning-icon icon-name="utility:event" size="x-small" variant="warning"></lightning-icon>
+                                                <span class="alert-text">{irpFollowUpsDue} IRP follow-ups due this week</span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+                                <template lwc:else>
+                                    <div class="no-alerts">
+                                        <lightning-icon icon-name="utility:check" size="small" variant="success"></lightning-icon>
+                                        <span>All systems healthy</span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Center Column: Trend + Team Capacity -->
+                    <div class="grid-column center-column">
+                        <!-- Admissions Trend -->
+                        <div class="dashboard-card trend-card">
+                            <div class="card-header">
+                                <h2 class="card-title">
+                                    <lightning-icon icon-name="utility:trending" size="small" class="card-icon"></lightning-icon>
+                                    Admissions Trend (7 Days)
+                                </h2>
+                            </div>
+                            <div class="card-content">
+                                <template lwc:if={hasTrendData}>
+                                    <div class="sparkline-container">
+                                        <template for:each={trendBars} for:item="bar">
+                                            <div key={bar.key} class="sparkline-bar-wrapper">
+                                                <div class="sparkline-bar" style={bar.barHeight} data-today={bar.isToday}></div>
+                                                <span class="sparkline-value">{bar.value}</span>
+                                                <span class="sparkline-label">{bar.day}</span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Team Capacity -->
+                        <div class="dashboard-card capacity-card" onclick={navigateToManagerDashboard}>
+                            <div class="card-header">
+                                <h2 class="card-title">
+                                    <lightning-icon icon-name="standard:groups" size="small" class="card-icon"></lightning-icon>
+                                    Team Capacity
+                                </h2>
+                                <lightning-icon icon-name="utility:chevronright" size="small" class="nav-arrow"></lightning-icon>
+                            </div>
+                            <div class="card-content">
+                                <div class="capacity-metrics">
+                                    <div class="capacity-metric">
+                                        <span class="capacity-value">{activeSpecialistsCount}</span>
+                                        <span class="capacity-label">Active Specialists</span>
+                                    </div>
+                                    <div class="capacity-metric">
+                                        <span class="capacity-value">{totalActiveCases}</span>
+                                        <span class="capacity-label">Total Cases</span>
+                                    </div>
+                                    <div class="capacity-metric">
+                                        <span class="capacity-value">{avgCaseloadPerSpecialist}</span>
+                                        <span class="capacity-label">Avg. Caseload</span>
+                                    </div>
+                                    <div class="capacity-metric">
+                                        <span class={capacityHealthClass}>{specialistsAtCapacity}</span>
+                                        <span class="capacity-label">At Capacity</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Top Performers + Sources -->
+                    <div class="grid-column right-column">
+                        <!-- Top Performers -->
+                        <div class="dashboard-card performers-card">
+                            <div class="card-header">
+                                <h2 class="card-title">
+                                    <lightning-icon icon-name="utility:favorite" size="small" class="card-icon gold-icon"></lightning-icon>
+                                    Top Performers (30 Days)
+                                </h2>
+                            </div>
+                            <div class="card-content">
+                                <template lwc:if={hasTopPerformers}>
+                                    <div class="performers-list">
+                                        <template for:each={topPerformers} for:item="performer">
+                                            <div key={performer.key} class="performer-row">
+                                                <span class={performer.rankClass}>{performer.rank}</span>
+                                                <span class="performer-name">{performer.name}</span>
+                                                <span class="performer-count">{performer.admissions}</span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+                                <template lwc:else>
+                                    <div class="no-data">No admission data available</div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Referral Sources -->
+                        <div class="dashboard-card sources-card">
+                            <div class="card-header">
+                                <h2 class="card-title">
+                                    <lightning-icon icon-name="standard:lead" size="small" class="card-icon"></lightning-icon>
+                                    Top Referral Sources
+                                </h2>
+                            </div>
+                            <div class="card-content">
+                                <template lwc:if={hasSourceData}>
+                                    <div class="sources-list">
+                                        <template for:each={referralsBySource} for:item="source">
+                                            <div key={source.key} class="source-row">
+                                                <div class="source-info">
+                                                    <span class="source-name">{source.source}</span>
+                                                    <span class="source-count">{source.count}</span>
+                                                </div>
+                                                <div class="source-bar-container">
+                                                    <div class="source-bar" style={source.barStyle}></div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+                                <template lwc:else>
+                                    <div class="no-data">No source data available</div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

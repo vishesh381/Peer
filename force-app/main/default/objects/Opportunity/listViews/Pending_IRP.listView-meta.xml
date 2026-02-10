@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pending_IRP</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>Patient__c</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>Intake_Type__c</columns>
+    <columns>IRP_involvement__c</columns>
+    <columns>Market__c</columns>
+    <columns>name_of_Case_Manager__c</columns>
+    <columns>No_Admit_Reason__c</columns>
+    <columns>Preferred_Contact__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Referral_Stage__c</field>
+        <operation>equals</operation>
+        <value>Pending IRP</value>
+    </filters>
+    <label>Pending IRP</label>
+</ListView>

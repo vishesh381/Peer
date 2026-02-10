@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Engagement_Level__c</fullName>
+    <description>Current level of participant engagement with services</description>
+    <label>Engagement Level</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Highly Engaged</fullName>
+                <default>false</default>
+                <label>Highly Engaged</label>
+            </value>
+            <value>
+                <fullName>Engaged</fullName>
+                <default>true</default>
+                <label>Engaged</label>
+            </value>
+            <value>
+                <fullName>Moderately Engaged</fullName>
+                <default>false</default>
+                <label>Moderately Engaged</label>
+            </value>
+            <value>
+                <fullName>Minimally Engaged</fullName>
+                <default>false</default>
+                <label>Minimally Engaged</label>
+            </value>
+            <value>
+                <fullName>Disengaged</fullName>
+                <default>false</default>
+                <label>Disengaged</label>
+            </value>
+            <value>
+                <fullName>Re-engaging</fullName>
+                <default>false</default>
+                <label>Re-engaging</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

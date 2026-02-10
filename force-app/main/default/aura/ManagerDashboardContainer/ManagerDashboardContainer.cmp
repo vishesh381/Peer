@@ -1,0 +1,38 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+    <div class="slds-p-around_medium">
+        <!-- Header -->
+        <div class="slds-m-bottom_medium">
+            <h1 class="slds-text-heading_large">Manager Dashboard</h1>
+            <p class="slds-text-color_weak">Oversee team performance and manage caseloads</p>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="slds-grid slds-wrap slds-gutters">
+            <!-- Left Column - Main Content -->
+            <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12">
+                <!-- Team Dashboard -->
+                <div class="slds-m-bottom_medium">
+                    <c:peerstarTeamDashboard />
+                </div>
+
+                <!-- Performance Metrics -->
+                <div class="slds-m-bottom_medium">
+                    <c:peerstarPerformanceMetrics />
+                </div>
+
+                <!-- Caseload Manager -->
+                <div class="slds-m-bottom_medium">
+                    <c:peerstarCaseloadManager />
+                </div>
+            </div>
+
+            <!-- Right Column - Sidebar -->
+            <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
+                <!-- Review Queue -->
+                <div class="slds-m-bottom_medium">
+                    <c:peerstarReviewQueue />
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

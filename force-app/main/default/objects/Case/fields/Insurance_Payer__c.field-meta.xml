@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Insurance_Payer__c</fullName>
+    <description>MCO or insurance payer for this participant</description>
+    <label>Insurance Payer</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>UPMC Community HealthChoices</fullName>
+                <default>false</default>
+                <label>UPMC Community HealthChoices</label>
+            </value>
+            <value>
+                <fullName>AmeriHealth Caritas</fullName>
+                <default>false</default>
+                <label>AmeriHealth Caritas</label>
+            </value>
+            <value>
+                <fullName>PA Health and Wellness</fullName>
+                <default>false</default>
+                <label>PA Health and Wellness</label>
+            </value>
+            <value>
+                <fullName>Keystone First CHC</fullName>
+                <default>false</default>
+                <label>Keystone First CHC</label>
+            </value>
+            <value>
+                <fullName>Fee for Service</fullName>
+                <default>false</default>
+                <label>Fee for Service</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

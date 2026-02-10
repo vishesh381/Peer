@@ -1,0 +1,84 @@
+/* Metric Cards */
+.metric-card {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.average-card {
+    background: linear-gradient(135deg, #1589ee 0%, #0070d2 100%);
+    color: #ffffff;
+}
+
+.average-card .slds-text-title_caps,
+.average-card .slds-text-body_small {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Large Average Number - Prominent Display */
+.average-number {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0.5rem 0;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.total-number {
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1;
+    margin: 0.5rem 0;
+    color: #0070d2;
+}
+
+/* County Table Container */
+.county-table-container {
+    overflow-x: auto;
+    border-radius: 0.25rem;
+}
+
+/* County Table Styling */
+.county-table {
+    width: 100%;
+}
+
+.county-table thead th {
+    background-color: #f3f3f3;
+    font-weight: 600;
+}
+
+/* Alternating Row Colors */
+.county-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.county-table tbody tr:nth-child(even) {
+    background-color: #f7f9fb;
+}
+
+.county-table tbody tr:hover {
+    background-color: #e8f4fc;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .average-number {
+        font-size: 3rem;
+    }
+
+    .total-number {
+        font-size: 2.5rem;
+    }
+
+    .metric-card {
+        min-height: 120px;
+        padding: 1rem;
+    }
+}

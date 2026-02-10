@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "Salesforce DX": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@salesforce/mcp",
+        "--orgs",
+        "PeerStarDev",
+        "--toolsets",
+        "all"
+      ]
+    }
+  }
+}

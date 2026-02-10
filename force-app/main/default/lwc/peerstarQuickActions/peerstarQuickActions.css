@@ -1,0 +1,49 @@
+/* Quick Action Buttons */
+.action-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 16px 12px;
+    background-color: #f3f3f3;
+    border: 1px solid #dddbda;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.action-button:hover {
+    background-color: #e5f2ff;
+    border-color: #0176d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.action-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.action-button lightning-icon {
+    color: #0176d3;
+}
+
+.action-label {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #080707;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .action-button {
+        padding: 12px 8px;
+    }
+
+    .action-label {
+        font-size: 0.6875rem;
+    }
+}

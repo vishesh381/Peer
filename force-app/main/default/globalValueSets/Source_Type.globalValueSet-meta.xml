@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>BCM</fullName>
+        <default>false</default>
+        <label>BCM</label>
+    </customValue>
+    <customValue>
+        <fullName>Case Manager</fullName>
+        <default>false</default>
+        <label>Case Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>Community Action</fullName>
+        <default>false</default>
+        <label>Community Action</label>
+    </customValue>
+    <customValue>
+        <fullName>County BH/ID</fullName>
+        <default>false</default>
+        <label>County BH/ID</label>
+    </customValue>
+    <customValue>
+        <fullName>Crisis</fullName>
+        <default>false</default>
+        <label>Crisis</label>
+    </customValue>
+    <customValue>
+        <fullName>CRS</fullName>
+        <default>false</default>
+        <label>CRS</label>
+    </customValue>
+    <customValue>
+        <fullName>DA provider</fullName>
+        <default>false</default>
+        <label>DA provider</label>
+    </customValue>
+    <customValue>
+        <fullName>Director</fullName>
+        <default>false</default>
+        <label>Director</label>
+    </customValue>
+    <customValue>
+        <fullName>DOC</fullName>
+        <default>false</default>
+        <label>DOC</label>
+    </customValue>
+    <customValue>
+        <fullName>DropIn/Clubhouse</fullName>
+        <default>false</default>
+        <label>DropIn/Clubhouse</label>
+    </customValue>
+    <customValue>
+        <fullName>Family/Fried</fullName>
+        <default>false</default>
+        <label>Family/Fried</label>
+    </customValue>
+    <customValue>
+        <fullName>Inpatient Hospital</fullName>
+        <default>false</default>
+        <label>Inpatient Hospital</label>
+    </customValue>
+    <customValue>
+        <fullName>Jail Diversion</fullName>
+        <default>false</default>
+        <label>Jail Diversion</label>
+    </customValue>
+    <customValue>
+        <fullName>Jail Re-entry</fullName>
+        <default>false</default>
+        <label>Jail Re-entry</label>
+    </customValue>
+    <customValue>
+        <fullName>LTSR</fullName>
+        <default>false</default>
+        <label>LTSR</label>
+    </customValue>
+    <customValue>
+        <fullName>OVR</fullName>
+        <default>false</default>
+        <label>OVR</label>
+    </customValue>
+    <customValue>
+        <fullName>Parole/Probation</fullName>
+        <default>false</default>
+        <label>Parole/Probation</label>
+    </customValue>
+    <customValue>
+        <fullName>PCP</fullName>
+        <default>false</default>
+        <label>PCP</label>
+    </customValue>
+    <customValue>
+        <fullName>Peerstar Staff</fullName>
+        <default>false</default>
+        <label>Peerstar Staff</label>
+    </customValue>
+    <customValue>
+        <fullName>Personal Care Home</fullName>
+        <default>false</default>
+        <label>Personal Care Home</label>
+    </customValue>
+    <customValue>
+        <fullName>Previous Peer</fullName>
+        <default>false</default>
+        <label>Previous Peer</label>
+    </customValue>
+    <customValue>
+        <fullName>Psych Rehab</fullName>
+        <default>false</default>
+        <label>Psych Rehab</label>
+    </customValue>
+    <customValue>
+        <fullName>Psychiatrist</fullName>
+        <default>false</default>
+        <label>Psychiatrist</label>
+    </customValue>
+    <customValue>
+        <fullName>Self</fullName>
+        <default>false</default>
+        <label>Self</label>
+    </customValue>
+    <customValue>
+        <fullName>Shelter</fullName>
+        <default>false</default>
+        <label>Shelter</label>
+    </customValue>
+    <customValue>
+        <fullName>Social Worker</fullName>
+        <default>false</default>
+        <label>Social Worker</label>
+    </customValue>
+    <customValue>
+        <fullName>Support Coordinator</fullName>
+        <default>false</default>
+        <label>Support Coordinator</label>
+    </customValue>
+    <customValue>
+        <fullName>Support Provider</fullName>
+        <default>false</default>
+        <label>Support Provider</label>
+    </customValue>
+    <customValue>
+        <fullName>TCM</fullName>
+        <default>false</default>
+        <label>TCM</label>
+    </customValue>
+    <customValue>
+        <fullName>Therapist</fullName>
+        <default>false</default>
+        <label>Therapist</label>
+    </customValue>
+    <customValue>
+        <fullName>Treatment Court</fullName>
+        <default>false</default>
+        <label>Treatment Court</label>
+    </customValue>
+    <customValue>
+        <fullName>VA</fullName>
+        <default>false</default>
+        <label>VA</label>
+    </customValue>
+    <customValue>
+        <fullName>Website</fullName>
+        <default>false</default>
+        <label>Website</label>
+    </customValue>
+    <customValue>
+        <fullName>Digital Campaign</fullName>
+        <default>false</default>
+        <label>Digital Campaign</label>
+    </customValue>
+    <customValue>
+        <fullName>Senior Living</fullName>
+        <default>false</default>
+        <label>Senior Living</label>
+    </customValue>
+    <customValue>
+        <fullName>Skilled Nursing Facility</fullName>
+        <default>false</default>
+        <label>Skilled Nursing Facility</label>
+    </customValue>
+    <customValue>
+        <fullName>Senior Adult Day Program</fullName>
+        <default>false</default>
+        <label>Senior Adult Day Program</label>
+    </customValue>
+    <customValue>
+        <fullName>Independent Living</fullName>
+        <default>false</default>
+        <label>Independent Living</label>
+    </customValue>
+    <customValue>
+        <fullName>Assisted Living</fullName>
+        <default>false</default>
+        <label>Assisted Living</label>
+    </customValue>
+    <customValue>
+        <fullName>Quicklinks</fullName>
+        <default>false</default>
+        <label>Quicklinks</label>
+    </customValue>
+    <customValue>
+        <fullName>Profiles Chamber</fullName>
+        <default>false</default>
+        <label>Profiles Chamber</label>
+    </customValue>
+    <customValue>
+        <fullName>Quick Console</fullName>
+        <default>false</default>
+        <label>Quick Console</label>
+    </customValue>
+    <customValue>
+        <fullName>Home</fullName>
+        <default>false</default>
+        <label>Home</label>
+    </customValue>
+    <customValue>
+        <fullName>Quick Query</fullName>
+        <default>false</default>
+        <label>Quick Query</label>
+    </customValue>
+    <customValue>
+        <fullName>Execute Anonymous</fullName>
+        <default>false</default>
+        <label>Execute Anonymous</label>
+    </customValue>
+    <customValue>
+        <fullName>Sobject fields</fullName>
+        <default>false</default>
+        <label>Sobject fields</label>
+    </customValue>
+    <customValue>
+        <fullName>Quick ORG Describe</fullName>
+        <default>false</default>
+        <label>Quick ORG Describe</label>
+    </customValue>
+    <customValue>
+        <fullName>Replace API Names</fullName>
+        <default>false</default>
+        <label>Replace API Names</label>
+    </customValue>
+    <customValue>
+        <fullName>Convert SF Id</fullName>
+        <default>false</default>
+        <label>Convert SF Id</label>
+    </customValue>
+    <customValue>
+        <fullName>Login As...</fullName>
+        <default>false</default>
+        <label>Login As...</label>
+    </customValue>
+    <customValue>
+        <fullName>Options</fullName>
+        <default>false</default>
+        <label>Options</label>
+    </customValue>
+    <customValue>
+        <fullName>Hide</fullName>
+        <default>false</default>
+        <label>Hide</label>
+    </customValue>
+    <masterLabel>Source Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

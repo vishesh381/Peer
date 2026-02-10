@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>pstar__Peer_Type__c</fullName>
+    <label>Peer Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CPS</fullName>
+                <default>false</default>
+                <label>CPS</label>
+            </value>
+            <value>
+                <fullName>CRS</fullName>
+                <default>false</default>
+                <label>CRS</label>
+            </value>
+            <value>
+                <fullName>DD</fullName>
+                <default>false</default>
+                <label>DD</label>
+            </value>
+            <value>
+                <fullName>DOC</fullName>
+                <default>false</default>
+                <label>DOC</label>
+            </value>
+            <value>
+                <fullName>EAPS</fullName>
+                <default>false</default>
+                <label>EAPS</label>
+            </value>
+            <value>
+                <fullName>eCBIT</fullName>
+                <default>false</default>
+                <label>eCBIT</label>
+            </value>
+            <value>
+                <fullName>Forensic-Community</fullName>
+                <default>false</default>
+                <label>Forensic-Community</label>
+            </value>
+            <value>
+                <fullName>Forensic-Jail</fullName>
+                <default>false</default>
+                <label>Forensic-Jail</label>
+            </value>
+            <value>
+                <fullName>Hospital</fullName>
+                <default>false</default>
+                <label>Hospital</label>
+            </value>
+            <value>
+                <fullName>Interpreter needed</fullName>
+                <default>false</default>
+                <label>Interpreter needed</label>
+            </value>
+            <value>
+                <fullName>JD</fullName>
+                <default>false</default>
+                <label>JD</label>
+            </value>
+            <value>
+                <fullName>VA</fullName>
+                <default>false</default>
+                <label>VA</label>
+            </value>
+            <value>
+                <fullName>Senior Living</fullName>
+                <default>false</default>
+                <label>Senior Living</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

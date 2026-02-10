@@ -1,0 +1,163 @@
+<template>
+    <lightning-card title="Pre-Visit Preparation" icon-name="standard:account">
+        <template if:true={isLoading}>
+            <div class="slds-p-around_medium">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <div class="slds-p-around_medium slds-text-color_error">
+                Unable to load participant information.
+            </div>
+        </template>
+
+        <template if:false={hasData}>
+            <template if:false={isLoading}>
+                <div class="slds-p-around_medium slds-text-color_weak">
+                    No participant linked to this visit.
+                </div>
+            </template>
+        </template>
+
+        <template if:true={hasData}>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <!-- Alerts Banner -->
+                <template if:true={prepData.hasAlerts}>
+                    <div class="slds-notify slds-notify_alert slds-alert_error slds-m-bottom_small" role="alert">
+                        <lightning-icon icon-name="utility:warning" variant="inverse" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                        <span class="slds-text-body_small">{prepData.alerts}</span>
+                    </div>
+                </template>
+
+                <!-- Participant Header -->
+                <div class="slds-media slds-media_center slds-m-bottom_small">
+                    <div class="slds-media__figure">
+                        <lightning-avatar
+                            src={prepData.photoUrl}
+                            fallback-icon-name="standard:contact"
+                            size="large"
+                            onclick={handleNavigateToContact}
+                            class="clickable">
+                        </lightning-avatar>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-text-heading_small">
+                            <a onclick={handleNavigateToContact} class="slds-text-link">{prepData.participantName}</a>
+                        </h2>
+                        <p class="slds-text-body_small slds-text-color_weak">
+                            Case: <a onclick={handleNavigateToCase} class="slds-text-link">{prepData.caseNumber}</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quick Contact Actions -->
+                <div class="slds-grid slds-gutters_x-small slds-m-bottom_small">
+                    <div class="slds-col">
+                        <lightning-button
+                            label="Call"
+                            icon-name="utility:call"
+                            onclick={handleCallPhone}
+                            disabled={noPhone}
+                            class="full-width-btn">
+                        </lightning-button>
+                    </div>
+                    <div class="slds-col">
+                        <lightning-button
+                            label="Email"
+                            icon-name="utility:email"
+                            onclick={handleSendEmail}
+                            disabled={noEmail}
+                            class="full-width-btn">
+                        </lightning-button>
+                    </div>
+                </div>
+
+                <!-- Key Info Grid -->
+                <div class="slds-box slds-box_x-small slds-theme_shade slds-m-bottom_small">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                            <p class="slds-text-title_caps slds-text-color_weak">Hours Left</p>
+                            <p class={hoursRemainingClass}>
+                                <strong>{prepData.hoursRemaining}</strong>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                            <p class="slds-text-title_caps slds-text-color_weak">No-Shows</p>
+                            <p><strong>{prepData.noShowCount}</strong></p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                            <p class="slds-text-title_caps slds-text-color_weak">IRP Follow-Up</p>
+                            <span class={followUpStatusClass}>{followUpStatus}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Preferences -->
+                <template if:true={hasContactPreferences}>
+                    <div class="slds-m-bottom_small">
+                        <p class="slds-text-title_caps slds-text-color_weak slds-m-bottom_xx-small">Contact Preferences</p>
+                        <p class="slds-text-body_small">{prepData.contactPreferences}</p>
+                    </div>
+                </template>
+
+                <!-- Current Goals -->
+                <template if:true={hasGoals}>
+                    <div class="slds-m-bottom_small">
+                        <p class="slds-text-title_caps slds-text-color_weak slds-m-bottom_xx-small">Current Goals</p>
+                        <div class="goals-content slds-text-body_small" lwc:dom="manual"></div>
+                    </div>
+                </template>
+
+                <!-- Recent Visit Notes -->
+                <template if:true={hasRecentNotes}>
+                    <div class="slds-m-bottom_small">
+                        <p class="slds-text-title_caps slds-text-color_weak slds-m-bottom_xx-small">Recent Visit Notes</p>
+                        <ul class="slds-list_dotted">
+                            <template for:each={prepData.recentNotes} for:item="note">
+                                <li key={note.visitId} class="slds-m-bottom_xx-small">
+                                    <a data-id={note.visitId} onclick={handleViewNote} class="slds-text-link slds-text-body_small">
+                                        {note.visitNumber}: {note.notesSummary}
+                                    </a>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </template>
+
+                <!-- Address -->
+                <template if:true={prepData.address}>
+                    <div class="slds-m-bottom_small">
+                        <p class="slds-text-title_caps slds-text-color_weak slds-m-bottom_xx-small">Address</p>
+                        <p class="slds-text-body_small">{prepData.address}</p>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+
+    <!-- Notes Modal -->
+    <template if:true={showNotesModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        alternative-text="Close"
+                        class="slds-modal__close"
+                        onclick={handleCloseModal}>
+                    </lightning-button-icon>
+                    <h2 class="slds-modal__title">Visit Notes - {selectedNote.visitNumber}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-formatted-rich-text value={selectedNote.notes}></lightning-formatted-rich-text>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="View Visit" onclick={handleNavigateToVisit}></lightning-button>
+                    <lightning-button label="Close" variant="brand" onclick={handleCloseModal} class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

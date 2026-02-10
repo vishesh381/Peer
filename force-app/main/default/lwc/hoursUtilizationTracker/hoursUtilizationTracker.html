@@ -1,0 +1,82 @@
+<template>
+    <lightning-card title="Hours Utilization Tracker" icon-name="standard:metrics">
+        <template if:true={error}>
+            <div class="slds-p-around_medium">
+                <p class="slds-text-color_error">Error loading hours utilization data.</p>
+            </div>
+        </template>
+
+        <template if:true={hasData}>
+            <div class="slds-p-around_medium">
+                <!-- Hours Summary Section -->
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                        <div class="metric-box">
+                            <p class="metric-label">Authorized Hours</p>
+                            <p class="metric-value">{authorizedHours}</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                        <div class="metric-box">
+                            <p class="metric-label">Used Hours</p>
+                            <p class="metric-value">{usedHours}</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                        <div class="metric-box">
+                            <p class="metric-label">Remaining Hours</p>
+                            <p class="metric-value">{remainingHours}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar Section -->
+                <div class="slds-p-vertical_medium">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_x-small">
+                        <span class="progress-label">Utilization</span>
+                        <span class="progress-percentage">{formattedPercentage}</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class={progressBarClass} style={progressBarStyle}></div>
+                    </div>
+                </div>
+
+                <!-- Additional Details Section -->
+                <div class="slds-grid slds-wrap slds-gutters slds-p-top_medium">
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                        <div class="detail-item">
+                            <p class="detail-label">Auth End Date</p>
+                            <p class="detail-value">{authEndDate}</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                        <div class="detail-item">
+                            <p class="detail-label">Days Remaining</p>
+                            <p class="detail-value">{daysRemaining}</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                        <div class="detail-item">
+                            <p class="detail-label">Projected Weekly Usage</p>
+                            <p class="detail-value">{formattedProjectedWeeklyUsage} hrs</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                        <div class="detail-item">
+                            <p class="detail-label">Utilization Status</p>
+                            <span class={statusBadgeClass}>{utilizationStatus}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template if:false={hasData}>
+            <template if:false={error}>
+                <div class="slds-p-around_medium slds-align_absolute-center">
+                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                </div>
+            </template>
+        </template>
+    </lightning-card>
+</template>

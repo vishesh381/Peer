@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Use Field Service in the field and receive service appointments.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Service Resource for Field Service</label>
+    <permissionSets>force__FieldServiceMobileStandardPermSet</permissionSets>
+    <permissionSets>pstar__FSL_Mobile_License</permissionSets>
+    <permissionSets>pstar__FSL_Resource_License</permissionSets>
+    <permissionSets>pstar__FSL_Resource_Permissions</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

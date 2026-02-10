@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>pstar__Smoking_Status__c</fullName>
+    <label>Smoking Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>0-Non-smoker</fullName>
+                <default>false</default>
+                <label>0-Non-smoker</label>
+            </value>
+            <value>
+                <fullName>1-Former smoker</fullName>
+                <default>false</default>
+                <label>1-Former smoker</label>
+            </value>
+            <value>
+                <fullName>2-10 or fewer per week</fullName>
+                <default>false</default>
+                <label>2-10 or fewer per week</label>
+            </value>
+            <value>
+                <fullName>3-10 or fewer per day</fullName>
+                <default>false</default>
+                <label>3-10 or fewer per day</label>
+            </value>
+            <value>
+                <fullName>4-1 pack per day</fullName>
+                <default>false</default>
+                <label>4-1 pack per day</label>
+            </value>
+            <value>
+                <fullName>5-Over 1 pack per day</fullName>
+                <default>false</default>
+                <label>5-Over 1 pack per day</label>
+            </value>
+            <value>
+                <fullName>6-Smoking Status/History Unknown</fullName>
+                <default>false</default>
+                <label>6-Smoking Status/History Unknown</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

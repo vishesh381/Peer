@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>pstar__Insurance_Issue__c</fullName>
+    <label>Insurance Issue</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Insurance Coverage under a different county than Peer residence</fullName>
+                <default>false</default>
+                <label>Insurance Coverage under a different county than Peer residence</label>
+            </value>
+            <value>
+                <fullName>EPOMS Only Medicaid Coverage</fullName>
+                <default>false</default>
+                <label>EPOMS Only Medicaid Coverage</label>
+            </value>
+            <value>
+                <fullName>HCB15 Family Planning Only Coverage</fullName>
+                <default>false</default>
+                <label>HCB15 Family Planning Only Coverage</label>
+            </value>
+            <value>
+                <fullName>HCB09 Medicare Cost Sharing Only Coverage</fullName>
+                <default>false</default>
+                <label>HCB09 Medicare Cost Sharing Only Coverage</label>
+            </value>
+            <value>
+                <fullName>Senior Life Enrollment/Insurance Coverage</fullName>
+                <default>false</default>
+                <label>Senior Life Enrollment/Insurance Coverage</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

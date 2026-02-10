@@ -1,0 +1,82 @@
+<template>
+    <lightning-card icon-name="standard:service_appointment">
+        <span slot="title">
+            Overdue &amp; Missed Visits
+            <template if:true={hasVisits}>
+                <lightning-badge label={visitCount} class="slds-m-left_x-small slds-badge_inverse"></lightning-badge>
+            </template>
+        </span>
+        <lightning-button-icon
+            slot="actions"
+            icon-name="utility:refresh"
+            alternative-text="Refresh"
+            onclick={handleRefresh}>
+        </lightning-button-icon>
+
+        <template if:true={isLoading}>
+            <div class="slds-p-around_medium slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <template if:true={hasVisits}>
+                <ul class="slds-has-dividers_bottom-space">
+                    <template for:each={visits} for:item="visit">
+                        <li key={visit.id} class="visit-row">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-p-around_small">
+                                <div class="slds-col slds-grow">
+                                    <div class="slds-grid slds-grid_vertical">
+                                        <span class="visit-type">{visit.serviceType}</span>
+                                        <span class="visit-name">{visit.name}</span>
+                                        <div class="visit-details">
+                                            <span class="visit-date">Due: {visit.displayDate}</span>
+                                            <lightning-badge
+                                                label={visit.statusLabel}
+                                                class={visit.badgeClass}>
+                                            </lightning-badge>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-no-flex">
+                                    <lightning-button-menu
+                                        alternative-text="Actions"
+                                        icon-size="x-small"
+                                        menu-alignment="right">
+                                        <lightning-menu-item
+                                            value="view"
+                                            label="View Details"
+                                            data-id={visit.id}
+                                            onclick={handleViewVisit}>
+                                        </lightning-menu-item>
+                                        <lightning-menu-item
+                                            value="complete"
+                                            label="Mark Complete"
+                                            data-id={visit.id}
+                                            onclick={handleMarkComplete}>
+                                        </lightning-menu-item>
+                                        <lightning-menu-item
+                                            value="reschedule"
+                                            label="Reschedule"
+                                            data-id={visit.id}
+                                            onclick={handleReschedule}>
+                                        </lightning-menu-item>
+                                    </lightning-button-menu>
+                                </div>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+
+            <template if:false={hasVisits}>
+                <div class="slds-p-around_medium slds-align_absolute-center empty-state">
+                    <div class="slds-text-align_center">
+                        <lightning-icon icon-name="utility:check" size="large" alternative-text="All caught up"></lightning-icon>
+                        <p class="slds-m-top_small slds-text-color_weak">No overdue visits</p>
+                    </div>
+                </div>
+            </template>
+        </template>
+    </lightning-card>
+</template>

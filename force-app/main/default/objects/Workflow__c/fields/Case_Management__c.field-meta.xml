@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Management__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Case Management</label>
+    <referenceTo>Case_Management__c</referenceTo>
+    <relationshipLabel>Workflows</relationshipLabel>
+    <relationshipName>Workflows</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

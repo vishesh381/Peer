@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Export To Credible</masterLabel>
+    <description>Component to push Patient Admission data to Credible (used in Flow)</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="patientAdmissionId" type="String" label="Patient Admission ID" required="true" />
+            <property name="recordId" type="String" label="Opportunity ID" required="true" />
+            <property name="shouldNavigate" type="Boolean" label="Navigate After Success" default="false" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

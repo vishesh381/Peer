@@ -1,0 +1,64 @@
+/* Follow-up List Styles */
+.followup-row {
+    border-left: 4px solid #dddbda;
+    transition: background-color 0.2s ease;
+}
+
+.followup-row:hover {
+    background-color: #f3f3f3;
+}
+
+.followup-row.warning {
+    border-left-color: #fe9339;
+    background-color: #fffaf5;
+}
+
+.followup-row.overdue {
+    border-left-color: #ea001e;
+    background-color: #fef6f6;
+}
+
+.participant-name {
+    font-weight: bold;
+    font-size: 0.875rem;
+    color: #080707;
+}
+
+.case-number {
+    font-size: 0.75rem;
+    color: #706e6b;
+}
+
+.due-date {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.followup-row.warning .due-date {
+    color: #fe9339;
+}
+
+.followup-row.overdue .due-date {
+    color: #ea001e;
+    font-weight: bold;
+}
+
+.empty-state {
+    min-height: 120px;
+}
+
+.empty-state lightning-icon {
+    color: #2e844a;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .followup-row .slds-grid {
+        flex-wrap: wrap;
+    }
+
+    .followup-row .slds-no-flex {
+        width: 100%;
+        margin-top: 8px;
+    }
+}

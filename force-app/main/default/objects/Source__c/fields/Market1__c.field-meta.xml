@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Market1__c</fullName>
+    <label>Market</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Senior Living - IL</fullName>
+                <default>false</default>
+                <label>Senior Living - IL</label>
+            </value>
+            <value>
+                <fullName>Senior Living - AL</fullName>
+                <default>false</default>
+                <label>Senior Living - AL</label>
+            </value>
+            <value>
+                <fullName>Senior Living - MC</fullName>
+                <default>false</default>
+                <label>Senior Living - MC</label>
+            </value>
+            <value>
+                <fullName>Senior Living - SNF</fullName>
+                <default>false</default>
+                <label>Senior Living - SNF</label>
+            </value>
+            <value>
+                <fullName>Senior Living - LTC</fullName>
+                <default>false</default>
+                <label>Senior Living - LTC</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

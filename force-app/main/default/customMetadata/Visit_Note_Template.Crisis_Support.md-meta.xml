@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Crisis Support</label>
+    <protected>false</protected>
+    <values>
+        <field>Is_Default__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Sort_Order__c</field>
+        <value xsi:type="xsd:double">1.0</value>
+    </values>
+    <values>
+        <field>Template_Body__c</field>
+        <value xsi:type="xsd:string">**Crisis Support Visit**
+
+**Date/Time of Crisis Contact:**
+**Type of Contact:** ☐ In-Person ☐ Phone ☐ Video
+
+**Nature of Crisis:**
+- Presenting concern:
+- Trigger/precipitating event:
+- Duration of current episode:
+
+**Risk Assessment:**
+☐ Suicidal ideation: Yes/No
+  - If yes, plan present? Yes/No
+☐ Self-harm urges: Yes/No
+☐ Harm to others: Yes/No
+☐ Substance use involved: Yes/No
+
+**Immediate Safety Status:**
+☐ Safe to remain in community
+☐ Requires higher level of care
+☐ Emergency services contacted
+
+**Interventions Provided:**
+- Active listening and validation:
+- Coping strategies reviewed:
+- Safety plan updated: ☐ Yes ☐ No
+- Crisis resources provided:
+
+**Stabilization Outcome:**
+- Participant status at end of visit:
+- De-escalation achieved: ☐ Yes ☐ Partial ☐ No
+
+**Follow-Up Plan:**
+- Next contact scheduled:
+- Supervisor notified: ☐ Yes ☐ No
+- Care team notified: ☐ Yes ☐ No
+
+**Emergency Contacts Used:**
+
+
+**Peer Specialist Self-Care Note:**</value>
+    </values>
+    <values>
+        <field>Work_Type__c</field>
+        <value xsi:type="xsd:string">Crisis_Support</value>
+    </values>
+</CustomMetadata>

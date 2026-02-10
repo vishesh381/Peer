@@ -1,0 +1,159 @@
+<template>
+    <lightning-card title="Visit Actions" icon-name="standard:visit">
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+
+            <!-- Check-In / Check-Out Section -->
+            <div class="slds-grid slds-wrap slds-gutters_small">
+                <!-- Check-In Button -->
+                <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                    <template if:true={canCheckIn}>
+                        <lightning-button
+                            label="Check In"
+                            variant="brand"
+                            icon-name="utility:clock"
+                            onclick={handleCheckIn}
+                            class="full-width-button"
+                            disabled={isLoading}>
+                        </lightning-button>
+                    </template>
+                    <template if:true={isCheckedIn}>
+                        <div class="check-time-display">
+                            <lightning-icon icon-name="utility:check" size="x-small" variant="success"></lightning-icon>
+                            <span class="slds-m-left_x-small">In: {checkInTimeFormatted}</span>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Check-Out Button -->
+                <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                    <template if:true={canCheckOut}>
+                        <lightning-button
+                            label="Check Out"
+                            variant="success"
+                            icon-name="utility:logout"
+                            onclick={handleCheckOut}
+                            class="full-width-button"
+                            disabled={isLoading}>
+                        </lightning-button>
+                    </template>
+                    <template if:true={visitDetails.checkOutTime}>
+                        <div class="check-time-display">
+                            <lightning-icon icon-name="utility:check" size="x-small" variant="success"></lightning-icon>
+                            <span class="slds-m-left_x-small">Out: {checkOutTimeFormatted}</span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Duration Display (after check-out) -->
+            <template if:true={actualDurationFormatted}>
+                <div class="slds-box slds-box_x-small slds-theme_shade slds-m-bottom_small">
+                    <p class="slds-text-body_small">
+                        <strong>Actual Duration:</strong> {actualDurationFormatted}
+                    </p>
+                </div>
+            </template>
+
+            <!-- Status Selector -->
+            <div class="slds-m-bottom_small">
+                <lightning-combobox
+                    name="status"
+                    label="Visit Status"
+                    value={selectedStatus}
+                    options={statusOptions}
+                    onchange={handleStatusChange}
+                    disabled={isLoading}>
+                </lightning-combobox>
+            </div>
+
+            <!-- Notes Button -->
+            <div class="slds-m-bottom_small">
+                <lightning-button
+                    label="Edit Visit Notes"
+                    variant="neutral"
+                    icon-name="utility:edit_form"
+                    onclick={handleOpenNotes}
+                    class="full-width-button"
+                    disabled={isLoading}>
+                </lightning-button>
+            </div>
+
+            <!-- Submit for Review (only for completed visits) -->
+            <template if:true={canSubmitForReview}>
+                <div class="slds-m-bottom_small">
+                    <lightning-button
+                        label="Submit for Review"
+                        variant="brand-outline"
+                        icon-name="utility:approval"
+                        onclick={handleSubmitForReview}
+                        class="full-width-button"
+                        disabled={isLoading}>
+                    </lightning-button>
+                </div>
+            </template>
+
+            <!-- Review Status Badge -->
+            <template if:true={visitDetails.reviewStatus}>
+                <div class="slds-m-top_small">
+                    <span class={reviewStatusBadgeClass}>
+                        Review: {visitDetails.reviewStatus}
+                    </span>
+                </div>
+            </template>
+
+            <!-- Revision Notes (if needs revision) -->
+            <template if:true={hasRevisionNotes}>
+                <div class="slds-box slds-box_x-small slds-theme_error slds-m-top_small">
+                    <p class="slds-text-body_small">
+                        <strong>Revision Requested:</strong><br/>
+                        {visitDetails.revisionNotes}
+                    </p>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+
+    <!-- Notes Modal -->
+    <template if:true={showNotesModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        alternative-text="Close"
+                        class="slds-modal__close"
+                        onclick={handleCloseNotes}>
+                    </lightning-button-icon>
+                    <h2 class="slds-modal__title">Visit Notes</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-textarea
+                        label="Notes"
+                        value={notesContent}
+                        onchange={handleNotesChange}
+                        max-length="32000"
+                        class="notes-textarea">
+                    </lightning-textarea>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Cancel"
+                        onclick={handleCloseNotes}>
+                    </lightning-button>
+                    <lightning-button
+                        label="Save Notes"
+                        variant="brand"
+                        onclick={handleSaveNotes}
+                        disabled={isLoading}
+                        class="slds-m-left_x-small">
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

@@ -1,0 +1,105 @@
+/* Specialist item styling */
+.specialist-item {
+    padding: 1rem 0;
+}
+
+.specialist-info {
+    padding-right: 1rem;
+}
+
+.specialist-name {
+    font-weight: 600;
+    color: #181818;
+}
+
+.crew-name {
+    margin-top: 0.25rem;
+}
+
+/* Match score styling */
+.match-score-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.score-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.score-display lightning-progress-bar {
+    flex: 1;
+    min-width: 80px;
+}
+
+.score-value {
+    font-weight: 600;
+    min-width: 3rem;
+    text-align: right;
+}
+
+/* Caseload styling */
+.caseload-container {
+    text-align: center;
+}
+
+.caseload-count {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #181818;
+}
+
+/* Capacity badge styling */
+.capacity-container {
+    text-align: center;
+}
+
+.capacity-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025rem;
+}
+
+.capacity-available {
+    background-color: #d4edda;
+    color: #2e844a;
+    border: 1px solid #2e844a;
+}
+
+.capacity-moderate {
+    background-color: #fff3cd;
+    color: #8a6d3b;
+    border: 1px solid #ffb75d;
+}
+
+.capacity-high {
+    background-color: #f8d7da;
+    color: #c23934;
+    border: 1px solid #c23934;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .specialist-item .slds-col {
+        margin-bottom: 0.5rem;
+    }
+
+    .caseload-container,
+    .capacity-container {
+        text-align: left;
+    }
+
+    .score-display {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .score-value {
+        text-align: left;
+    }
+}

@@ -1,0 +1,58 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+    <div class="slds-p-around_medium">
+        <!-- Header -->
+        <div class="slds-m-bottom_medium">
+            <h1 class="slds-text-heading_large">Intake Dashboard</h1>
+            <p class="slds-text-color_weak">Manage referrals, track conversions, and monitor intake performance</p>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="slds-grid slds-wrap slds-gutters">
+            <!-- Left Column - Pipeline, Staff Performance and Workload -->
+            <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12">
+                <!-- Referral Pipeline Board -->
+                <div class="slds-m-bottom_medium">
+                    <c:referralPipelineBoard />
+                </div>
+
+                <!-- Conversion Funnel -->
+                <div class="slds-m-bottom_medium">
+                    <c:conversionFunnel />
+                </div>
+
+                <!-- Specialist Workload Distribution -->
+                <div class="slds-m-bottom_medium">
+                    <c:workloadBalancing />
+                </div>
+
+                <!-- Intake Staff Performance -->
+                <div class="slds-m-bottom_medium">
+                    <c:intakeStaffPerformance />
+                </div>
+
+                <!-- Time to Admission Metrics -->
+                <div class="slds-m-bottom_medium">
+                    <c:timeToAdmissionMetrics />
+                </div>
+            </div>
+
+            <!-- Right Column - Alerts and Metrics -->
+            <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
+                <!-- Referral Aging Dashboard -->
+                <div class="slds-m-bottom_medium">
+                    <c:referralAgingDashboard />
+                </div>
+
+                <!-- Auth Expiration Alerts -->
+                <div class="slds-m-bottom_medium">
+                    <c:authExpirationAlerts />
+                </div>
+
+                <!-- Referral Source ROI -->
+                <div class="slds-m-bottom_medium">
+                    <c:referralSourceRoi />
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

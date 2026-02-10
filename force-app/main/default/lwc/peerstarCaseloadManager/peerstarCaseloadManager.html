@@ -1,0 +1,292 @@
+<template>
+    <lightning-card title="Caseload Management" icon-name="standard:case">
+        <div slot="actions">
+            <lightning-button-group>
+                <lightning-button
+                    label="Overview"
+                    variant={overviewButtonVariant}
+                    onclick={handleViewOverview}>
+                </lightning-button>
+                <lightning-button
+                    label={unassignedButtonLabel}
+                    variant={unassignedButtonVariant}
+                    onclick={handleViewUnassigned}>
+                </lightning-button>
+            </lightning-button-group>
+            <lightning-button
+                icon-name="utility:refresh"
+                variant="neutral"
+                onclick={handleRefresh}
+                class="slds-m-left_x-small">
+            </lightning-button>
+        </div>
+
+        <template if:true={isLoading}>
+            <div class="slds-p-around_large slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <div class="slds-p-around_medium slds-text-color_error">
+                Unable to load caseload data.
+            </div>
+        </template>
+
+        <!-- Overview View -->
+        <template if:true={isOverview}>
+            <template if:false={isLoading}>
+                <!-- Summary Stats -->
+                <div class="slds-p-around_medium slds-border_bottom">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-3 slds-text-align_center">
+                            <div class="slds-text-heading_large">{totalActiveCases}</div>
+                            <div class="slds-text-title">Total Active Cases</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 slds-text-align_center">
+                            <div class="slds-text-heading_large">{caseloads.length}</div>
+                            <div class="slds-text-title">Active Specialists</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 slds-text-align_center">
+                            <div class="slds-text-heading_large">{avgCaseload}</div>
+                            <div class="slds-text-title">Avg Caseload</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caseload List -->
+                <template if:true={hasCaseloads}>
+                    <div class="slds-p-around_medium">
+                        <h3 class="slds-text-heading_small slds-m-bottom_small">Specialist Caseloads</h3>
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col">Specialist</th>
+                                    <th scope="col" class="slds-text-align_center">Active</th>
+                                    <th scope="col" class="slds-text-align_center">Total</th>
+                                    <th scope="col" class="slds-text-align_center">Workload</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={caseloads} for:item="caseload">
+                                    <tr key={caseload.resourceId} class="clickable-row" data-userid={caseload.userId} onclick={handleSpecialistClick}>
+                                        <td>
+                                            <div class="slds-grid slds-grid_vertical-align-center">
+                                                <span class="slds-avatar slds-avatar_circle slds-avatar_small slds-m-right_x-small">
+                                                    <template if:true={caseload.photoUrl}>
+                                                        <img src={caseload.photoUrl} alt={caseload.name} />
+                                                    </template>
+                                                    <template if:false={caseload.photoUrl}>
+                                                        <lightning-icon icon-name="standard:user" size="small"></lightning-icon>
+                                                    </template>
+                                                </span>
+                                                <span class="slds-text-link">{caseload.name}</span>
+                                            </div>
+                                        </td>
+                                        <td class="slds-text-align_center">
+                                            <strong>{caseload.activeCases}</strong>
+                                        </td>
+                                        <td class="slds-text-align_center">{caseload.totalCases}</td>
+                                        <td class="slds-text-align_center">
+                                            <span class={caseload.workloadClass}></span>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+
+                <template if:false={hasCaseloads}>
+                    <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                        <p>No specialists found.</p>
+                    </div>
+                </template>
+            </template>
+        </template>
+
+        <!-- Specialist Cases View -->
+        <template if:true={isSpecialistView}>
+            <template if:false={isLoading}>
+                <div class="slds-p-around_medium">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                        <div>
+                            <lightning-button
+                                label="Back to Overview"
+                                icon-name="utility:back"
+                                onclick={handleViewOverview}
+                                variant="neutral">
+                            </lightning-button>
+                        </div>
+                        <div>
+                            <lightning-input
+                                type="checkbox"
+                                label="Include Closed Cases"
+                                checked={includeInactive}
+                                onchange={handleIncludeInactiveChange}>
+                            </lightning-input>
+                        </div>
+                    </div>
+
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">
+                        {selectedSpecialist.name}'s Cases ({specialistCases.length})
+                    </h3>
+
+                    <template if:true={hasSpecialistCases}>
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col">Case #</th>
+                                    <th scope="col">Participant</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col" class="slds-text-align_center">Hours Left</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={specialistCases} for:item="caseItem">
+                                    <tr key={caseItem.caseId}>
+                                        <td>
+                                            <a data-id={caseItem.caseId} onclick={handleCaseClick} class="slds-text-link">
+                                                {caseItem.caseNumber}
+                                            </a>
+                                        </td>
+                                        <td>{caseItem.participantName}</td>
+                                        <td>
+                                            <span class={caseItem.statusClass}>{caseItem.status}</span>
+                                        </td>
+                                        <td class="slds-text-align_center">
+                                            <template if:true={caseItem.hoursRemaining}>
+                                                {caseItem.hoursRemaining}
+                                            </template>
+                                            <template if:false={caseItem.hoursRemaining}>
+                                                -
+                                            </template>
+                                        </td>
+                                        <td>
+                                            <lightning-button-icon
+                                                icon-name="utility:change_owner"
+                                                alternative-text="Reassign"
+                                                title="Reassign"
+                                                data-id={caseItem.caseId}
+                                                onclick={handleReassignClick}>
+                                            </lightning-button-icon>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </template>
+
+                    <template if:false={hasSpecialistCases}>
+                        <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                            <p>No cases assigned to this specialist.</p>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </template>
+
+        <!-- Unassigned Cases View -->
+        <template if:true={isUnassignedView}>
+            <template if:false={isLoading}>
+                <div class="slds-p-around_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">
+                        Unassigned Cases ({unassignedCount})
+                    </h3>
+
+                    <template if:true={hasUnassignedCases}>
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col">Case #</th>
+                                    <th scope="col">Participant</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={unassignedCases} for:item="caseItem">
+                                    <tr key={caseItem.caseId}>
+                                        <td>
+                                            <a data-id={caseItem.caseId} onclick={handleCaseClick} class="slds-text-link">
+                                                {caseItem.caseNumber}
+                                            </a>
+                                        </td>
+                                        <td>{caseItem.participantName}</td>
+                                        <td>
+                                            <span class={caseItem.statusClass}>{caseItem.status}</span>
+                                        </td>
+                                        <td>
+                                            <lightning-button
+                                                label="Assign"
+                                                variant="brand"
+                                                data-id={caseItem.caseId}
+                                                onclick={handleReassignClick}>
+                                            </lightning-button>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </template>
+
+                    <template if:false={hasUnassignedCases}>
+                        <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
+                            <lightning-icon icon-name="utility:check" size="large" class="slds-m-bottom_small success-icon"></lightning-icon>
+                            <p class="slds-text-heading_small">All cases assigned!</p>
+                            <p>No unassigned cases at this time.</p>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </template>
+    </lightning-card>
+
+    <!-- Reassign Modal -->
+    <template if:true={showReassignModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={handleCloseReassignModal}>
+                        <lightning-icon icon-name="utility:close" size="small" variant="inverse"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-modal__title">Reassign Case</h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p class="slds-m-bottom_medium">
+                        <strong>Case:</strong> {caseToReassign.caseNumber}<br/>
+                        <strong>Participant:</strong> {caseToReassign.participantName}
+                    </p>
+
+                    <lightning-combobox
+                        label="Assign to Specialist"
+                        placeholder="Select a specialist..."
+                        options={reassignSpecialistOptions}
+                        value={newSpecialistId}
+                        onchange={handleNewSpecialistChange}
+                        required>
+                    </lightning-combobox>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Cancel"
+                        onclick={handleCloseReassignModal}
+                        disabled={isReassigning}>
+                    </lightning-button>
+                    <lightning-button
+                        label="Reassign"
+                        variant="brand"
+                        onclick={handleConfirmReassign}
+                        disabled={isReassigning}
+                        class="slds-m-left_x-small">
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

@@ -1,0 +1,199 @@
+<template>
+    <lightning-card title="Daily Route Planner" icon-name="standard:location">
+        <div slot="actions">
+            <lightning-button
+                label="Full Route"
+                icon-name="utility:routing_offline"
+                onclick={handleGetFullRoute}
+                variant="brand"
+                disabled={noVisits}
+                class="slds-m-right_x-small">
+            </lightning-button>
+            <lightning-button
+                icon-name="utility:refresh"
+                onclick={handleRefresh}
+                variant="neutral">
+            </lightning-button>
+        </div>
+
+        <!-- Date Selector -->
+        <div class="slds-p-around_medium slds-border_bottom">
+            <div class="slds-grid slds-gutters slds-grid_vertical-align-end">
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                    <lightning-input
+                        type="date"
+                        label="Date"
+                        value={selectedDate}
+                        onchange={handleDateChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col">
+                    <lightning-button-group>
+                        <lightning-button label="Today" onclick={setToday}></lightning-button>
+                        <lightning-button label="Tomorrow" onclick={setTomorrow}></lightning-button>
+                    </lightning-button-group>
+                </div>
+            </div>
+        </div>
+
+        <template if:true={isLoading}>
+            <div class="slds-p-around_large slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <div class="slds-p-around_medium slds-text-color_error">
+                Unable to load route visits.
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <!-- Route Summary -->
+            <div class="slds-p-around_medium">
+                <div class="slds-grid slds-gutters slds-grid_align-spread slds-m-bottom_medium">
+                    <div class="slds-col">
+                        <h3 class="slds-text-heading_small">{formattedDate}</h3>
+                        <template if:true={isToday}>
+                            <span class="slds-badge slds-theme_success slds-m-left_x-small">Today</span>
+                        </template>
+                    </div>
+                    <div class="slds-col slds-text-align_right">
+                        <span class="slds-text-title">{visitCount} visits</span>
+                        <span class="slds-text-title slds-m-left_medium">Total: {totalDuration}</span>
+                    </div>
+                </div>
+
+                <template if:true={hasVisits}>
+                    <!-- Route Timeline -->
+                    <div class="route-timeline">
+                        <template for:each={visits} for:item="visit">
+                            <div key={visit.visitId} class="route-stop slds-box slds-m-bottom_small">
+                                <div class="slds-grid slds-grid_vertical-align-start">
+                                    <!-- Order Number -->
+                                    <div class="route-order">
+                                        <div class="route-number">{visit.routeOrder}</div>
+                                        <template if:false={visit.isLast}>
+                                            <div class="route-line"></div>
+                                        </template>
+                                    </div>
+
+                                    <!-- Visit Details -->
+                                    <div class="slds-col slds-grow route-content" data-id={visit.visitId} onclick={handleVisitClick}>
+                                        <div class="slds-grid slds-grid_align-spread">
+                                            <div>
+                                                <span class="slds-text-heading_small slds-text-link">
+                                                    {visit.formattedTime}
+                                                </span>
+                                                <span class={visit.statusClass}>{visit.status}</span>
+                                            </div>
+                                            <div class="slds-text-body_small">
+                                                {visit.durationMinutes} min
+                                            </div>
+                                        </div>
+
+                                        <p class="slds-m-top_xx-small">
+                                            <strong>{visit.visitNumber}</strong>
+                                            <template if:true={visit.visitType}>
+                                                - {visit.visitType}
+                                            </template>
+                                        </p>
+
+                                        <template if:true={visit.hasAddress}>
+                                            <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">
+                                                <lightning-icon icon-name="utility:location" size="xx-small" class="slds-m-right_xx-small"></lightning-icon>
+                                                {visit.fullAddress}
+                                            </p>
+                                        </template>
+
+                                        <template if:false={visit.hasAddress}>
+                                            <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">
+                                                <lightning-icon icon-name="utility:warning" size="xx-small" class="slds-m-right_xx-small"></lightning-icon>
+                                                No address provided
+                                            </p>
+                                        </template>
+                                    </div>
+
+                                    <!-- Actions -->
+                                    <div class="route-actions">
+                                        <template if:true={visit.hasAddress}>
+                                            <lightning-button-icon
+                                                icon-name="utility:location"
+                                                alternative-text="Get Directions"
+                                                title="Get Directions"
+                                                data-url={visit.mapsUrl}
+                                                onclick={handleGetDirections}
+                                                class="slds-m-right_xx-small">
+                                            </lightning-button-icon>
+                                        </template>
+                                        <lightning-button-icon
+                                            icon-name="utility:clock"
+                                            alternative-text="Edit Time"
+                                            title="Edit Time"
+                                            data-id={visit.visitId}
+                                            onclick={handleEditTime}>
+                                        </lightning-button-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <template if:false={hasVisits}>
+                    <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
+                        <lightning-icon icon-name="utility:event" size="large" class="slds-m-bottom_small"></lightning-icon>
+                        <p class="slds-text-heading_small">No visits scheduled</p>
+                        <p>No visits are scheduled for {formattedDate}.</p>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+
+    <!-- Edit Time Modal -->
+    <template if:true={showTimeModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={handleCloseTimeModal}>
+                        <lightning-icon icon-name="utility:close" size="small" variant="inverse"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-modal__title">Edit Visit Time</h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p class="slds-m-bottom_medium">
+                        <strong>Visit:</strong> {editingVisit.visitNumber}<br/>
+                        <strong>Current Time:</strong> {editingVisit.formattedTime}
+                    </p>
+
+                    <lightning-input
+                        type="time"
+                        label="New Start Time"
+                        value={newTime}
+                        onchange={handleTimeChange}
+                        required>
+                    </lightning-input>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Cancel"
+                        onclick={handleCloseTimeModal}
+                        disabled={isUpdating}>
+                    </lightning-button>
+                    <lightning-button
+                        label="Save"
+                        variant="brand"
+                        onclick={handleSaveTime}
+                        disabled={isUpdating}
+                        class="slds-m-left_x-small">
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

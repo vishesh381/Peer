@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Referral_Type__c</fullName>
+    <label>Referral Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Case Manager</fullName>
+                <default>false</default>
+                <label>Case Manager</label>
+            </value>
+            <value>
+                <fullName>Community Action</fullName>
+                <default>false</default>
+                <label>Community Action</label>
+            </value>
+            <value>
+                <fullName>County BH/ID</fullName>
+                <default>false</default>
+                <label>County BH/ID</label>
+            </value>
+            <value>
+                <fullName>Crisis</fullName>
+                <default>false</default>
+                <label>Crisis</label>
+            </value>
+            <value>
+                <fullName>CRS</fullName>
+                <default>false</default>
+                <label>CRS</label>
+            </value>
+            <value>
+                <fullName>DA provider</fullName>
+                <default>false</default>
+                <label>DA provider</label>
+            </value>
+            <value>
+                <fullName>Director</fullName>
+                <default>false</default>
+                <label>Director</label>
+            </value>
+            <value>
+                <fullName>DOC</fullName>
+                <default>false</default>
+                <label>DOC</label>
+            </value>
+            <value>
+                <fullName>Drop In/Clubhouse</fullName>
+                <default>false</default>
+                <label>Drop In/Clubhouse</label>
+            </value>
+            <value>
+                <fullName>Family/Friend</fullName>
+                <default>false</default>
+                <label>Family/Friend</label>
+            </value>
+            <value>
+                <fullName>Inpatient Hospital</fullName>
+                <default>false</default>
+                <label>Inpatient Hospital</label>
+            </value>
+            <value>
+                <fullName>Jail Diversion</fullName>
+                <default>false</default>
+                <label>Jail Diversion</label>
+            </value>
+            <value>
+                <fullName>Jail Re-entry</fullName>
+                <default>false</default>
+                <label>Jail Re-entry</label>
+            </value>
+            <value>
+                <fullName>LTSR</fullName>
+                <default>false</default>
+                <label>LTSR</label>
+            </value>
+            <value>
+                <fullName>OVR</fullName>
+                <default>false</default>
+                <label>OVR</label>
+            </value>
+            <value>
+                <fullName>Parole/Probation</fullName>
+                <default>false</default>
+                <label>Parole/Probation</label>
+            </value>
+            <value>
+                <fullName>PCP</fullName>
+                <default>false</default>
+                <label>PCP</label>
+            </value>
+            <value>
+                <fullName>Peerstar Staff</fullName>
+                <default>false</default>
+                <label>Peerstar Staff</label>
+            </value>
+            <value>
+                <fullName>Personal Care Home</fullName>
+                <default>false</default>
+                <label>Personal Care Home</label>
+            </value>
+            <value>
+                <fullName>Previous Peer</fullName>
+                <default>false</default>
+                <label>Previous Peer</label>
+            </value>
+            <value>
+                <fullName>Psych Rehab</fullName>
+                <default>false</default>
+                <label>Psych Rehab</label>
+            </value>
+            <value>
+                <fullName>Psychiatrist</fullName>
+                <default>false</default>
+                <label>Psychiatrist</label>
+            </value>
+            <value>
+                <fullName>RT Turn</fullName>
+                <default>false</default>
+                <label>RT Turn</label>
+            </value>
+            <value>
+                <fullName>Self</fullName>
+                <default>false</default>
+                <label>Self</label>
+            </value>
+            <value>
+                <fullName>Shelter</fullName>
+                <default>false</default>
+                <label>Shelter</label>
+            </value>
+            <value>
+                <fullName>Social Worker</fullName>
+                <default>false</default>
+                <label>Social Worker</label>
+            </value>
+            <value>
+                <fullName>Support Coordinator</fullName>
+                <default>false</default>
+                <label>Support Coordinator</label>
+            </value>
+            <value>
+                <fullName>Support Provider</fullName>
+                <default>false</default>
+                <label>Support Provider</label>
+            </value>
+            <value>
+                <fullName>Therapist</fullName>
+                <default>false</default>
+                <label>Therapist</label>
+            </value>
+            <value>
+                <fullName>Treatment Court</fullName>
+                <default>false</default>
+                <label>Treatment Court</label>
+            </value>
+            <value>
+                <fullName>VA</fullName>
+                <default>false</default>
+                <label>VA</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

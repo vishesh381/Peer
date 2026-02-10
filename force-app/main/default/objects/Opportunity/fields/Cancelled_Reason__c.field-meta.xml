@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cancelled_Reason__c</fullName>
+    <label>Cancelled Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Peer no longer interested in services</fullName>
+                <default>false</default>
+                <label>Peer no longer interested in services</label>
+            </value>
+            <value>
+                <fullName>Peer deceased</fullName>
+                <default>false</default>
+                <label>Peer deceased</label>
+            </value>
+            <value>
+                <fullName>Peer went to another agency</fullName>
+                <default>false</default>
+                <label>Peer went to another agency</label>
+            </value>
+            <value>
+                <fullName>Unresponsive</fullName>
+                <default>false</default>
+                <label>Unresponsive</label>
+            </value>
+            <value>
+                <fullName>Out of service area</fullName>
+                <default>false</default>
+                <label>Out of service area</label>
+            </value>
+            <value>
+                <fullName>Does not qualify-Insurance</fullName>
+                <default>false</default>
+                <label>Does not qualify-Insurance</label>
+            </value>
+            <value>
+                <fullName>Does not qualify-Diagnosis</fullName>
+                <default>false</default>
+                <label>Does not qualify-Diagnosis</label>
+            </value>
+            <value>
+                <fullName>Incarcerated</fullName>
+                <default>false</default>
+                <label>Incarcerated</label>
+            </value>
+            <value>
+                <fullName>Not appropriate for peer support services</fullName>
+                <default>false</default>
+                <label>Not appropriate for peer support services</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

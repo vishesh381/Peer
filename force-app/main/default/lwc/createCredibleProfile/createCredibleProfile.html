@@ -1,0 +1,84 @@
+<template>
+    <lightning-card title="Credible Profile" icon-name="custom:custom63">
+        
+        <div class="slds-p-around_medium">
+            
+            <!-- Warning: No Patient Admission -->
+            <template if:true={showWarning}>
+                <div class="slds-box slds-theme_warning slds-m-bottom_small">
+                    <lightning-icon 
+                        icon-name="utility:warning" 
+                        alternative-text="Warning" 
+                        size="small" 
+                        class="slds-m-right_x-small">
+                    </lightning-icon>
+                    <span class="slds-text-heading_small">
+                        No Patient Admission found. Please create one first.
+                    </span>
+                </div>
+            </template>
+
+            <!-- Info: Profile Already Exists -->
+            <template if:true={showAlreadyExists}>
+                <div class="slds-box slds-theme_success slds-m-bottom_small">
+                    <lightning-icon 
+                        icon-name="utility:success" 
+                        alternative-text="Success" 
+                        size="small" 
+                        class="slds-m-right_x-small">
+                    </lightning-icon>
+                    <span class="slds-text-heading_small">
+                        Credible Profile ID: <strong>{credibleId}</strong>
+                    </span>
+                </div>
+            </template>
+
+            <!-- Patient Admission Info -->
+            <template if:true={patientAdmissionId}>
+                <div class="slds-m-bottom_small">
+                    <p class="slds-text-body_small slds-m-bottom_x-small">
+                        <strong>Patient Admission:</strong>
+                    </p>
+                    <lightning-button
+                        label="View Patient Admission"
+                        title="View Patient Admission Record"
+                        onclick={handleViewPatientAdmission}
+                        variant="neutral"
+                        icon-name="utility:open"
+                        class="slds-m-bottom_small">
+                    </lightning-button>
+                </div>
+            </template>
+
+            <!-- Main Action Button -->
+            <div class="slds-m-top_medium">
+                <lightning-button
+                    label={buttonLabel}
+                    title="Create profile in Credible system"
+                    onclick={handleCreateProfile}
+                    variant={buttonVariant}
+                    disabled={isButtonDisabled}
+                    icon-name="utility:upload"
+                    class="slds-m-right_small">
+                </lightning-button>
+
+                <!-- Loading Spinner -->
+                <template if:true={isLoading}>
+                    <lightning-spinner 
+                        alternative-text="Creating profile..." 
+                        size="small">
+                    </lightning-spinner>
+                </template>
+            </div>
+
+            <!-- Help Text -->
+            <div class="slds-m-top_medium">
+                <p class="slds-text-body_small slds-text-color_weak">
+                    This will create a new profile in the Credible system using the Patient Admission data.
+                </p>
+            </div>
+
+        </div>
+
+    </lightning-card>
+</template>

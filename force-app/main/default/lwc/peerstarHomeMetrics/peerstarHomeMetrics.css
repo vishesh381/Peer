@@ -1,0 +1,148 @@
+/* Metric Tiles */
+.metric-tile {
+    background-color: #f3f3f3;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    border-left: 4px solid #dddbda;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metric-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #080707;
+    line-height: 1.2;
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    color: #706e6b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+/* Tile Color Variants */
+.metric-tile.today {
+    border-left-color: #0176d3;
+    background-color: #e5f2ff;
+}
+
+.metric-tile.week {
+    border-left-color: #2e844a;
+    background-color: #e6f7e9;
+}
+
+.metric-tile.overdue {
+    border-left-color: #706e6b;
+    background-color: #f3f3f3;
+}
+
+.metric-tile.overdue.alert {
+    border-left-color: #ea001e;
+    background-color: #fef1ee;
+}
+
+.metric-tile.overdue.alert .metric-value {
+    color: #ea001e;
+}
+
+.metric-tile.followup {
+    border-left-color: #706e6b;
+    background-color: #f3f3f3;
+}
+
+.metric-tile.followup.alert {
+    border-left-color: #fe9339;
+    background-color: #fef6ee;
+}
+
+.metric-tile.followup.alert .metric-value {
+    color: #fe9339;
+}
+
+/* Status Badges */
+.status-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    border-radius: 6px;
+    background-color: #f3f3f3;
+}
+
+.badge-count {
+    font-size: 1.25rem;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.badge-label {
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    color: #706e6b;
+    margin-top: 2px;
+}
+
+/* Status Badge Colors */
+.status-badge.pending {
+    background-color: #f0f0f0;
+    border-bottom: 3px solid #b0adab;
+}
+
+.status-badge.pending .badge-count {
+    color: #706e6b;
+}
+
+.status-badge.confirmed {
+    background-color: #e0f0ff;
+    border-bottom: 3px solid #0176d3;
+}
+
+.status-badge.confirmed .badge-count {
+    color: #0176d3;
+}
+
+.status-badge.in-session {
+    background-color: #fff4d6;
+    border-bottom: 3px solid #fe9339;
+}
+
+.status-badge.in-session .badge-count {
+    color: #fe9339;
+}
+
+.status-badge.completed {
+    background-color: #d6f4d6;
+    border-bottom: 3px solid #2e844a;
+}
+
+.status-badge.completed .badge-count {
+    color: #2e844a;
+}
+
+.status-badge.missed {
+    background-color: #ffd6d6;
+    border-bottom: 3px solid #ea001e;
+}
+
+.status-badge.missed .badge-count {
+    color: #ea001e;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .metric-value {
+        font-size: 1.5rem;
+    }
+
+    .metric-tile {
+        padding: 12px;
+    }
+}

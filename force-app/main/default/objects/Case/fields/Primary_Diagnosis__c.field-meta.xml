@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Diagnosis__c</fullName>
+    <description>Primary behavioral health diagnosis or presenting concern</description>
+    <label>Primary Diagnosis</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Depression</fullName>
+                <default>false</default>
+                <label>Depression</label>
+            </value>
+            <value>
+                <fullName>Anxiety</fullName>
+                <default>false</default>
+                <label>Anxiety</label>
+            </value>
+            <value>
+                <fullName>Bipolar Disorder</fullName>
+                <default>false</default>
+                <label>Bipolar Disorder</label>
+            </value>
+            <value>
+                <fullName>Schizophrenia</fullName>
+                <default>false</default>
+                <label>Schizophrenia</label>
+            </value>
+            <value>
+                <fullName>PTSD</fullName>
+                <default>false</default>
+                <label>PTSD</label>
+            </value>
+            <value>
+                <fullName>Substance Use Disorder</fullName>
+                <default>false</default>
+                <label>Substance Use Disorder</label>
+            </value>
+            <value>
+                <fullName>Co-Occurring Disorders</fullName>
+                <default>false</default>
+                <label>Co-Occurring Disorders</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

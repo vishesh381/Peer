@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>pstar__All</fullName>
+    <columns>NAME</columns>
+    <columns>pstar__Contact__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATEDBY_USER.ALIAS</columns>
+    <columns>pstar__Strict_Match__c</columns>
+    <columns>pstar__Type__c</columns>
+    <columns>pstar__Value__c</columns>
+    <columns>pstar__Sort_Order__c</columns>
+    <columns>pstar__Preference__c</columns>
+    <columns>pstar__Preference_Option__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>pstar__Preference_Option__c</field>
+        <operation>contains</operation>
+        <value>Incarcerated</value>
+    </filters>
+    <label>All</label>
+</ListView>

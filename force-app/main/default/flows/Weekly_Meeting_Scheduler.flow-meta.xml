@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <decisions>
+        <name>Check_Is_Weekly_Meeting</name>
+        <label>Check Is Weekly Meeting</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <defaultConnectorLabel>Not Weekly Meeting</defaultConnectorLabel>
+        <rules>
+            <name>Is_Weekly_Meeting</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.WorkTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Peerstar_Settings.Weekly_Meeting_Work_Type_Id__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Parent_Work_Order</targetReference>
+            </connector>
+            <label>Is Weekly Meeting</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Work_Order_Active</name>
+        <label>Check Work Order Active</label>
+        <locationX>314</locationX>
+        <locationY>518</locationY>
+        <defaultConnectorLabel>Work Order Not Active</defaultConnectorLabel>
+        <rules>
+            <name>Work_Order_Is_Active</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Parent_Work_Order</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Next_Weekly_Meeting</targetReference>
+            </connector>
+            <label>Work Order Is Active</label>
+        </rules>
+    </decisions>
+    <description>Creates the next weekly meeting Service Appointment when a Weekly Meeting is completed. Uses Custom Metadata for configuration.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>formulaNextWeekDue</name>
+        <dataType>DateTime</dataType>
+        <expression>IF(
+    ISBLANK({!$Record.DueDate}),
+    DATETIMEVALUE(TEXT({!$Flow.CurrentDate} + 7) &amp; &quot; 18:00:00&quot;),
+    {!$Record.DueDate} + 7
+)</expression>
+    </formulas>
+    <formulas>
+        <name>formulaNextWeekEarliest</name>
+        <dataType>DateTime</dataType>
+        <expression>IF(
+    ISBLANK({!$Record.EarliestStartTime}),
+    DATETIMEVALUE(TEXT({!$Flow.CurrentDate} + 7) &amp; &quot; 08:00:00&quot;),
+    {!$Record.EarliestStartTime} + 7
+)</expression>
+    </formulas>
+    <formulas>
+        <name>formulaNextWeekEnd</name>
+        <dataType>DateTime</dataType>
+        <expression>IF(
+    ISBLANK({!$Record.SchedEndTime}),
+    DATETIMEVALUE(TEXT({!$Flow.CurrentDate} + 7) &amp; &quot; 10:00:00&quot;),
+    {!$Record.SchedEndTime} + 7
+)</expression>
+    </formulas>
+    <formulas>
+        <name>formulaNextWeekStart</name>
+        <dataType>DateTime</dataType>
+        <expression>IF(
+    ISBLANK({!$Record.SchedStartTime}),
+    DATETIMEVALUE(TEXT({!$Flow.CurrentDate} + 7) &amp; &quot; 09:00:00&quot;),
+    {!$Record.SchedStartTime} + 7
+)</expression>
+    </formulas>
+    <interviewLabel>Weekly Meeting Scheduler {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Weekly Meeting Scheduler</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Next_Weekly_Meeting</name>
+        <label>Create Next Weekly Meeting</label>
+        <locationX>314</locationX>
+        <locationY>638</locationY>
+        <inputAssignments>
+            <field>DueDate</field>
+            <value>
+                <elementReference>formulaNextWeekDue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Duration</field>
+            <value>
+                <elementReference>$Record.Duration</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>DurationType</field>
+            <value>
+                <stringValue>Minutes</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EarliestStartTime</field>
+            <value>
+                <elementReference>formulaNextWeekEarliest</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ParentRecordId</field>
+            <value>
+                <elementReference>$Record.ParentRecordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ServiceTerritoryId</field>
+            <value>
+                <elementReference>$Record.ServiceTerritoryId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>None</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Weekly Meeting</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WorkTypeId</field>
+            <value>
+                <elementReference>Get_Peerstar_Settings.Weekly_Meeting_Work_Type_Id__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>ServiceAppointment</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Parent_Work_Order</name>
+        <label>Get Parent Work Order</label>
+        <locationX>314</locationX>
+        <locationY>398</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Work_Order_Active</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ParentRecordId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Canceled</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>WorkOrder</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Peerstar_Settings</name>
+        <label>Get Peerstar Settings</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Is_Weekly_Meeting</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Default</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Peerstar_Settings__mdt</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Peerstar_Settings</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </filters>
+        <object>ServiceAppointment</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

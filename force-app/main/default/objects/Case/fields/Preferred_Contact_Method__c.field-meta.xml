@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Preferred_Contact_Method__c</fullName>
+    <description>Participant&apos;s preferred method of contact</description>
+    <label>Preferred Contact Method</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Phone Call</fullName>
+                <default>true</default>
+                <label>Phone Call</label>
+            </value>
+            <value>
+                <fullName>Text Message</fullName>
+                <default>false</default>
+                <label>Text Message</label>
+            </value>
+            <value>
+                <fullName>Email</fullName>
+                <default>false</default>
+                <label>Email</label>
+            </value>
+            <value>
+                <fullName>In-Person Only</fullName>
+                <default>false</default>
+                <label>In-Person Only</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

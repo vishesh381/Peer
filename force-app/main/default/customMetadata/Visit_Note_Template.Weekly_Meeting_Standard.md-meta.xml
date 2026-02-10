@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Weekly Meeting - Standard</label>
+    <protected>false</protected>
+    <values>
+        <field>Is_Default__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Sort_Order__c</field>
+        <value xsi:type="xsd:double">1.0</value>
+    </values>
+    <values>
+        <field>Template_Body__c</field>
+        <value xsi:type="xsd:string">**Weekly Check-In Visit**
+
+**Mood/Wellness Check:**
+- How has the participant been feeling this week?
+- Any changes in sleep, appetite, or energy levels?
+
+**Goals Progress:**
+- Review of weekly goals from last session:
+- Progress made:
+- Barriers encountered:
+
+**Topics Discussed:**
+-
+
+**Peer Support Provided:**
+-
+
+**Action Items for Next Week:**
+-
+
+**Follow-Up Needed:**
+☐ None
+☐ Schedule additional visit
+☐ Contact supervisor
+☐ Coordinate with care team
+
+**Additional Notes:**</value>
+    </values>
+    <values>
+        <field>Work_Type__c</field>
+        <value xsi:type="xsd:string">Weekly_Meeting</value>
+    </values>
+</CustomMetadata>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Discharge_Reason__c</fullName>
+    <description>Reason participant was discharged from services</description>
+    <label>Discharge Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Goals Met</fullName>
+                <default>false</default>
+                <label>Goals Met</label>
+            </value>
+            <value>
+                <fullName>Participant Request</fullName>
+                <default>false</default>
+                <label>Participant Request</label>
+            </value>
+            <value>
+                <fullName>Authorization Exhausted</fullName>
+                <default>false</default>
+                <label>Authorization Exhausted</label>
+            </value>
+            <value>
+                <fullName>Lost Contact</fullName>
+                <default>false</default>
+                <label>Lost Contact</label>
+            </value>
+            <value>
+                <fullName>Moved Out of Area</fullName>
+                <default>false</default>
+                <label>Moved Out of Area</label>
+            </value>
+            <value>
+                <fullName>Higher Level of Care</fullName>
+                <default>false</default>
+                <label>Higher Level of Care</label>
+            </value>
+            <value>
+                <fullName>Hospitalization</fullName>
+                <default>false</default>
+                <label>Hospitalization</label>
+            </value>
+            <value>
+                <fullName>Incarceration</fullName>
+                <default>false</default>
+                <label>Incarceration</label>
+            </value>
+            <value>
+                <fullName>Deceased</fullName>
+                <default>false</default>
+                <label>Deceased</label>
+            </value>
+            <value>
+                <fullName>Non-Compliance</fullName>
+                <default>false</default>
+                <label>Non-Compliance</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <customErrors>
+        <name>Add_Conflict_Error</name>
+        <label>Add Conflict Error</label>
+        <locationX>50</locationX>
+        <locationY>518</locationY>
+        <customErrorMessages>
+            <errorMessage>Scheduling conflict detected: This staff member already has an appointment ({!Get_Conflicting_Services.Name}) during this time slot. Please choose a different time or staff member.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <name>Check_Has_Required_Fields</name>
+        <label>Has Required Fields?</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <defaultConnectorLabel>Missing Required Fields</defaultConnectorLabel>
+        <rules>
+            <name>Has_User_And_Times</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Assigned_User__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Scheduled_Start__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Scheduled_End__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Conflicting_Services</targetReference>
+            </connector>
+            <label>Has User and Times</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Has_Conflicts</name>
+        <label>Has Conflicts?</label>
+        <locationX>264</locationX>
+        <locationY>398</locationY>
+        <defaultConnectorLabel>No Conflicts</defaultConnectorLabel>
+        <rules>
+            <name>Conflicts_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Conflicting_Services</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Conflict_Error</targetReference>
+            </connector>
+            <label>Conflicts Found</label>
+        </rules>
+    </decisions>
+    <description>Validates scheduled service records for conflicts before save. Runs on before-save to prevent conflicting appointments.</description>
+    <environments>Default</environments>
+    <interviewLabel>Scheduled Service Conflict Check {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Scheduled Service Conflict Check</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Conflicting_Services</name>
+        <label>Get Conflicting Services</label>
+        <locationX>264</locationX>
+        <locationY>278</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Has_Conflicts</targetReference>
+        </connector>
+        <filterLogic>1 AND 2 AND 3 AND 4 AND 5 AND (6 OR 7 OR 8)</filterLogic>
+        <filters>
+            <field>Assigned_User__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Assigned_User__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Canceled</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>No Show</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Scheduled_Start__c</field>
+            <operator>LessThan</operator>
+            <value>
+                <elementReference>$Record.Scheduled_End__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Scheduled_End__c</field>
+            <operator>GreaterThan</operator>
+            <value>
+                <elementReference>$Record.Scheduled_Start__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Scheduled_Start__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Scheduled_Start__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Scheduled_Service__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_Has_Required_Fields</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Canceled</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>No Show</stringValue>
+            </value>
+        </filters>
+        <object>Scheduled_Service__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

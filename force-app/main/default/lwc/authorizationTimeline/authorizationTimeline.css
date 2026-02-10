@@ -1,0 +1,194 @@
+/* Authorization Details Section */
+.auth-details-section {
+    background-color: var(--slds-g-color-neutral-base-95, #f3f3f3);
+    border-radius: 0.25rem;
+    margin: 0.5rem;
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    color: var(--slds-g-color-neutral-base-50, #706e6b);
+    text-transform: uppercase;
+    letter-spacing: 0.025rem;
+    margin-bottom: 0.25rem;
+}
+
+.detail-value {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--slds-g-color-neutral-base-10, #181818);
+}
+
+/* Expiration Badge Styling */
+.expiration-container {
+    text-align: center;
+}
+
+.expiration-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.expiration-icon {
+    margin-right: 0.5rem;
+}
+
+.expiration-text {
+    vertical-align: middle;
+}
+
+/* Urgency Color Variants */
+.expiration-expired {
+    background-color: var(--slds-g-color-error-base-40, #c23934);
+    color: white;
+}
+
+.expiration-expired .expiration-icon {
+    --slds-c-icon-color-foreground-default: white;
+}
+
+.expiration-critical {
+    background-color: var(--slds-g-color-error-base-50, #ea001e);
+    color: white;
+}
+
+.expiration-critical .expiration-icon {
+    --slds-c-icon-color-foreground-default: white;
+}
+
+.expiration-warning {
+    background-color: var(--slds-g-color-warning-base-50, #ff9a3c);
+    color: var(--slds-g-color-neutral-base-10, #181818);
+}
+
+.expiration-warning .expiration-icon {
+    --slds-c-icon-color-foreground-default: var(--slds-g-color-neutral-base-10, #181818);
+}
+
+.expiration-upcoming {
+    background-color: var(--slds-g-color-brand-base-50, #0176d3);
+    color: white;
+}
+
+.expiration-upcoming .expiration-icon {
+    --slds-c-icon-color-foreground-default: white;
+}
+
+.expiration-active {
+    background-color: var(--slds-g-color-success-base-50, #2e844a);
+    color: white;
+}
+
+.expiration-active .expiration-icon {
+    --slds-c-icon-color-foreground-default: white;
+}
+
+/* Timeline Container */
+.timeline-container {
+    padding-left: 0.5rem;
+}
+
+/* Vertical Timeline Styles */
+.vertical-timeline {
+    position: relative;
+    padding-left: 1rem;
+}
+
+.timeline-item {
+    display: flex;
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+/* Timeline Marker (Icon + Connector) */
+.timeline-marker {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.timeline-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--slds-g-color-neutral-base-100, #ffffff);
+    border: 2px solid var(--slds-g-color-brand-base-50, #0176d3);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* Timeline Connector Line */
+.timeline-connector {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: calc(100% - 0.5rem);
+    background-color: var(--slds-g-color-brand-base-50, #0176d3);
+}
+
+/* Timeline Content */
+.timeline-content {
+    flex: 1;
+    padding-top: 0.25rem;
+}
+
+.timeline-event-label {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--slds-g-color-neutral-base-10, #181818);
+    line-height: 1.25;
+}
+
+.timeline-event-date {
+    font-size: 0.8125rem;
+    color: var(--slds-g-color-neutral-base-50, #706e6b);
+    margin-top: 0.125rem;
+}
+
+/* Section Title */
+.slds-section__title {
+    border-top: 1px solid var(--slds-g-color-border-base-1, #e5e5e5);
+    margin-top: 0.5rem;
+}
+
+.slds-section__title h3 {
+    font-size: 0.75rem;
+    letter-spacing: 0.0625rem;
+}
+
+/* Responsive adjustments for small form factor */
+@media (max-width: 480px) {
+    .slds-col.slds-size_1-of-2 {
+        width: 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .expiration-badge {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .timeline-icon-container {
+        width: 1.75rem;
+        height: 1.75rem;
+    }
+
+    .timeline-marker {
+        margin-right: 0.75rem;
+    }
+}

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>pstar__Status_Reason__c</fullName>
+    <label>Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Active</fullName>
+                <default>false</default>
+                <label>Active</label>
+            </value>
+            <value>
+                <fullName>Pending</fullName>
+                <default>false</default>
+                <label>Pending</label>
+            </value>
+            <value>
+                <fullName>Death</fullName>
+                <default>false</default>
+                <label>Death</label>
+            </value>
+            <value>
+                <fullName>Disengaged Peer</fullName>
+                <default>false</default>
+                <label>Disengaged Peer</label>
+            </value>
+            <value>
+                <fullName>Expired IRP</fullName>
+                <default>false</default>
+                <label>Expired IRP</label>
+            </value>
+            <value>
+                <fullName>Goals Completed</fullName>
+                <default>false</default>
+                <label>Goals Completed</label>
+            </value>
+            <value>
+                <fullName>Incarcerated</fullName>
+                <default>false</default>
+                <label>Incarcerated</label>
+            </value>
+            <value>
+                <fullName>Inpatient</fullName>
+                <default>false</default>
+                <label>Inpatient</label>
+            </value>
+            <value>
+                <fullName>Lost Eligibility</fullName>
+                <default>false</default>
+                <label>Lost Eligibility</label>
+            </value>
+            <value>
+                <fullName>Peer Moved OOSA</fullName>
+                <default>false</default>
+                <label>Peer Moved OOSA</label>
+            </value>
+            <value>
+                <fullName>Peer Requested</fullName>
+                <default>false</default>
+                <label>Peer Requested</label>
+            </value>
+            <value>
+                <fullName>Pending Auth</fullName>
+                <default>false</default>
+                <label>Pending Auth</label>
+            </value>
+            <value>
+                <fullName>Pending CPS/CRS</fullName>
+                <default>false</default>
+                <label>Pending CPS/CRS</label>
+            </value>
+            <value>
+                <fullName>Refusing Services</fullName>
+                <default>false</default>
+                <label>Refusing Services</label>
+            </value>
+            <value>
+                <fullName>Requesting Discharge</fullName>
+                <default>false</default>
+                <label>Requesting Discharge</label>
+            </value>
+            <value>
+                <fullName>Requesting New Staff</fullName>
+                <default>false</default>
+                <label>Requesting New Staff</label>
+            </value>
+            <value>
+                <fullName>Scheduled Pause</fullName>
+                <default>false</default>
+                <label>Scheduled Pause</label>
+            </value>
+            <value>
+                <fullName>In Jail - Pending release</fullName>
+                <default>false</default>
+                <label>In Jail - Pending release</label>
+            </value>
+            <value>
+                <fullName>Released from Jail</fullName>
+                <default>false</default>
+                <label>Released from Jail</label>
+            </value>
+            <value>
+                <fullName>Pending Intake</fullName>
+                <default>false</default>
+                <label>Pending Intake</label>
+            </value>
+            <value>
+                <fullName>Transferred to Another Jail</fullName>
+                <default>false</default>
+                <label>Transferred to Another Jail</label>
+            </value>
+            <value>
+                <fullName>IRP Needs Scheduling</fullName>
+                <default>false</default>
+                <label>IRP Needs Scheduling</label>
+            </value>
+            <value>
+                <fullName>IRP Scheduled</fullName>
+                <default>false</default>
+                <label>IRP Scheduled</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

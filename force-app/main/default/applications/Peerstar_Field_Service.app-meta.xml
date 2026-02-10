@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <content>Home_Page_Default</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+    </actionOverrides>
+    <brand>
+        <headerColor>#1B5E20</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Peerstar application for managing Peer Visits, Meetings, and Peer Specialist schedules</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Peerstar Field Service</label>
+    <navType>Standard</navType>
+    <tabs>standard-home</tabs>
+    <tabs>Executive_Command_Center</tabs>
+    <tabs>Peerstar_Home</tabs>
+    <tabs>Manager_Dashboard</tabs>
+    <tabs>Intake_Dashboard</tabs>
+    <tabs>Scheduling_Calendar</tabs>
+    <tabs>standard-ServiceAppointment</tabs>
+    <tabs>standard-WorkOrder</tabs>
+    <tabs>standard-ServiceResource</tabs>
+    <tabs>standard-Case</tabs>
+    <tabs>standard-Opportunity</tabs>
+    <tabs>standard-Account</tabs>
+    <tabs>standard-Contact</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

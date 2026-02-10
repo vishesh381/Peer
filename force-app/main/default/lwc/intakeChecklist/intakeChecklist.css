@@ -1,0 +1,77 @@
+/* Progress Bar */
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background-color: #e0e5ee;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #04844b;
+    border-radius: 4px;
+    transition: width 0.3s ease-in-out;
+}
+
+/* Category Headers */
+.category-header {
+    font-weight: 700;
+    color: #3e3e3c;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #dddbda;
+    margin-top: 12px;
+}
+
+/* Checklist Items */
+.checklist-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checklist-items li {
+    display: flex;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.checklist-items li:last-child {
+    border-bottom: none;
+}
+
+/* Completed Items */
+.item-complete {
+    color: #2e844a;
+}
+
+.item-complete .status-icon {
+    --slds-c-icon-color-foreground-default: #2e844a;
+}
+
+/* Incomplete Items */
+.item-incomplete {
+    color: #c23934;
+}
+
+.item-incomplete .status-icon {
+    --slds-c-icon-color-foreground-default: #c23934;
+}
+
+/* Item Label */
+.item-label {
+    font-size: 13px;
+}
+
+/* Progress Section */
+.progress-section {
+    background-color: #f3f3f3;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+/* Category Section */
+.category-section {
+    background-color: #ffffff;
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>pstar__Primary_Contact_lookup__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Primary Contact lookup</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Case Managements (Primary Contact lookup)</relationshipLabel>
+    <relationshipName>Case_Managements_Primary_Contact</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

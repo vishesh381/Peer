@@ -1,0 +1,94 @@
+<template>
+    <lightning-quick-action-panel header={panelHeader}>
+
+        <!-- Step 1: Loading -->
+        <template lwc:if={isLoading}>
+            <div class="slds-align_absolute-center slds-p-around_large">
+                <div class="slds-text-align_center">
+                    <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+                    <p class="slds-m-top_medium">{loadingMessage}</p>
+                </div>
+            </div>
+        </template>
+
+        <!-- Step 2: Edit Opportunity Record Form -->
+        <template lwc:if={showEditForm}>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+
+                <!-- Info banner -->
+                <div class="info-banner slds-m-bottom_medium">
+                    <lightning-icon icon-name="utility:info" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                    <span>Complete the peer details below. Clicking <strong>Save</strong> will save the record and automatically push to Credible.</span>
+                </div>
+
+                <!-- Warning if Credible ID already exists -->
+                <template lwc:if={hasCredibleId}>
+                    <div class="warning-banner slds-m-bottom_medium">
+                        <lightning-icon icon-name="utility:warning" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                        <span>Credible Profile already exists (ID: <strong>{credibleId}</strong>). Saving will re-push and update the profile.</span>
+                    </div>
+                </template>
+
+                <!-- Opportunity Record Form (auto-uses Referral Layout) -->
+                <div class="form-scroll-container">
+                    <lightning-record-form
+                        record-id={recordId}
+                        object-api-name="Opportunity"
+                        layout-type="Full"
+                        mode="edit"
+                        columns="2"
+                        density="comfy"
+                        onsuccess={handleRecordSaved}
+                        onerror={handleRecordError}>
+                    </lightning-record-form>
+                </div>
+            </div>
+        </template>
+
+        <!-- Step 3: Pushing to Credible -->
+        <template lwc:if={isPushing}>
+            <div class="slds-align_absolute-center slds-p-around_large">
+                <div class="slds-text-align_center">
+                    <lightning-spinner alternative-text="Pushing to Credible..." size="medium"></lightning-spinner>
+                    <p class="slds-m-top_medium slds-text-heading_small">Pushing to Credible...</p>
+                    <p class="slds-text-body_small slds-text-color_weak slds-m-top_x-small">This may take up to 30 seconds.</p>
+                </div>
+            </div>
+        </template>
+
+        <!-- Step 4: Result -->
+        <template lwc:if={showResult}>
+            <div class="slds-p-around_large slds-text-align_center">
+                <template lwc:if={isSuccess}>
+                    <div class="result-icon success-icon">
+                        <lightning-icon icon-name="utility:success" size="large" variant="inverse"></lightning-icon>
+                    </div>
+                    <h2 class="slds-text-heading_medium slds-m-top_medium slds-m-bottom_small">Success!</h2>
+                    <p>Credible profile has been created/updated successfully.</p>
+                </template>
+                <template lwc:elseif={isWarning}>
+                    <div class="result-icon warning-icon">
+                        <lightning-icon icon-name="utility:warning" size="large" variant="inverse"></lightning-icon>
+                    </div>
+                    <h2 class="slds-text-heading_medium slds-m-top_medium slds-m-bottom_small">Warning</h2>
+                    <p>{resultMessage}</p>
+                </template>
+                <template lwc:else>
+                    <div class="result-icon error-icon">
+                        <lightning-icon icon-name="utility:error" size="large" variant="inverse"></lightning-icon>
+                    </div>
+                    <h2 class="slds-text-heading_medium slds-m-top_medium slds-m-bottom_small">Error</h2>
+                    <p>{resultMessage}</p>
+                </template>
+            </div>
+        </template>
+
+        <!-- Footer -->
+        <div slot="footer">
+            <template lwc:if={showResult}>
+                <lightning-button label="Close" onclick={handleClose}></lightning-button>
+            </template>
+        </div>
+
+    </lightning-quick-action-panel>
+</template>

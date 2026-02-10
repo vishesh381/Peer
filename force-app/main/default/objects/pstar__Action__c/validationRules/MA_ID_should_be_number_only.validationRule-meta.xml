@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MA_ID_should_be_number_only</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(REGEX(MA_ID__c, &quot;^[0-9]*$&quot;))</errorConditionFormula>
+    <errorDisplayField>MA_ID__c</errorDisplayField>
+    <errorMessage>MA ID must contain numbers only.</errorMessage>
+</ValidationRule>

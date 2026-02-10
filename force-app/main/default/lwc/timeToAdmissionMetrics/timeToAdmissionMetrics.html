@@ -1,0 +1,156 @@
+<template>
+    <lightning-card title="Time to Admission Metrics" icon-name="standard:metrics">
+        <!-- Date Range Picker -->
+        <div class="slds-p-horizontal_medium slds-p-top_small">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                    <lightning-input
+                        type="date"
+                        label="Start Date"
+                        value={startDate}
+                        max={startDateMax}
+                        onchange={handleStartDateChange}
+                    ></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                    <lightning-input
+                        type="date"
+                        label="End Date"
+                        value={endDate}
+                        min={endDateMin}
+                        max={maxDate}
+                        onchange={handleEndDateChange}
+                    ></lightning-input>
+                </div>
+            </div>
+            <template lwc:if={dateError}>
+                <div class="slds-text-color_error slds-p-top_x-small slds-text-body_small">
+                    <lightning-icon icon-name="utility:error" size="xx-small" variant="error" class="slds-m-right_xx-small"></lightning-icon>
+                    {dateError}
+                </div>
+            </template>
+        </div>
+
+        <!-- Loading Spinner -->
+        <template lwc:if={isLoading}>
+            <div class="slds-p-around_large slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Error Message -->
+        <template lwc:if={error}>
+            <div class="slds-p-around_medium">
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    <span class="slds-assistive-text">error</span>
+                    <h2>{error}</h2>
+                </div>
+            </div>
+        </template>
+
+        <!-- Metrics Display -->
+        <template lwc:if={hasMetrics}>
+            <div class="slds-p-around_medium">
+                <!-- Summary Cards -->
+                <div class="slds-grid slds-gutters slds-wrap slds-m-bottom_medium">
+                    <!-- Overall Average Days -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <div class="metric-card average-card slds-box slds-text-align_center">
+                            <p class="slds-text-title_caps slds-m-bottom_x-small">Overall Average Days</p>
+                            <p class="average-number">{formattedAverageDays}</p>
+                            <p class="slds-text-body_small slds-text-color_weak">days to admission</p>
+                        </div>
+                    </div>
+                    <!-- Total Admissions -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <div class="metric-card slds-box slds-text-align_center">
+                            <p class="slds-text-title_caps slds-m-bottom_x-small">Total Admissions</p>
+                            <p class="total-number">{totalAdmissions}</p>
+                            <p class="slds-text-body_small slds-text-color_weak">admissions in period</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Breakdown Tables -->
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <!-- By Source -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
+                        <template lwc:if={hasSourceData}>
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">By Source</h3>
+                            <div class="breakdown-table-container">
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                    <thead>
+                                        <tr class="slds-line-height_reset">
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Source">Source</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Avg Days">Avg Days</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Count">Count</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={sortedSourceData} for:item="item">
+                                            <tr key={item.name}>
+                                                <td><div class="slds-truncate" title={item.name}>{item.name}</div></td>
+                                                <td>{item.averageDays}</td>
+                                                <td>{item.count}</td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- By Specialist -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
+                        <template lwc:if={hasSpecialistData}>
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">By Intake Specialist</h3>
+                            <div class="breakdown-table-container">
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                    <thead>
+                                        <tr class="slds-line-height_reset">
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Specialist">Specialist</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Avg Days">Avg Days</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Count">Count</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={sortedSpecialistData} for:item="item">
+                                            <tr key={item.name}>
+                                                <td><div class="slds-truncate" title={item.name}>{item.name}</div></td>
+                                                <td>{item.averageDays}</td>
+                                                <td>{item.count}</td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- No Data Message -->
+        <template lwc:if={noMetrics}>
+            <template lwc:if={notLoading}>
+                <template lwc:if={noError}>
+                    <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
+                        <p>Select a date range to view time-to-admission metrics.</p>
+                    </div>
+                </template>
+            </template>
+        </template>
+    </lightning-card>
+</template>

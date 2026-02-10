@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Skill_Set__c</fullName>
+    <description>Skills required for serving this peer - used to match with qualified staff</description>
+    <label>Required Skill Set</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Spanish Speaking</fullName>
+                <default>false</default>
+                <label>Spanish Speaking</label>
+            </value>
+            <value>
+                <fullName>ASL</fullName>
+                <default>false</default>
+                <label>ASL (American Sign Language)</label>
+            </value>
+            <value>
+                <fullName>Substance Use Disorder</fullName>
+                <default>false</default>
+                <label>Substance Use Disorder</label>
+            </value>
+            <value>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+                <label>Mental Health</label>
+            </value>
+            <value>
+                <fullName>Co-Occurring Disorders</fullName>
+                <default>false</default>
+                <label>Co-Occurring Disorders</label>
+            </value>
+            <value>
+                <fullName>Trauma Informed Care</fullName>
+                <default>false</default>
+                <label>Trauma Informed Care</label>
+            </value>
+            <value>
+                <fullName>Veterans Services</fullName>
+                <default>false</default>
+                <label>Veterans Services</label>
+            </value>
+            <value>
+                <fullName>Youth Services</fullName>
+                <default>false</default>
+                <label>Youth Services</label>
+            </value>
+            <value>
+                <fullName>Forensic</fullName>
+                <default>false</default>
+                <label>Forensic/Justice Involved</label>
+            </value>
+            <value>
+                <fullName>Housing Support</fullName>
+                <default>false</default>
+                <label>Housing Support</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

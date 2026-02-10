@@ -1,0 +1,140 @@
+<template>
+    <lightning-card title={cardTitle} icon-name="standard:approval">
+        <!-- Loading State -->
+        <template lwc:if={isLoading}>
+            <div class="slds-p-around_medium slds-text-align_center">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Error State -->
+        <template lwc:if={error}>
+            <div class="slds-p-around_medium slds-text-color_error">
+                <lightning-icon icon-name="utility:error" size="small" variant="error" class="slds-m-right_x-small"></lightning-icon>
+                {error}
+            </div>
+        </template>
+
+        <!-- Main Content -->
+        <template lwc:if={hasData}>
+            <template lwc:if={notLoading}>
+                <!-- Authorization Details Header -->
+                <div class="slds-p-around_medium auth-details-section">
+                    <!-- MA ID and Auth Number Row -->
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                            <div class="detail-label">MA ID</div>
+                            <div class="detail-value">{maId}</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                            <div class="detail-label">Authorization Number</div>
+                            <div class="detail-value">{authNumber}</div>
+                        </div>
+                    </div>
+
+                    <!-- Status and Hours Row -->
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                            <div class="detail-label">Auth Status</div>
+                            <div class="detail-value">
+                                <span class={statusBadgeClass}>{authStatus}</span>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                            <div class="detail-label">Authorized Hours</div>
+                            <div class="detail-value">{authorizedHours}</div>
+                        </div>
+                    </div>
+
+                    <!-- Eligibility and End Date Row -->
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                            <div class="detail-label">Eligibility</div>
+                            <div class="detail-value">
+                                <lightning-icon
+                                    icon-name={eligibilityIconName}
+                                    size="x-small"
+                                    variant={eligibilityVariant}
+                                    class="slds-m-right_xx-small">
+                                </lightning-icon>
+                                {eligibilityText}
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                            <div class="detail-label">Auth End Date</div>
+                            <div class="detail-value">{authEndDate}</div>
+                        </div>
+                    </div>
+
+                    <!-- Expiration Urgency Alert -->
+                    <div class="expiration-container slds-m-top_small">
+                        <div class={expirationBadgeClass}>
+                            <lightning-icon
+                                icon-name={expirationIconName}
+                                size="x-small"
+                                class="slds-m-right_x-small expiration-icon">
+                            </lightning-icon>
+                            <span class="expiration-text">{expirationText}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Section Divider -->
+                <div class="slds-section__title slds-theme_shade slds-p-around_small">
+                    <h3 class="slds-text-title_caps">Timeline Events</h3>
+                </div>
+
+                <!-- Timeline Events -->
+                <template lwc:if={hasEvents}>
+                    <div class="timeline-container slds-p-around_medium">
+                        <div class="vertical-timeline">
+                            <template for:each={events} for:item="event">
+                                <div key={event.key} class="timeline-item">
+                                    <div class="timeline-marker">
+                                        <div class="timeline-icon-container">
+                                            <lightning-icon
+                                                icon-name={event.iconName}
+                                                size="x-small">
+                                            </lightning-icon>
+                                        </div>
+                                        <template lwc:if={event.showConnector}>
+                                            <div class="timeline-connector"></div>
+                                        </template>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-event-label">{event.label}</div>
+                                        <div class="timeline-event-date">{event.formattedDate}</div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- No Events State -->
+                <template lwc:else>
+                    <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                        <lightning-icon
+                            icon-name="utility:event"
+                            size="small"
+                            class="slds-m-bottom_x-small">
+                        </lightning-icon>
+                        <p>No timeline events recorded yet.</p>
+                    </div>
+                </template>
+            </template>
+        </template>
+
+        <!-- No Data State -->
+        <template lwc:if={showNoDataMessage}>
+            <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                <lightning-icon
+                    icon-name="utility:info"
+                    size="small"
+                    class="slds-m-bottom_x-small">
+                </lightning-icon>
+                <p>No authorization data available.</p>
+            </div>
+        </template>
+    </lightning-card>
+</template>

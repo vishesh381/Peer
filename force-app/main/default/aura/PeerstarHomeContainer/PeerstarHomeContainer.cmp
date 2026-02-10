@@ -1,0 +1,52 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+    <div class="slds-p-around_medium">
+        <!-- Quick Actions Row -->
+        <div class="slds-m-bottom_medium slds-hide_small">
+            <c:peerstarQuickActions />
+        </div>
+
+        <!-- Mobile Quick Actions (hidden on desktop) -->
+        <div class="slds-m-bottom_medium slds-show_small">
+            <c:peerstarMobileQuickActions />
+        </div>
+
+        <!-- Main Grid -->
+        <div class="slds-grid slds-wrap slds-gutters">
+            <!-- Left Column - Main Content -->
+            <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12">
+                <!-- Dashboard Metrics -->
+                <div class="slds-m-bottom_medium">
+                    <c:peerstarHomeMetrics />
+                </div>
+
+                <!-- Calendar -->
+                <div class="slds-m-bottom_medium">
+                    <c:schedulingCalendar />
+                </div>
+
+                <!-- Route Planner -->
+                <div class="slds-m-bottom_medium">
+                    <c:peerstarRoutePlanner />
+                </div>
+            </div>
+
+            <!-- Right Column - Sidebar -->
+            <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
+                <!-- Follow-up Cases -->
+                <div class="slds-m-bottom_medium">
+                    <c:peerstarFollowUpList />
+                </div>
+
+                <!-- Overdue Visits -->
+                <div class="slds-m-bottom_medium">
+                    <c:peerstarOverdueVisits />
+                </div>
+
+                <!-- My Visits List -->
+                <div class="slds-m-bottom_medium">
+                    <c:peerstarVisitsList />
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

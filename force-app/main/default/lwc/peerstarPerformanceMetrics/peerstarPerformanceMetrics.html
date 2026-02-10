@@ -1,0 +1,167 @@
+<template>
+    <lightning-card title="Performance Metrics" icon-name="standard:metrics">
+        <div slot="actions">
+            <span class="slds-badge slds-badge_lightest">{specialistLabel}</span>
+        </div>
+
+        <!-- Filters -->
+        <div class="slds-p-around_medium slds-border_bottom">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                    <lightning-input
+                        type="date"
+                        label="Start Date"
+                        value={startDate}
+                        onchange={handleStartDateChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                    <lightning-input
+                        type="date"
+                        label="End Date"
+                        value={endDate}
+                        onchange={handleEndDateChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                    <lightning-combobox
+                        label="Specialist"
+                        value={selectedSpecialistId}
+                        options={specialists}
+                        onchange={handleSpecialistChange}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-grid slds-grid_vertical-align-end">
+                    <lightning-button-group class="slds-m-bottom_xx-small">
+                        <lightning-button label="7 Days" onclick={setLast7Days}></lightning-button>
+                        <lightning-button label="30 Days" onclick={setLast30Days}></lightning-button>
+                        <lightning-button label="90 Days" onclick={setLast90Days}></lightning-button>
+                    </lightning-button-group>
+                </div>
+            </div>
+        </div>
+
+        <template if:true={isLoading}>
+            <div class="slds-p-around_large slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <div class="slds-p-around_medium slds-text-color_error">
+                Unable to load performance metrics.
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="slds-p-around_medium">
+                <div class="slds-text-title_caps slds-m-bottom_medium">{dateRangeDisplay}</div>
+
+                <!-- Main KPI Cards -->
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <!-- Total Visits -->
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_medium">
+                        <div class="kpi-card slds-box slds-theme_shade">
+                            <div class="kpi-value">{metrics.totalVisits}</div>
+                            <div class="kpi-label">Total Visits</div>
+                        </div>
+                    </div>
+
+                    <!-- Completion Rate -->
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_medium">
+                        <div class="kpi-card slds-box">
+                            <div class={completionRateClass}>
+                                <div class="kpi-value">{metrics.completionRateDisplay}</div>
+                            </div>
+                            <div class="kpi-label">Completion Rate</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill success-fill" style={metrics.completionBarWidth}></div>
+                            </div>
+                            <div class="kpi-detail">{metrics.completedVisits} of {metrics.totalVisits}</div>
+                        </div>
+                    </div>
+
+                    <!-- Missed Rate -->
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_medium">
+                        <div class="kpi-card slds-box">
+                            <div class={missedRateClass}>
+                                <div class="kpi-value">{metrics.missedRateDisplay}</div>
+                            </div>
+                            <div class="kpi-label">Missed Rate</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill error-fill" style={metrics.missedBarWidth}></div>
+                            </div>
+                            <div class="kpi-detail">{metrics.missedVisits} missed</div>
+                        </div>
+                    </div>
+
+                    <!-- Avg Duration -->
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_medium">
+                        <div class="kpi-card slds-box slds-theme_shade">
+                            <div class="kpi-value">{metrics.avgDurationDisplay}</div>
+                            <div class="kpi-label">Avg Visit Duration</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IRP Follow-up Compliance -->
+                <div class="slds-m-top_medium slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">IRP Follow-Up Compliance</h3>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                            <div class="slds-box">
+                                <div class="slds-grid slds-grid_align-spread slds-m-bottom_x-small">
+                                    <span class={followUpComplianceClass}>
+                                        <strong>{metrics.followUpComplianceDisplay}</strong>
+                                    </span>
+                                    <span class="slds-text-body_small">
+                                        {metrics.followUpsCompleted} of {metrics.followUpsDue} completed
+                                    </span>
+                                </div>
+                                <div class="progress-bar progress-bar-large">
+                                    <div class="progress-fill info-fill" style={metrics.followUpBarWidth}></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weekly Trends -->
+                <template if:true={hasTrends}>
+                    <div class="slds-m-top_large">
+                        <h3 class="slds-text-heading_small slds-m-bottom_small">Weekly Trends</h3>
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col">Week</th>
+                                    <th scope="col" class="slds-text-align_center">Total</th>
+                                    <th scope="col" class="slds-text-align_center">Completed</th>
+                                    <th scope="col" class="slds-text-align_center">Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={metrics.weeklyTrends} for:item="week">
+                                    <tr key={week.weekLabel}>
+                                        <td>{week.weekLabel}</td>
+                                        <td class="slds-text-align_center">{week.totalVisits}</td>
+                                        <td class="slds-text-align_center">{week.completedVisits}</td>
+                                        <td class="slds-text-align_center">
+                                            <span class="slds-badge slds-badge_lightest">{week.completionRate}%</span>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+
+                <template if:false={hasMetrics}>
+                    <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                        <lightning-icon icon-name="utility:chart" size="large" class="slds-m-bottom_small"></lightning-icon>
+                        <p>No visit data found for the selected period.</p>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+</template>

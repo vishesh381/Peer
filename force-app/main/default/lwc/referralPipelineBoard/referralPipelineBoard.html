@@ -1,0 +1,97 @@
+<template>
+    <lightning-card title="Referral Pipeline Board" icon-name="standard:opportunity">
+        <template lwc:if={isLoading}>
+            <div class="slds-align_absolute-center slds-p-around_large">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template lwc:if={hasError}>
+            <div class="slds-p-around_medium">
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    <span class="slds-assistive-text">error</span>
+                    <h2>{error}</h2>
+                </div>
+            </div>
+        </template>
+
+        <template lwc:if={notLoading}>
+            <div class="kanban-board">
+                <template for:each={stageColumns} for:item="column">
+                    <div
+                        key={column.name}
+                        class="kanban-column"
+                        data-stage={column.name}
+                        ondragover={handleDragOver}
+                        ondragleave={handleDragLeave}
+                        ondrop={handleDrop}
+                    >
+                        <div class="column-header slds-p-around_small">
+                            <h3 class="slds-text-heading_small slds-truncate" title={column.name}>
+                                {column.name}
+                            </h3>
+                            <span class="slds-badge slds-badge_lightest">{column.count}</span>
+                        </div>
+
+                        <div class="column-body slds-p-horizontal_x-small">
+                            <template for:each={column.referrals} for:item="referral">
+                                <div
+                                    key={referral.id}
+                                    class="referral-card slds-box slds-m-bottom_x-small"
+                                    draggable="true"
+                                    data-id={referral.id}
+                                    data-stage={column.name}
+                                    ondragstart={handleDragStart}
+                                    ondragend={handleDragEnd}
+                                >
+                                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_xx-small">
+                                        <span class="slds-text-title_bold slds-truncate" title={referral.name}>
+                                            {referral.name}
+                                        </span>
+                                        <span class={referral.urgencyClass}>
+                                            {referral.daysOpen} days
+                                        </span>
+                                    </div>
+
+                                    <div class="slds-grid slds-wrap slds-gutters_xx-small card-details">
+                                        <div class="slds-col slds-size_1-of-2 slds-m-bottom_xx-small">
+                                            <span class="slds-text-body_small slds-text-color_weak">County:</span>
+                                            <span class="slds-text-body_small slds-truncate" title={referral.county}>
+                                                {referral.county}
+                                            </span>
+                                        </div>
+
+                                        <div class="slds-col slds-size_1-of-2 slds-m-bottom_xx-small">
+                                            <span class="slds-text-body_small slds-text-color_weak">Service:</span>
+                                            <span class="slds-text-body_small slds-truncate" title={referral.serviceType}>
+                                                {referral.serviceType}
+                                            </span>
+                                        </div>
+
+                                        <div class="slds-col slds-size_1-of-2 slds-m-bottom_xx-small">
+                                            <span class="slds-text-body_small slds-text-color_weak">Phone:</span>
+                                            <span class="slds-text-body_small">{referral.phone}</span>
+                                        </div>
+
+                                        <div class="slds-col slds-size_1-of-2 slds-m-bottom_xx-small">
+                                            <span class="slds-text-body_small slds-text-color_weak">Specialist:</span>
+                                            <span class="slds-text-body_small slds-truncate" title={referral.specialistName}>
+                                                {referral.specialistName}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <template lwc:if={column.hasNoReferrals}>
+                                <div class="slds-align_absolute-center slds-p-around_medium slds-text-color_weak">
+                                    No referrals
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+</template>

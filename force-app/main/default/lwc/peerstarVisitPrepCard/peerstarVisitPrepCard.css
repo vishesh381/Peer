@@ -1,0 +1,32 @@
+/* Clickable elements */
+.clickable {
+    cursor: pointer;
+}
+
+/* Full width buttons */
+.full-width-btn {
+    width: 100%;
+}
+
+/* Goals content area */
+.goals-content {
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+/* Modal sizing */
+.slds-modal__container {
+    max-width: 600px;
+}
+
+/* Mobile-friendly touch targets */
+@media (max-width: 768px) {
+    lightning-button {
+        min-height: 44px;
+    }
+}
+
+/* Alert styling */
+.slds-alert_error {
+    border-radius: 4px;
+}

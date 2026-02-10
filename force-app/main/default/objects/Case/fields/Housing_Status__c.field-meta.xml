@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Housing_Status__c</fullName>
+    <description>Social Determinant of Health - Current housing situation</description>
+    <label>Housing Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Stable Housing</fullName>
+                <default>false</default>
+                <label>Stable Housing</label>
+            </value>
+            <value>
+                <fullName>Unstable Housing</fullName>
+                <default>false</default>
+                <label>Unstable Housing</label>
+            </value>
+            <value>
+                <fullName>Transitional Housing</fullName>
+                <default>false</default>
+                <label>Transitional Housing</label>
+            </value>
+            <value>
+                <fullName>Homeless - Sheltered</fullName>
+                <default>false</default>
+                <label>Homeless - Sheltered</label>
+            </value>
+            <value>
+                <fullName>Homeless - Unsheltered</fullName>
+                <default>false</default>
+                <label>Homeless - Unsheltered</label>
+            </value>
+            <value>
+                <fullName>Group Home</fullName>
+                <default>false</default>
+                <label>Group Home</label>
+            </value>
+            <value>
+                <fullName>Living with Family</fullName>
+                <default>false</default>
+                <label>Living with Family</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

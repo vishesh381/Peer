@@ -1,0 +1,94 @@
+<template>
+    <lightning-card title="Participant Timeline" icon-name="standard:timesheet">
+        <div slot="actions">
+            <span class="slds-badge slds-badge_lightest slds-m-right_x-small">
+                {totalEventCount} events
+            </span>
+        </div>
+
+        <template if:true={isLoading}>
+            <div class="slds-p-around_medium">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <div class="slds-p-around_medium slds-text-color_error">
+                Unable to load timeline.
+            </div>
+        </template>
+
+        <template if:false={hasEvents}>
+            <template if:false={isLoading}>
+                <div class="slds-p-around_medium slds-text-color_weak slds-text-align_center">
+                    <lightning-icon icon-name="utility:event" size="large" class="slds-m-bottom_small"></lightning-icon>
+                    <p>No visits recorded yet.</p>
+                </div>
+            </template>
+        </template>
+
+        <template if:true={hasEvents}>
+            <!-- Summary Stats -->
+            <div class="slds-p-horizontal_medium slds-p-top_small">
+                <div class="slds-grid slds-gutters_x-small">
+                    <div class="slds-col">
+                        <span class="slds-badge slds-theme_success">{completedCount} Completed</span>
+                    </div>
+                    <div class="slds-col">
+                        <span class="slds-badge slds-theme_error">{missedCount} Missed</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="slds-p-around_medium">
+                <ul class="slds-timeline">
+                    <template for:each={visibleEvents} for:item="event">
+                        <li key={event.eventDate} class={event.itemClass}>
+                            <div class="slds-timeline__item_expandable slds-timeline__item_event">
+                                <span class="slds-assistive-text">{event.eventType}</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <lightning-icon
+                                            icon-name={event.iconName}
+                                            size="small">
+                                        </lightning-icon>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <template if:true={event.recordId}>
+                                                    <a data-id={event.recordId} onclick={handleEventClick} class="slds-text-link">
+                                                        <strong>{event.title}</strong>
+                                                    </a>
+                                                </template>
+                                                <template if:false={event.recordId}>
+                                                    <strong>{event.title}</strong>
+                                                </template>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <span class="slds-text-body_small slds-text-color_weak">{event.formattedDate}</span>
+                                            </div>
+                                        </div>
+                                        <p class="slds-text-body_small slds-m-top_xx-small">{event.description}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+
+                <!-- Show More Button -->
+                <template if:true={hasMoreEvents}>
+                    <div class="slds-text-align_center slds-m-top_medium">
+                        <lightning-button
+                            label="Show More ({remainingCount} remaining)"
+                            onclick={handleShowMore}
+                            variant="neutral">
+                        </lightning-button>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+</template>

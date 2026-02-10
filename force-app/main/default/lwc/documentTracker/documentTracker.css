@@ -1,0 +1,150 @@
+/* Document List Container */
+.document-list {
+    border: 1px solid #e5e5e5;
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
+
+/* Document Row Styling */
+.document-row {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e5e5e5;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.document-row:last-child {
+    border-bottom: none;
+}
+
+/* Alternating Row Backgrounds */
+.even-row {
+    background-color: #ffffff;
+}
+
+.odd-row {
+    background-color: #f7f9fb;
+}
+
+.document-row:hover {
+    background-color: #f0f4f9;
+}
+
+/* Status Icon Column */
+.status-icon-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Document Name */
+.document-name {
+    font-weight: 600;
+    color: #181818;
+    font-size: 0.875rem;
+}
+
+/* Status Badges */
+.status-received {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background-color: #2e844a;
+    color: #ffffff;
+}
+
+.status-pending {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background-color: #fe9339;
+    color: #080707;
+}
+
+/* File Info Column */
+.file-info-col {
+    padding-left: 0.5rem;
+}
+
+.file-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-name {
+    font-size: 0.8125rem;
+    color: #181818;
+    display: flex;
+    align-items: center;
+}
+
+.upload-info {
+    font-size: 0.75rem;
+    margin-top: 0.125rem;
+}
+
+.no-file-text {
+    font-size: 0.8125rem;
+    font-style: italic;
+}
+
+/* Progress Section */
+.progress-section {
+    padding: 0.5rem;
+    background-color: #f7f9fb;
+    border-radius: 0.25rem;
+}
+
+.percentage-text {
+    font-weight: 600;
+    color: #181818;
+}
+
+/* Complete Badge */
+.complete-badge {
+    --slds-c-badge-color-background: #2e844a;
+    --slds-c-badge-text-color: #ffffff;
+}
+
+/* Error Container */
+.error-container {
+    display: flex;
+    align-items: center;
+    background-color: #fef1ee;
+    border: 1px solid #ea001e;
+    border-radius: 0.25rem;
+    color: #ea001e;
+}
+
+/* Empty State */
+.empty-state {
+    min-height: 150px;
+}
+
+/* Refresh Button */
+.refresh-button {
+    margin-left: 0.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+    .document-row {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .document-name {
+        font-size: 0.8125rem;
+    }
+
+    .file-info-col {
+        margin-top: 0.5rem;
+        padding-left: 0;
+    }
+
+    .status-icon-col {
+        display: none;
+    }
+}

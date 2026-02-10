@@ -1,0 +1,92 @@
+<template>
+    <lightning-card title="My Dashboard" icon-name="standard:dashboard">
+        <lightning-button-icon
+            slot="actions"
+            icon-name="utility:refresh"
+            alternative-text="Refresh"
+            onclick={handleRefresh}>
+        </lightning-button-icon>
+
+        <template if:true={isLoading}>
+            <div class="slds-p-around_medium">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="slds-p-around_medium">
+                <!-- Primary Metrics Row -->
+                <div class="slds-grid slds-wrap slds-gutters_small">
+                    <!-- Today's Visits -->
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                        <div class="metric-tile today">
+                            <div class="metric-value">{todayCount}</div>
+                            <div class="metric-label">Today's Visits</div>
+                        </div>
+                    </div>
+
+                    <!-- This Week -->
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                        <div class="metric-tile week">
+                            <div class="metric-value">{thisWeekCount}</div>
+                            <div class="metric-label">This Week</div>
+                        </div>
+                    </div>
+
+                    <!-- Overdue -->
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                        <div class={overdueClass}>
+                            <div class="metric-value">{overdueCount}</div>
+                            <div class="metric-label">Overdue</div>
+                        </div>
+                    </div>
+
+                    <!-- Follow-ups Needed -->
+                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-bottom_small">
+                        <div class={followUpClass}>
+                            <div class="metric-value">{followUpsNeededCount}</div>
+                            <div class="metric-label">Follow-ups Due</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Breakdown Row -->
+                <div class="slds-m-top_medium">
+                    <h3 class="slds-text-title_caps slds-m-bottom_x-small">Visit Status Breakdown</h3>
+                    <div class="slds-grid slds-wrap slds-gutters_x-small">
+                        <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-5 slds-p-bottom_x-small">
+                            <div class="status-badge pending">
+                                <span class="badge-count">{pendingCount}</span>
+                                <span class="badge-label">Pending</span>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-5 slds-p-bottom_x-small">
+                            <div class="status-badge confirmed">
+                                <span class="badge-count">{confirmedCount}</span>
+                                <span class="badge-label">Confirmed</span>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-5 slds-p-bottom_x-small">
+                            <div class="status-badge in-session">
+                                <span class="badge-count">{inSessionCount}</span>
+                                <span class="badge-label">In Session</span>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-5 slds-p-bottom_x-small">
+                            <div class="status-badge completed">
+                                <span class="badge-count">{completedCount}</span>
+                                <span class="badge-label">Complete</span>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-5 slds-p-bottom_x-small">
+                            <div class="status-badge missed">
+                                <span class="badge-count">{missedCount}</span>
+                                <span class="badge-label">Missed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,112 @@
+/* Metric Box Styles */
+.metric-box {
+    background-color: #f3f3f3;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    color: #706e6b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #032d60;
+}
+
+/* Progress Bar Styles */
+.progress-bar-container {
+    width: 100%;
+    height: 12px;
+    background-color: #e5e5e5;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.3s ease-in-out;
+}
+
+.progress-fill-green {
+    background-color: #2e844a;
+}
+
+.progress-fill-orange {
+    background-color: #fe9339;
+}
+
+.progress-fill-red {
+    background-color: #c23934;
+}
+
+.progress-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #3e3e3c;
+}
+
+.progress-percentage {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #032d60;
+}
+
+/* Detail Item Styles */
+.detail-item {
+    padding: 0.5rem 0;
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    color: #706e6b;
+    margin-bottom: 0.25rem;
+}
+
+.detail-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #032d60;
+}
+
+/* Status Badge Styles */
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-near-limit {
+    background-color: #fef0f0;
+    color: #c23934;
+    border: 1px solid #c23934;
+}
+
+.status-on-track {
+    background-color: #e6f7e9;
+    color: #2e844a;
+    border: 1px solid #2e844a;
+}
+
+.status-moderate {
+    background-color: #fef5e6;
+    color: #fe9339;
+    border: 1px solid #fe9339;
+}
+
+.status-low-usage {
+    background-color: #eef4ff;
+    color: #0176d3;
+    border: 1px solid #0176d3;
+}

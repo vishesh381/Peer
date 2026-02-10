@@ -1,0 +1,56 @@
+<template>
+    <lightning-card title="Intake Checklist" icon-name="standard:task2">
+        <template lwc:if={hasData}>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <!-- Referral Name -->
+                <div class="slds-m-bottom_small">
+                    <span class="slds-text-heading_small">{referralName}</span>
+                </div>
+
+                <!-- Progress Section -->
+                <div class="progress-section slds-m-bottom_medium">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_xx-small">
+                        <span class="slds-text-body_small">{completionText}</span>
+                        <span class="slds-text-body_small slds-text-color_weak">{completionPercentage}%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style={progressBarStyle}></div>
+                    </div>
+                </div>
+
+                <!-- Checklist Items by Category -->
+                <template for:each={groupedItems} for:item="group">
+                    <div key={group.category} class="category-section slds-m-bottom_small">
+                        <h3 class="category-header slds-text-title_caps slds-m-bottom_xx-small">
+                            {group.category}
+                        </h3>
+                        <ul class="checklist-items">
+                            <template for:each={group.items} for:item="item">
+                                <li key={item.key} class={item.statusClass}>
+                                    <lightning-icon
+                                        icon-name={item.statusIcon}
+                                        size="x-small"
+                                        class="slds-m-right_x-small status-icon"
+                                    ></lightning-icon>
+                                    <span class="item-label">{item.label}</span>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <template lwc:elseif={error}>
+            <div class="slds-p-around_medium">
+                <p class="slds-text-color_error">Error loading checklist: {error.body.message}</p>
+            </div>
+        </template>
+
+        <template lwc:else>
+            <div class="slds-p-around_medium">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+    </lightning-card>
+</template>

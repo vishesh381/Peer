@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Transportation_Access__c</fullName>
+    <description>Social Determinant of Health - Transportation availability</description>
+    <label>Transportation Access</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Has Personal Vehicle</fullName>
+                <default>false</default>
+                <label>Has Personal Vehicle</label>
+            </value>
+            <value>
+                <fullName>Public Transit</fullName>
+                <default>false</default>
+                <label>Public Transit</label>
+            </value>
+            <value>
+                <fullName>Relies on Others</fullName>
+                <default>false</default>
+                <label>Relies on Others</label>
+            </value>
+            <value>
+                <fullName>Medical Transport</fullName>
+                <default>false</default>
+                <label>Medical Transport</label>
+            </value>
+            <value>
+                <fullName>No Reliable Transportation</fullName>
+                <default>false</default>
+                <label>No Reliable Transportation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

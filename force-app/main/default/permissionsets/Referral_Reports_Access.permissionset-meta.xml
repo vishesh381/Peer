@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Grants access to custom fields used in Referral reports</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Days_to_Admission__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Referral Reports Access</label>
+</PermissionSet>

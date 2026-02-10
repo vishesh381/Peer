@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Follow-Up IRP Review</label>
+    <protected>false</protected>
+    <values>
+        <field>Is_Default__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Sort_Order__c</field>
+        <value xsi:type="xsd:double">1.0</value>
+    </values>
+    <values>
+        <field>Template_Body__c</field>
+        <value xsi:type="xsd:string">**Follow-Up IRP Review (180-Day)**
+
+**Review Period:** From [DATE] to [DATE]
+
+**Goal Review:**
+1. Goal 1: [GOAL]
+   - Status: ☐ Achieved ☐ In Progress ☐ Modified ☐ Not Started
+   - Progress notes:
+
+2. Goal 2: [GOAL]
+   - Status: ☐ Achieved ☐ In Progress ☐ Modified ☐ Not Started
+   - Progress notes:
+
+3. Goal 3: [GOAL]
+   - Status: ☐ Achieved ☐ In Progress ☐ Modified ☐ Not Started
+   - Progress notes:
+
+**Accomplishments Since Last Review:**
+-
+
+**Challenges/Barriers:**
+-
+
+**New Goals for Next Period:**
+1.
+2.
+3.
+
+**Updated Action Steps:**
+- Participant will:
+- Peer Specialist will:
+
+**Service Adjustments Recommended:**
+☐ Increase visit frequency
+☐ Decrease visit frequency
+☐ Add group support
+☐ Referral to additional services:
+☐ No changes recommended
+
+**Participant Feedback on Services:**
+
+
+**Next IRP Review Date:**
+
+**Signatures:**
+☐ Participant agreed to updated plan</value>
+    </values>
+    <values>
+        <field>Work_Type__c</field>
+        <value xsi:type="xsd:string">Follow_Up_IRP</value>
+    </values>
+</CustomMetadata>

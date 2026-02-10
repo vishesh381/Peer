@@ -1,0 +1,45 @@
+/* Full width buttons for mobile */
+.full-width-button {
+    width: 100%;
+}
+
+.full-width-button lightning-button {
+    width: 100%;
+}
+
+/* Check time display */
+.check-time-display {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: #f3f3f3;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+/* Notes textarea */
+.notes-textarea {
+    min-height: 200px;
+}
+
+/* Modal fixes */
+.slds-modal__container {
+    max-width: 600px;
+}
+
+/* Mobile-friendly touch targets */
+@media (max-width: 768px) {
+    lightning-button {
+        min-height: 44px;
+    }
+
+    .slds-col {
+        padding-bottom: 0.75rem;
+    }
+}
+
+/* Review status badges */
+.slds-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}

@@ -1,0 +1,68 @@
+<template>
+    <div class="slds-box slds-theme_default">
+        
+        <!-- Loading State -->
+        <template if:true={isLoading}>
+            <div class="slds-text-align_center slds-p-around_large">
+                <lightning-spinner 
+                    alternative-text="Creating Credible profile..." 
+                    size="large">
+                </lightning-spinner>
+                <p class="slds-m-top_medium slds-text-heading_medium">
+                    {message}
+                </p>
+                <p class="slds-m-top_small slds-text-body_small slds-text-color_weak">
+                    This may take a few moments...
+                </p>
+            </div>
+        </template>
+
+        <!-- Success State -->
+        <template if:true={isSuccess}>
+            <div class="slds-text-align_center slds-p-around_large">
+                <lightning-icon 
+                    icon-name="utility:success" 
+                    size="large" 
+                    variant="success">
+                </lightning-icon>
+                <p class="slds-m-top_medium slds-text-heading_large slds-text-color_success">
+                    Success!
+                </p>
+                <p class="slds-m-top_small slds-text-body_regular">
+                    {message}
+                </p>
+                <template if:true={credibleId}>
+                    <p class="slds-m-top_small slds-text-body_small">
+                        Credible Profile ID: <strong>{credibleId}</strong>
+                    </p>
+                </template>
+            </div>
+        </template>
+
+        <!-- Error State -->
+        <template if:true={isError}>
+            <div class="slds-text-align_center slds-p-around_large">
+                <lightning-icon 
+                    icon-name="utility:error" 
+                    size="large" 
+                    variant="error">
+                </lightning-icon>
+                <p class="slds-m-top_medium slds-text-heading_large slds-text-color_error">
+                    Error
+                </p>
+                <p class="slds-m-top_small slds-text-body_regular">
+                    {message}
+                </p>
+                <div class="slds-m-top_medium">
+                    <lightning-button
+                        label="Retry"
+                        variant="brand"
+                        icon-name="utility:refresh"
+                        onclick={handleRetry}>
+                    </lightning-button>
+                </div>
+            </div>
+        </template>
+
+    </div>
+</template>

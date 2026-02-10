@@ -1,0 +1,232 @@
+<template>
+    <lightning-card title="Peer Visits Calendar" icon-name="standard:event">
+        <!-- Toolbar -->
+        <div slot="actions" class="slds-grid slds-grid_align-end slds-grid_vertical-align-center">
+            <lightning-combobox
+                label="Peer Specialist"
+                value={selectedUserId}
+                options={staffMembers}
+                onchange={handleStaffChange}
+                variant="label-hidden"
+                class="slds-m-right_small"
+                style="width: 200px;">
+            </lightning-combobox>
+            <lightning-button-icon
+                icon-name="utility:refresh"
+                alternative-text="Refresh"
+                onclick={handleRefresh}
+                class="slds-m-right_small">
+            </lightning-button-icon>
+        </div>
+
+        <div class="slds-p-around_medium">
+            <!-- Navigation and View Toggle -->
+            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-m-bottom_medium">
+                <div class="slds-grid slds-grid_vertical-align-center">
+                    <lightning-button-icon
+                        icon-name="utility:chevronleft"
+                        alternative-text="Previous"
+                        onclick={handlePrevious}
+                        class="slds-m-right_x-small">
+                    </lightning-button-icon>
+                    <lightning-button
+                        label="Today"
+                        onclick={handleToday}
+                        class="slds-m-right_x-small">
+                    </lightning-button>
+                    <lightning-button-icon
+                        icon-name="utility:chevronright"
+                        alternative-text="Next"
+                        onclick={handleNext}>
+                    </lightning-button-icon>
+                    <h2 class="slds-text-heading_medium slds-m-left_medium">{headerTitle}</h2>
+                </div>
+
+                <lightning-radio-group
+                    name="viewMode"
+                    label="View"
+                    options={viewModeOptions}
+                    value={viewMode}
+                    onchange={handleViewModeChange}
+                    type="button"
+                    variant="label-hidden">
+                </lightning-radio-group>
+            </div>
+
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-is-relative" style="min-height: 200px;">
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Calendar Grid -->
+            <template if:false={isLoading}>
+                <!-- Week/Day View -->
+                <template if:true={isWeekView}>
+                    <div class="calendar-grid week-view">
+                        <template for:each={calendarDays} for:item="day">
+                            <div key={day.date} class={day.dayClass}>
+                                <div class="day-header">
+                                    <span class="day-name">{day.dayName}</span>
+                                    <span class="day-number">{day.dayNumber}</span>
+                                </div>
+                                <div class="day-content">
+                                    <template if:true={day.hasServices}>
+                                        <template for:each={day.services} for:item="service">
+                                            <div
+                                                key={service.id}
+                                                class={service.statusClass}
+                                                data-id={service.id}
+                                                onclick={handleServiceClick}>
+                                                <div class="service-item">
+                                                    <span class="service-time">{service.displayTime}</span>
+                                                    <span class="service-type">{service.serviceType}</span>
+                                                    <span class="service-peer">{service.peerName}</span>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </template>
+                                    <template if:false={day.hasServices}>
+                                        <div class="no-services">No visits</div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Day View -->
+                <template if:true={isDayView}>
+                    <div class="calendar-grid day-view">
+                        <template for:each={calendarDays} for:item="day">
+                            <div key={day.date} class="calendar-day-full">
+                                <template if:true={day.hasServices}>
+                                    <template for:each={day.services} for:item="service">
+                                        <div
+                                            key={service.id}
+                                            class={service.statusClass}
+                                            data-id={service.id}
+                                            onclick={handleServiceClick}>
+                                            <div class="service-item-detailed">
+                                                <div class="service-header">
+                                                    <span class="service-time-large">{service.displayTime}</span>
+                                                    <lightning-badge label={service.status}></lightning-badge>
+                                                </div>
+                                                <div class="service-body">
+                                                    <p><strong>{service.serviceType}</strong></p>
+                                                    <p>Participant: {service.peerName}</p>
+                                                    <p>Peer Specialist: {service.assignedUserName}</p>
+                                                    <p>Location: {service.locationType}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+                                <template if:false={day.hasServices}>
+                                    <div class="no-services-large">
+                                        <lightning-icon icon-name="utility:event" size="large"></lightning-icon>
+                                        <p>No peer visits scheduled for this day</p>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Month View -->
+                <template if:true={isMonthView}>
+                    <div class="calendar-grid month-view">
+                        <!-- Day headers -->
+                        <div class="month-header">
+                            <span>Sun</span>
+                            <span>Mon</span>
+                            <span>Tue</span>
+                            <span>Wed</span>
+                            <span>Thu</span>
+                            <span>Fri</span>
+                            <span>Sat</span>
+                        </div>
+                        <div class="month-body">
+                            <template for:each={calendarDays} for:item="day">
+                                <div
+                                    key={day.date}
+                                    class={day.monthDayClass}>
+                                    <span class="month-day-number">{day.dayNumber}</span>
+                                    <template if:true={day.hasServices}>
+                                        <div class="month-day-services">
+                                            <template for:each={day.services} for:item="service">
+                                                <div
+                                                    key={service.id}
+                                                    class="month-service-dot"
+                                                    data-id={service.id}
+                                                    onclick={handleServiceClick}
+                                                    title={service.serviceType}>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+
+    <!-- Service Detail Modal -->
+    <template if:true={showServiceModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        alternative-text="Close"
+                        class="slds-modal__close"
+                        onclick={handleCloseModal}>
+                    </lightning-button-icon>
+                    <h2 class="slds-modal__title">{selectedService.serviceType}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <dl class="slds-dl_horizontal">
+                        <dt class="slds-dl_horizontal__label">Participant:</dt>
+                        <dd class="slds-dl_horizontal__detail">{selectedService.peerName}</dd>
+
+                        <dt class="slds-dl_horizontal__label">Peer Specialist:</dt>
+                        <dd class="slds-dl_horizontal__detail">{selectedService.assignedUserName}</dd>
+
+                        <dt class="slds-dl_horizontal__label">Time:</dt>
+                        <dd class="slds-dl_horizontal__detail">{selectedService.displayTime}</dd>
+
+                        <dt class="slds-dl_horizontal__label">Duration:</dt>
+                        <dd class="slds-dl_horizontal__detail">{selectedService.durationMinutes} minutes</dd>
+
+                        <dt class="slds-dl_horizontal__label">Location:</dt>
+                        <dd class="slds-dl_horizontal__detail">{selectedService.locationType}</dd>
+
+                        <dt class="slds-dl_horizontal__label">Meeting:</dt>
+                        <dd class="slds-dl_horizontal__detail">{selectedService.caseNumber}</dd>
+
+                        <dt class="slds-dl_horizontal__label">Status:</dt>
+                        <dd class="slds-dl_horizontal__detail">
+                            <lightning-combobox
+                                value={selectedService.status}
+                                options={statusOptions}
+                                onchange={handleStatusChange}
+                                variant="label-hidden">
+                            </lightning-combobox>
+                        </dd>
+                    </dl>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Close"
+                        onclick={handleCloseModal}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

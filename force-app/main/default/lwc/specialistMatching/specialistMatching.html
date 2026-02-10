@@ -1,0 +1,99 @@
+<template>
+    <lightning-card title="Specialist Matching" icon-name="standard:resource_capacity">
+        <template lwc:if={isLoading}>
+            <div class="slds-align_absolute-center slds-p-around_medium">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template lwc:if={hasError}>
+            <div class="slds-p-around_medium">
+                <div class="slds-text-color_error">
+                    <lightning-icon icon-name="utility:error" size="small" variant="error"></lightning-icon>
+                    <span class="slds-p-left_x-small">{errorMessage}</span>
+                </div>
+            </div>
+        </template>
+
+        <template lwc:if={hasMatches}>
+            <div class="slds-p-around_medium">
+                <ul class="slds-has-dividers_bottom-space">
+                    <template for:each={matches} for:item="specialist">
+                        <li key={specialist.resourceId} class="slds-item specialist-item">
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                                    <div class="specialist-info">
+                                        <p class="specialist-name slds-text-heading_small">
+                                            {specialist.name}
+                                        </p>
+                                        <p class="crew-name slds-text-body_small slds-text-color_weak">
+                                            {specialist.crewName}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-2 slds-medium-size_3-of-12">
+                                    <div class="match-score-container">
+                                        <p class="slds-text-title_caps slds-m-bottom_xx-small">Match Score</p>
+                                        <div class="score-display">
+                                            <lightning-progress-bar
+                                                value={specialist.matchScore}
+                                                size="medium"
+                                                variant={specialist.progressVariant}
+                                            ></lightning-progress-bar>
+                                            <span class="score-value">{specialist.matchScore}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-4 slds-medium-size_2-of-12">
+                                    <div class="caseload-container">
+                                        <p class="slds-text-title_caps slds-m-bottom_xx-small">Caseload</p>
+                                        <p class="caseload-count">{specialist.caseload}</p>
+                                    </div>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-4 slds-medium-size_2-of-12">
+                                    <div class="capacity-container">
+                                        <p class="slds-text-title_caps slds-m-bottom_xx-small">Capacity</p>
+                                        <span class={specialist.capacityClass}>{specialist.capacityStatus}</span>
+                                    </div>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-text-align_right">
+                                    <lightning-button
+                                        label="Assign"
+                                        variant="brand"
+                                        data-resource-id={specialist.resourceId}
+                                        data-specialist-name={specialist.name}
+                                        onclick={handleAssign}
+                                        disabled={isLoading}
+                                    ></lightning-button>
+                                </div>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </template>
+
+        <template lwc:if={noMatches}>
+            <template lwc:if={noError}>
+                <template lwc:if={notLoading}>
+                    <div class="slds-p-around_medium slds-text-align_center">
+                        <div class="slds-illustration slds-illustration_small">
+                            <lightning-icon
+                                icon-name="utility:search"
+                                size="large"
+                                class="slds-m-bottom_small"
+                            ></lightning-icon>
+                            <p class="slds-text-body_regular slds-text-color_weak">
+                                No specialist matches found for this participant.
+                            </p>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </template>
+    </lightning-card>
+</template>

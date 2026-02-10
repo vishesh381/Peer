@@ -1,0 +1,124 @@
+/* Urgency Section Styling */
+.urgency-section {
+    margin-bottom: 1rem;
+}
+
+.urgency-section:last-child {
+    margin-bottom: 0;
+}
+
+/* Section Headers */
+.section-header {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+}
+
+.expired-header {
+    background-color: #fef1f1;
+    color: #c23934;
+}
+
+.critical-header {
+    background-color: #fef1f1;
+    color: #c23934;
+}
+
+.warning-header {
+    background-color: #fef7e8;
+    color: #a96404;
+}
+
+.upcoming-header {
+    background-color: #eaf5fe;
+    color: #0070d2;
+}
+
+/* Alert Item Styling */
+.alert-item {
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    background-color: #f7f9fb;
+}
+
+.alert-item:hover {
+    background-color: #eef1f4;
+}
+
+/* Referral Link */
+.referral-link {
+    color: #0070d2;
+    text-decoration: none;
+    font-weight: 600;
+    margin-right: 0.5rem;
+}
+
+.referral-link:hover {
+    text-decoration: underline;
+    color: #005fb2;
+}
+
+/* Urgency Badges */
+.urgency-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    vertical-align: middle;
+}
+
+.urgency-expired {
+    background-color: #c23934;
+    color: #ffffff;
+}
+
+.urgency-critical {
+    background-color: #ea001e;
+    color: #ffffff;
+}
+
+.urgency-warning {
+    background-color: #ff9a3c;
+    color: #1a1b1e;
+}
+
+.urgency-upcoming {
+    background-color: #0070d2;
+    color: #ffffff;
+}
+
+/* Days Text Styling */
+.days-text {
+    font-weight: 600;
+    font-size: 0.8125rem;
+}
+
+.days-expired {
+    color: #c23934;
+}
+
+.days-critical {
+    color: #ea001e;
+}
+
+.days-warning {
+    color: #a96404;
+}
+
+.days-upcoming {
+    color: #0070d2;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .alert-item {
+        padding: 0.5rem;
+    }
+
+    .section-header {
+        font-size: 0.875rem;
+    }
+}

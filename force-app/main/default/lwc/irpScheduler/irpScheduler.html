@@ -1,0 +1,95 @@
+<template>
+    <lightning-card title="Schedule IRP Appointment" icon-name="standard:event">
+        <div class="slds-p-around_medium">
+            <!-- Loading Spinner -->
+            <template lwc:if={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+
+            <!-- Error Message -->
+            <template lwc:if={error}>
+                <div class="slds-notify slds-notify_alert slds-alert_error slds-m-bottom_medium" role="alert">
+                    <span class="slds-assistive-text">error</span>
+                    <h2>{error}</h2>
+                </div>
+            </template>
+
+            <!-- Specialist Selection -->
+            <div class="slds-m-bottom_medium">
+                <lightning-combobox
+                    name="specialist"
+                    label="Select Specialist"
+                    value={selectedSpecialistId}
+                    placeholder="Choose a specialist..."
+                    options={specialistOptions}
+                    onchange={handleSpecialistChange}
+                    disabled={isLoading}
+                    required
+                ></lightning-combobox>
+                <template lwc:if={noSpecialists}>
+                    <p class="slds-text-color_weak slds-m-top_x-small">No matching specialists found.</p>
+                </template>
+            </div>
+
+            <!-- Date Selection -->
+            <div class="slds-m-bottom_medium">
+                <lightning-input
+                    type="date"
+                    name="appointmentDate"
+                    label="Select Date"
+                    value={selectedDate}
+                    min={minDate}
+                    onchange={handleDateChange}
+                    disabled={isLoading}
+                    required
+                ></lightning-input>
+            </div>
+
+            <!-- Time Slots -->
+            <template lwc:if={showTimeSlots}>
+                <div class="slds-m-bottom_medium">
+                    <label class="slds-form-element__label">Available Time Slots</label>
+                    <div class="time-slots-container slds-m-top_x-small">
+                        <template for:each={timeSlots} for:item="slot">
+                            <button
+                                key={slot.id}
+                                class={slot.buttonClass}
+                                data-slot-id={slot.id}
+                                onclick={handleTimeSlotClick}
+                                disabled={slot.isDisabled}
+                            >
+                                {slot.startTimeFormatted}
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- No Slots Message -->
+            <template lwc:if={showNoSlotsMessage}>
+                <div class="slds-m-bottom_medium">
+                    <p class="slds-text-color_weak">No available time slots for the selected date.</p>
+                </div>
+            </template>
+
+            <!-- Selected Time Display -->
+            <template lwc:if={selectedTimeSlot}>
+                <div class="slds-m-bottom_medium selected-time-display">
+                    <lightning-icon icon-name="utility:check" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                    <span>{selectedTimeDisplay}</span>
+                </div>
+            </template>
+
+            <!-- Schedule Button -->
+            <div class="slds-m-top_medium">
+                <lightning-button
+                    variant="brand"
+                    label="Schedule IRP"
+                    title="Schedule IRP Appointment"
+                    onclick={handleScheduleClick}
+                    disabled={isScheduleDisabled}
+                ></lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

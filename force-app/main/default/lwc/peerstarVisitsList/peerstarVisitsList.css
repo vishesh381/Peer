@@ -1,0 +1,33 @@
+/* Filter bar */
+.filter-bar {
+    background-color: #f3f3f3;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+/* Visit items */
+.visit-item {
+    padding: 12px 0;
+}
+
+.visit-item:hover {
+    background-color: #f7f9fb;
+}
+
+/* Status badges */
+.slds-badge {
+    font-size: 0.65rem;
+    white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .filter-bar {
+        padding: 8px;
+    }
+
+    .visit-item {
+        padding: 8px 0;
+    }
+}

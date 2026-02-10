@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SamlSsoConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <identityLocation>SubjectNameId</identityLocation>
+    <identityMapping>Username</identityMapping>
+    <issuer>https://sts.windows.net/13642a82-d6a5-4966-82b1-85b22cdc99fb/</issuer>
+    <loginUrl>https://login.microsoftonline.com/13642a82-d6a5-4966-82b1-85b22cdc99fb/saml2</loginUrl>
+    <name>AzureSSO</name>
+    <oauthTokenEndpoint>https://orgfarm-73727aeff5-dev-ed.develop.my.salesforce.com/services/oauth2/token</oauthTokenEndpoint>
+    <redirectBinding>true</redirectBinding>
+    <salesforceLoginUrl>https://orgfarm-73727aeff5-dev-ed.develop.my.salesforce.com</salesforceLoginUrl>
+    <samlEntityId>https://orgfarm-73727aeff5-dev-ed.develop.my.salesforce.com</samlEntityId>
+    <samlVersion>SAML2_0</samlVersion>
+    <userProvisioning>false</userProvisioning>
+    <validationCert>MIIC8DCCAdigAwIBAgIQUs1dk+XRbZNHblNDPA6IxzANBgkqhkiG9w0BAQsFADA0MTIwMAYDVQQDEylNaWNyb3NvZnQgQXp1cmUgRmVkZXJhdGVkIFNTTyBDZXJ0aWZpY2F0ZTAeFw0yNTExMTcxMzEwMjVaFw0yODExMTcxMzEwMjRaMDQxMjAwBgNVBAMTKU1pY3Jvc29mdCBBenVyZSBGZWRlcmF0ZWQgU1NPIENlcnRpZmljYXRlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2igH1WVzOe++d1HCrro6lBLqRkrCznkTUTKXu/dlPHN38x1AQzczz011EkxWwq5HT/CsnVw5jVTl6WLSTk0Do8Ny8fOmvNkTpWMTxdPeoMUuyNUd9vU3qH6f91m8mAVIpl3VQETG1DeCdxf/HTToD8vsOzfizeYiwSag4Y9YgsZo58aVfHbClPNMOj2sN66UL85Br0OX7dLN2Y+rztLHT/NRASKgJCNbI7VxYxjXmtm4jVh5u1F5sa4KN71YmOdETuhFeDBeMk2NGmq2tjvQdNuaptGwpKhJqvU6VYtSQ/GMh+WTbS8tgE9Kb/c/NSpyu+5gH4xMmO1G+Uz+XHcACQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQAbyBV74VS96QkCIS9GCpji6N4fy6UdwjONFkbS13lldVC5tDAJBMFjGp0QH32u2flMjJMjt2+TGTjmjVV3lC+umdxaQ5kDTPSBNY2RGFPPsJQzurCC8ARZ6PF1fVUUHd46Mojcp9KQ60wtI3kK0L1IAgaqsgq55Qz71sq/0TboZ0w+/gn5yzUeFvdn23LMoqv4Jh9ucHW1KspgOnW383jbZeCFhawJCa37gGV6jb0hTHIN0d/Ivwcx+d5rudzeqDntnzOzWSIyJGevbG806xRwYc9hfbT0NL3oQ3zYEQojJjqDkZMNAeWAFRYxBFUTpP7CSk7WntB0yHHYxMsbnlaQ</validationCert>
+</SamlSsoConfig>

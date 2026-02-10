@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Configuration settings for Peerstar Field Service scheduling system. Stores Work Type IDs, Service Territory IDs, and other org-specific settings.</description>
+    <label>Peerstar Settings</label>
+    <pluralLabel>Peerstar Settings</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

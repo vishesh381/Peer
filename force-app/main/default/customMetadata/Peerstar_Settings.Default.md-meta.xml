@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Default</label>
+    <protected>false</protected>
+    <values>
+        <field>Default_Appointment_Duration__c</field>
+        <value xsi:type="xsd:double">60.0</value>
+    </values>
+    <values>
+        <field>Default_Service_Territory_Id__c</field>
+        <value xsi:type="xsd:string">0Hhfj000000ChcHCAS</value>
+    </values>
+    <values>
+        <field>Follow_Up_IRP_Work_Type_Id__c</field>
+        <value xsi:type="xsd:string">08qfj0000002bukAAA</value>
+    </values>
+    <values>
+        <field>IRP_Follow_Up_Days__c</field>
+        <value xsi:type="xsd:double">180.0</value>
+    </values>
+    <values>
+        <field>Initial_IRP_Work_Type_Id__c</field>
+        <value xsi:type="xsd:string">08qfj0000002bujAAA</value>
+    </values>
+    <values>
+        <field>Weekly_Meeting_Work_Type_Id__c</field>
+        <value xsi:type="xsd:string">08qfj0000002bulAAA</value>
+    </values>
+</CustomMetadata>

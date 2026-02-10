@@ -1,0 +1,41 @@
+.metric-card {
+    text-align: center;
+    padding: 1rem;
+}
+
+.metric-card .slds-text-heading_large {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.success-bg {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.warning-bg {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.error-bg {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.info-bg {
+    background-color: #cce5ff;
+    border-color: #b8daff;
+}
+
+.slds-text-link {
+    cursor: pointer;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+    .slds-table th:nth-child(4),
+    .slds-table td:nth-child(4) {
+        display: none;
+    }
+}

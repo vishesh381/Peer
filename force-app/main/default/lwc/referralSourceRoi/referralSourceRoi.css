@@ -1,0 +1,113 @@
+/* Header Row Styles */
+.header-row {
+    border-bottom: 1px solid #dddbda;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Source Row Styles */
+.source-row {
+    border-bottom: 1px solid #f3f2f2;
+    align-items: center;
+}
+
+.source-row:hover {
+    background-color: #f3f2f2;
+}
+
+.source-row:last-child {
+    border-bottom: none;
+}
+
+/* Source Name */
+.source-name {
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 0.5rem;
+}
+
+/* Bar Container and Wrapper */
+.bar-container {
+    padding: 0.25rem 0.5rem;
+}
+
+.bar-wrapper {
+    background-color: #f3f2f2;
+    border-radius: 4px;
+    height: 24px;
+    width: 100%;
+    position: relative;
+}
+
+/* Referral Bar */
+.referral-bar {
+    background: linear-gradient(90deg, #1589ee 0%, #0070d2 100%);
+    border-radius: 4px;
+    height: 100%;
+    min-width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    transition: width 0.3s ease-in-out;
+}
+
+.bar-value {
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Admitted Count */
+.admitted-count {
+    font-weight: 500;
+    color: #3e3e3c;
+}
+
+/* Conversion Rate Badges */
+.conversion-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    min-width: 50px;
+    text-align: center;
+}
+
+/* High conversion rate (>= 50%) - Green */
+.conversion-badge.high {
+    background-color: #2e844a;
+    color: #ffffff;
+}
+
+/* Medium conversion rate (25-49%) - Yellow */
+.conversion-badge.medium {
+    background-color: #fe9339;
+    color: #080707;
+}
+
+/* Low conversion rate (< 25%) - Red */
+.conversion-badge.low {
+    background-color: #c23934;
+    color: #ffffff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .source-name {
+        font-size: 0.875rem;
+    }
+
+    .bar-value {
+        font-size: 0.625rem;
+    }
+
+    .conversion-badge {
+        font-size: 0.625rem;
+        padding: 0.125rem 0.25rem;
+        min-width: 40px;
+    }
+}

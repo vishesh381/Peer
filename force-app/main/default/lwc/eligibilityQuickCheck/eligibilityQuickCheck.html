@@ -1,0 +1,75 @@
+<template>
+    <lightning-card title="Eligibility Quick Check" icon-name="standard:task2">
+        <template lwc:if={hasData}>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <!-- MA ID Display -->
+                <div class="info-row slds-m-bottom_small">
+                    <span class="info-label">MA ID</span>
+                    <span class="info-value">{maId}</span>
+                </div>
+
+                <!-- Eligibility Status -->
+                <div class="info-row slds-m-bottom_small">
+                    <span class="info-label">Eligibility Status</span>
+                    <span class={statusClass}>
+                        <lightning-icon
+                            icon-name={statusIconName}
+                            size="xx-small"
+                            class="slds-m-right_xx-small status-icon"
+                        ></lightning-icon>
+                        {statusLabel}
+                    </span>
+                </div>
+
+                <!-- Last Verified Date (if available) -->
+                <template lwc:if={showLastVerified}>
+                    <div class="info-row slds-m-bottom_medium">
+                        <span class="info-label">Last Verified</span>
+                        <span class="info-value">{lastVerifiedDate}</span>
+                    </div>
+                </template>
+
+                <!-- Verify Button -->
+                <div class="slds-m-top_medium">
+                    <lightning-button
+                        variant="brand"
+                        label={buttonLabel}
+                        disabled={isButtonDisabled}
+                        onclick={handleVerifyEligibility}
+                        class="verify-button"
+                    ></lightning-button>
+                </div>
+
+                <!-- Already Verified Message -->
+                <template lwc:if={isVerified}>
+                    <div class="verified-message slds-m-top_small">
+                        <lightning-icon
+                            icon-name="utility:success"
+                            size="x-small"
+                            variant="success"
+                            class="slds-m-right_x-small"
+                        ></lightning-icon>
+                        <span>Eligibility has been verified for this referral.</span>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <template lwc:elseif={error}>
+            <div class="slds-p-around_medium">
+                <p class="slds-text-color_error">
+                    Error loading eligibility data: {error.body.message}
+                </p>
+            </div>
+        </template>
+
+        <template lwc:else>
+            <div class="slds-p-around_medium slds-align_absolute-center">
+                <lightning-spinner
+                    alternative-text="Loading"
+                    size="small"
+                ></lightning-spinner>
+            </div>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stage__c</fullName>
+    <label>Stage</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+                <label>Cancelled</label>
+            </value>
+            <value>
+                <fullName>Prospect</fullName>
+                <default>true</default>
+                <label>New Lead</label>
+            </value>
+            <value>
+                <fullName>Assigned</fullName>
+                <default>false</default>
+                <label>Assigned</label>
+            </value>
+            <value>
+                <fullName>Open Lead</fullName>
+                <default>false</default>
+                <label>Open Lead</label>
+            </value>
+            <value>
+                <fullName>Pending Contact</fullName>
+                <default>false</default>
+                <label>Pending Contact</label>
+            </value>
+            <value>
+                <fullName>Intake</fullName>
+                <default>false</default>
+                <label>Intake</label>
+            </value>
+            <value>
+                <fullName>Pending IRP</fullName>
+                <default>false</default>
+                <label>Pending IRP</label>
+            </value>
+            <value>
+                <fullName>IRP Scheduling</fullName>
+                <default>false</default>
+                <label>IRP Scheduling</label>
+            </value>
+            <value>
+                <fullName>On Service</fullName>
+                <default>false</default>
+                <label>Admission Complete</label>
+            </value>
+            <value>
+                <fullName>Auth. Complete</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Auth. Complete</label>
+            </value>
+            <value>
+                <fullName>Auth. Requested</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Auth. Requested</label>
+            </value>
+            <value>
+                <fullName>On Hold</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>On Hold</label>
+            </value>
+            <value>
+                <fullName>Open</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Open</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

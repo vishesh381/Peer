@@ -1,0 +1,29 @@
+.notes-preview {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.slds-card__header-link {
+    cursor: pointer;
+}
+
+.slds-card__header-link:hover {
+    text-decoration: underline;
+}
+
+.success-icon {
+    color: #2e844a;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .slds-card__footer lightning-button-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .slds-card__footer lightning-button {
+        margin-bottom: 0.5rem;
+    }
+}
