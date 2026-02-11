@@ -315,7 +315,7 @@ public class CredibleIntegrationService {
             '"' + (credLookupMap.containsKey('Status') ? credLookupMap.get('Status') : '001') + '",' +
             // 5. Status Reason
             '"' + nvl(opp.pstar__Status_Reason__c) + '",' +
-            // 6. Program Type (removed - was causing Credible parser error)
+            // 6. Program Type
             '"",' +
             // 7. Peer Type (Credible lookup ID, fallback to raw text)
             '"' + nvl(credLookupMap.containsKey('Peer Type') ? credLookupMap.get('Peer Type') : opp.pstar__Peer_Type__c) + '",' +
@@ -349,7 +349,7 @@ public class CredibleIntegrationService {
             '"",' +
             // 22. Facility Name
             '"' + nvl(opp.pstar__Facility_Name__c) + '",' +
-            // 23. Preferred Contact (removed - was causing Credible parser error)
+            // 23. Preferred Contact
             '"",' +
             // 24. Ethnicity
             '"' + nvl(opp.pstar__Ethnicity__c) + '",' +
@@ -795,7 +795,7 @@ public class CredibleIntegrationService {
      * Helper: Null value replacement
      */
     private static String nvl(String value) {
-        return String.isBlank(value) ? '' : value;
+        return String.isBlank(value) ? '' : value.replace(',', '');
     }
 
     /**
@@ -807,7 +807,7 @@ public class CredibleIntegrationService {
 
     private static String csvSafe(String value) {
         if (String.isBlank(value)) return '';
-        return value.replaceAll('"', '""').replaceAll('\r?\n', ' ');
+        return value.replaceAll('"', '""').replaceAll('\r?\n', ' ').replace(',', '');
     }
 
 }

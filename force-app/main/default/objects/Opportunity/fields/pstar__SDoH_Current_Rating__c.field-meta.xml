@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>pstar__Available_Times__c</fullName>
-    <label>Available Times</label>
+    <fullName>pstar__SDoH_Current_Rating__c</fullName>
+    <label>SDoH Current Rating</label>
     <length>255</length>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
