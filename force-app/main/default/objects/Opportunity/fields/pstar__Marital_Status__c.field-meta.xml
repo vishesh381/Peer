@@ -24,6 +24,7 @@
             <value>
                 <fullName>Other</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Other</label>
             </value>
             <value>
@@ -39,6 +40,7 @@
             <value>
                 <fullName>Unknown</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Unknown</label>
             </value>
             <value>

@@ -30,23 +30,9 @@
             <lightning-input
                 label="Referring NPI"
                 value={npiValue}
-                onchange={onNpiChange}
-                autocomplete="off">
+                disabled>
             </lightning-input>
 
-            <template if:true={npiOptions.length}>
-                <div class="slds-box slds-m-top_x-small slds-p-around_none slds-scrollable_y" style="max-height:240px;">
-                    <template for:each={npiOptions} for:item="opt">
-                        <div key={opt}
-                             class="slds-p-vertical_x-small slds-p-horizontal_small slds-border_bottom slds-text-body_regular"
-                             style="cursor:pointer;"
-                             data-value={opt}
-                             onclick={selectNpi}>
-                            {opt}
-                        </div>
-                    </template>
-                </div>
-            </template>
 
             <!-- Buttons -->
             <div class="slds-m-top_large slds-align_absolute-center">

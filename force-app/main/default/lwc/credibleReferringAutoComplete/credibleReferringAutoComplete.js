@@ -1,11 +1,10 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { getRecordNotifyChange } from 'lightning/uiRecordApi';
 import { FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
-import PROVIDERS_SR from '@salesforce/resourceUrl/Referral_Provider';
-import NPI_SR from '@salesforce/resourceUrl/Referral_Npi';
 import saveProviderNpi from '@salesforce/apex/ProviderNpiSaveService.saveProviderNpi';
+import getProviderNpiMap from '@salesforce/apex/ProviderNpiMapService.getProviderNpiMap';
 
 export default class CredibleReferringAutoComplete extends LightningElement {
   @api recordId;
@@ -15,20 +14,18 @@ export default class CredibleReferringAutoComplete extends LightningElement {
   providers = [];
 
   @track npiValue = '';
-  @track npiOptions = [];
-  npis = [];
 
+  providerNpiMap = {};
   providerTimer;
-  npiTimer;
 
-  connectedCallback() {
-    fetch(PROVIDERS_SR).then(r => r.json())
-      .then(data => { this.providers = data?.names || []; })
-      .catch(e => console.error('Error loading Referral_Provider:', e));
-
-    fetch(NPI_SR).then(r => r.json())
-      .then(data => { this.npis = data?.provider_npi || []; })
-      .catch(e => console.error('Error loading Referral_Npi:', e));
+  @wire(getProviderNpiMap)
+  wiredProviderNpiMap({ error, data }) {
+    if (data) {
+      this.providerNpiMap = data;
+      this.providers = Object.keys(data);
+    } else if (error) {
+      console.error('Error loading provider-NPI map:', error);
+    }
   }
 
   // Provider
@@ -48,28 +45,15 @@ export default class CredibleReferringAutoComplete extends LightningElement {
   }
 
   selectProvider(e) {
-    this.providerValue = e.currentTarget.dataset.value;
+    const selected = e.currentTarget.dataset.value;
+    this.providerValue = selected;
     this.providerOptions = [];
-  }
 
-  // NPI
-  onNpiChange(e) {
-    this.npiValue = e.target.value;
-    window.clearTimeout(this.npiTimer);
-
-    const q = (this.npiValue || '').trim();
-    if (q.length < 2) { this.npiOptions = []; return; }
-
-    this.npiTimer = window.setTimeout(() => {
-      this.npiOptions = this.npis
-        .filter(x => (x || '').includes(q))
-        .slice(0, 50);
-    }, 150);
-  }
-
-  selectNpi(e) {
-    this.npiValue = e.currentTarget.dataset.value;
-    this.npiOptions = [];
+    // Auto-populate NPI from the map
+    const npi = this.providerNpiMap[selected];
+    if (npi) {
+      this.npiValue = npi;
+    }
   }
 
   async handleSave() {

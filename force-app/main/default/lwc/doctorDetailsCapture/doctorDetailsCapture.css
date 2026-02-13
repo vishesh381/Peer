@@ -1,0 +1,9 @@
+.doctor-tile {
+    cursor: pointer;
+    text-align: center;
+    transition: box-shadow 0.2s ease;
+    min-height: 120px;
+}
+.doctor-tile:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}

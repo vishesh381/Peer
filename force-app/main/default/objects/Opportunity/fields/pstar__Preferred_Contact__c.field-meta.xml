@@ -14,12 +14,29 @@
             <value>
                 <fullName>Mobile</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Mobile</label>
             </value>
             <value>
                 <fullName>Home Phone</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Home Phone</label>
+            </value>
+            <value>
+                <fullName>Phone</fullName>
+                <default>false</default>
+                <label>Phone</label>
+            </value>
+            <value>
+                <fullName>Text</fullName>
+                <default>false</default>
+                <label>Text</label>
+            </value>
+            <value>
+                <fullName>Email</fullName>
+                <default>false</default>
+                <label>Email</label>
             </value>
         </valueSetDefinition>
     </valueSet>

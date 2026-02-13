@@ -107,6 +107,7 @@
         <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
+    <!-- ==================== REFERRAL INFO SECTION ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
@@ -262,16 +263,6 @@
                 <identifier>Recordpstar_Payor_Type_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.CPS_Preference__c</fieldItem>
-                <identifier>Recordpstar_CPS_Preference_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-referral-right</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -299,6 +290,7 @@
         <name>Facet-referral-cols</name>
         <type>Facet</type>
     </flexiPageRegions>
+    <!-- ==================== PEER DETAILS SECTION ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
@@ -500,6 +492,16 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Ok_to_Text__c</fieldItem>
+                <identifier>Recordpstar_Ok_to_Text_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Street_Address__c</fieldItem>
                 <identifier>Recordpstar_Street_Address_cField</identifier>
             </fieldInstance>
@@ -604,6 +606,16 @@
                 <identifier>Recordpstar_Program_Type_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Notes__c</fieldItem>
+                <identifier>Recordpstar_Notes_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-peerdetails-right</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -631,6 +643,7 @@
         <name>Facet-peerdetails-cols</name>
         <type>Facet</type>
     </flexiPageRegions>
+    <!-- ==================== FINANCIAL SECTION ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
@@ -649,7 +662,7 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Admission_Date__c</fieldItem>
-                <identifier>Recordpstar_Admission_Date_cField_clinical</identifier>
+                <identifier>Recordpstar_Admission_Date_cField_financial</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -659,9 +672,13 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.No_Admit_Reason__c</fieldItem>
-                <identifier>Recordpstar_No_Admit_Reason_cField_clinical</identifier>
+                <identifier>Recordpstar_No_Admit_Reason_cField_financial</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-financial-left</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -672,6 +689,35 @@
                 <identifier>Recordpstar_Diagnosis_Intake_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-financial-right</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-financial-left</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column_fin_left</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-financial-right</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column_fin_right</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-financial-cols</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <!-- ==================== MEDICAL & SOCIAL HISTORY SECTION ==================== -->
+    <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -709,7 +755,7 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Facility_Name__c</fieldItem>
-                <identifier>Recordpstar_Facility_Name_cField_clinical</identifier>
+                <identifier>Recordpstar_Facility_Name_cField_medical</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -728,8 +774,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Client_Signature_Source__c</fieldItem>
-                <identifier>Recordpstar_Client_Signature_Source_cField</identifier>
+                <fieldItem>Record.Recent_Hospitalizations__c</fieldItem>
+                <identifier>Recordpstar_Recent_Hospitalizations_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -738,8 +784,21 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Release_Of_Information__c</fieldItem>
-                <identifier>Recordpstar_Release_Of_Information_cField</identifier>
+                <fieldItem>Record.Hospitalization_Facility_Name__c</fieldItem>
+                <identifier>Recordpstar_Hospitalization_Facility_Name_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Recent_Hospitalizations__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Recent_Hospitalizations__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Current</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -748,44 +807,96 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Reason_Seeking_Services__c</fieldItem>
-                <identifier>Recordpstar_Reason_Seeking_Services_cField_clinical</identifier>
+                <fieldItem>Record.Hospitalization_Admission_Date__c</fieldItem>
+                <identifier>Recordpstar_Hospitalization_Admission_Date_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Recent_Hospitalizations__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Recent_Hospitalizations__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Current</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
-        <name>Facet-clinical-left</name>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Hospitalization_Discharge_Date__c</fieldItem>
+                <identifier>Recordpstar_Hospitalization_Discharge_Date_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Recent_Hospitalizations__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Recent_Hospitalizations__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Current</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Hospitalization_Reason__c</fieldItem>
+                <identifier>Recordpstar_Hospitalization_Reason_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Recent_Hospitalizations__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Recent_Hospitalizations__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Current</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Hospitalization_Notes__c</fieldItem>
+                <identifier>Recordpstar_Hospitalization_Notes_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Recent_Hospitalizations__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Recent_Hospitalizations__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Current</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-medical-left</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Preferred_Language__c</fieldItem>
-                <identifier>Recordpstar_Preferred_Language_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Primary_Written_Language__c</fieldItem>
-                <identifier>Recordpstar_Primary_Written_Language_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Need_Interpreter__c</fieldItem>
-                <identifier>Recordpstar_Need_Interpreter_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -832,56 +943,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.May_we_call_as_Peerstar__c</fieldItem>
-                <identifier>Recordpstar_May_we_call_as_Peerstar_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Agrees_to_staff_w_Crim_Hx__c</fieldItem>
-                <identifier>Recordpstar_Agrees_to_staff_w_Crim_Hx_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Type_of_srvc_F2F__c</fieldItem>
-                <identifier>Recordpstar_Type_of_srvc_F2F_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Type_of_srvc_Telehealth__c</fieldItem>
-                <identifier>Recordpstar_Type_of_srvc_Telehealth_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Type_of_srvc_Telephone__c</fieldItem>
-                <identifier>Recordpstar_Type_of_srvc_Telephone_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.IDD__c</fieldItem>
                 <identifier>Recordpstar_IDD_cField</identifier>
             </fieldInstance>
@@ -894,6 +955,234 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Is_There_a_Hx_of_DA_Use__c</fieldItem>
                 <identifier>Recordpstar_Is_There_a_Hx_of_DA_Use_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Incarcerated__c</fieldItem>
+                <identifier>Recordpstar_Incarcerated_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Incarceration_Facility_Name__c</fieldItem>
+                <identifier>Recordpstar_Incarceration_Facility_Name_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Incarcerated__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Incarcerated__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Current</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Incarceration_Start_Date__c</fieldItem>
+                <identifier>Recordpstar_Incarceration_Start_Date_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Incarcerated__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Incarcerated__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Current</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Incarceration_End_Date__c</fieldItem>
+                <identifier>Recordpstar_Incarceration_End_Date_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Incarcerated__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Incarcerated__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Current</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Incarceration_Reason__c</fieldItem>
+                <identifier>Recordpstar_Incarceration_Reason_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Incarcerated__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Incarcerated__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Current</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Incarceration_Notes__c</fieldItem>
+                <identifier>Recordpstar_Incarceration_Notes_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Incarcerated__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Incarcerated__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Current</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-medical-right</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-medical-left</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column_med_left</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-medical-right</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column_med_right</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-medical-cols</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <!-- ==================== PREFERENCES & AVAILABILITY SECTION ==================== -->
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Preferred_Language__c</fieldItem>
+                <identifier>Recordpstar_Preferred_Language_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Primary_Written_Language__c</fieldItem>
+                <identifier>Recordpstar_Primary_Written_Language_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Need_Interpreter__c</fieldItem>
+                <identifier>Recordpstar_Need_Interpreter_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Prefers_to_Meet__c</fieldItem>
+                <identifier>Recordpstar_Prefers_to_Meet_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Available_Days__c</fieldItem>
+                <identifier>Recordpstar_Available_Days_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Available_Times__c</fieldItem>
+                <identifier>Recordpstar_Available_Times_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-prefs-left</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Agrees_to_staff_w_Crim_Hx__c</fieldItem>
+                <identifier>Recordpstar_Agrees_to_staff_w_Crim_Hx_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -922,21 +1211,11 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Available_Days__c</fieldItem>
-                <identifier>Recordpstar_Available_Days_cField</identifier>
+                <fieldItem>Record.Additional_Info__c</fieldItem>
+                <identifier>Recordpstar_Additional_Info_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Available_Times__c</fieldItem>
-                <identifier>Recordpstar_Available_Times_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-clinical-right</name>
+        <name>Facet-prefs-right</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -944,25 +1223,26 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-clinical-left</value>
+                    <value>Facet-prefs-left</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column11</identifier>
+                <identifier>flexipage_column_prefs_left</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-clinical-right</value>
+                    <value>Facet-prefs-right</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column12</identifier>
+                <identifier>flexipage_column_prefs_right</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-clinical-cols</name>
+        <name>Facet-prefs-cols</name>
         <type>Facet</type>
     </flexiPageRegions>
+    <!-- ==================== ADDITIONAL INFO / CASE MANAGER SECTION ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
@@ -972,16 +1252,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Follow_Up__c</fieldItem>
                 <identifier>Recordpstar_Follow_Up_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Facility_Name__c</fieldItem>
-                <identifier>Recordpstar_Facility_Name_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1034,6 +1304,46 @@
                 <identifier>Recordpstar_name_of_Case_Manager_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Case_Manager_Phone__c</fieldItem>
+                <identifier>Recordpstar_Case_Manager_Phone_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Case_Manager_Phone_Type__c</fieldItem>
+                <identifier>Recordpstar_Case_Manager_Phone_Type_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Case_Manager_Email__c</fieldItem>
+                <identifier>Recordpstar_Case_Manager_Email_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Case_Manager_Address__c</fieldItem>
+                <identifier>Recordpstar_Case_Manager_Address_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-addinfo-left</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -1056,26 +1366,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Field_Representative__c</fieldItem>
                 <identifier>Recordpstar_Field_Representative_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Reason_Seeking_Services__c</fieldItem>
-                <identifier>Recordpstar_Reason_Seeking_Services_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Admission_Date__c</fieldItem>
-                <identifier>Recordpstar_Admission_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-addinfo-right</name>
@@ -1105,6 +1395,7 @@
         <name>Facet-addinfo-cols</name>
         <type>Facet</type>
     </flexiPageRegions>
+    <!-- ==================== SYSTEM INFO SECTION ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
@@ -1177,6 +1468,7 @@
         <name>Facet-sysinfo-cols</name>
         <type>Facet</type>
     </flexiPageRegions>
+    <!-- ==================== DETAIL TAB BODY (all sections) ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -1218,7 +1510,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
-                    <value>Facet-clinical-cols</value>
+                    <value>Facet-financial-cols</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>horizontalAlignment</name>
@@ -1226,10 +1518,52 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>Clinical &amp; Preferences</value>
+                    <value>Financial</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
-                <identifier>flexipage_fieldSection6</identifier>
+                <identifier>flexipage_fieldSection_financial</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-medical-cols</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Medical &amp; Social History</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection_medical</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>doctorDetailsCapture</componentName>
+                <identifier>pstar_doctorDetailsCapture</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-prefs-cols</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Preferences &amp; Availability</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection_prefs</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1248,6 +1582,18 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>insuranceVerification</componentName>
+                <identifier>pstar_insuranceVerification</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>documentTracker</componentName>
+                <identifier>pstar_documentTracker_detail</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1271,6 +1617,7 @@
         <name>Facet-detail-tab-body</name>
         <type>Facet</type>
     </flexiPageRegions>
+    <!-- ==================== RELATED CONTACTS TAB ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -1347,6 +1694,7 @@
         <name>Facet-related-contacts</name>
         <type>Facet</type>
     </flexiPageRegions>
+    <!-- ==================== APPOINTMENTS TAB ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -1377,6 +1725,7 @@
         <name>Facet-appointments-tab</name>
         <type>Facet</type>
     </flexiPageRegions>
+    <!-- ==================== HISTORY TAB ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -1407,6 +1756,7 @@
         <name>Facet-history-tab</name>
         <type>Facet</type>
     </flexiPageRegions>
+    <!-- ==================== FILES TAB ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -1437,6 +1787,7 @@
         <name>Facet-files-tab</name>
         <type>Facet</type>
     </flexiPageRegions>
+    <!-- ==================== RELATED LISTS TAB ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -1451,6 +1802,7 @@
         <name>Facet-relatedlists-tab</name>
         <type>Facet</type>
     </flexiPageRegions>
+    <!-- ==================== TABSET ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -1543,6 +1895,7 @@
         <name>Facet-tabset-tabs</name>
         <type>Facet</type>
     </flexiPageRegions>
+    <!-- ==================== MAIN REGION ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -1571,6 +1924,7 @@
         <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
+    <!-- ==================== SIDEBAR ==================== -->
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>

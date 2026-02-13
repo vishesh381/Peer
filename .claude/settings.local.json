@@ -65,7 +65,8 @@
       "Bash(\"C:\\\\Program Files \\(x86\\)\\\\sf\\\\bin\\\\sf.cmd\" data query -q \"SELECT Id, pstar__Referral_Date__c, pstar__Race__c, pstar__Peer_Type__c, pstar__Credible_ID__c, Name FROM Opportunity WHERE Id = ''006fj000009MVMYAA4''\")",
       "Bash(/c/Program\\\\ Files\\\\ \\\\\\(x86\\\\\\)/sf/bin/sf.cmd data query:*)",
       "Bash(node -e \"const {execSync} = require\\(''child_process''\\); console.log\\(execSync\\(''sf data query -q \"\"SELECT Id, pstar__Referral_Date__c, pstar__Race__c, pstar__Peer_Type__c, pstar__Credible_ID__c FROM Opportunity WHERE Id=\\\\\"\"006fj000009MVMYAA4\\\\\"\"\"\" --json'', {encoding: ''utf8'', shell: ''cmd.exe''}\\)\\)\")",
-      "Bash(node -e \"const {execSync} = require\\(''child_process''\\); console.log\\(execSync\\(''sf data query -q \"\"SELECT Id, pstar__Referral_Date__c, pstar__Race__c, pstar__Peer_Type__c, pstar__Credible_ID__c, pstar__No_Admit_Reason__c, pstar__Referral_Type__c FROM Opportunity WHERE Id=\\\\\"\"006fj000009MVMYAA4\\\\\"\"\"\" --json'', {encoding: ''utf8'', shell: ''cmd.exe''}\\).substring\\(0, 3000\\)\\)\")"
+      "Bash(node -e \"const {execSync} = require\\(''child_process''\\); console.log\\(execSync\\(''sf data query -q \"\"SELECT Id, pstar__Referral_Date__c, pstar__Race__c, pstar__Peer_Type__c, pstar__Credible_ID__c, pstar__No_Admit_Reason__c, pstar__Referral_Type__c FROM Opportunity WHERE Id=\\\\\"\"006fj000009MVMYAA4\\\\\"\"\"\" --json'', {encoding: ''utf8'', shell: ''cmd.exe''}\\).substring\\(0, 3000\\)\\)\")",
+      "Bash(done)"
     ]
   },
   "enableAllProjectMcpServers": true

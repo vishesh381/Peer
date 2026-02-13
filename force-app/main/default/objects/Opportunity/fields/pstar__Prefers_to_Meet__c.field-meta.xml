@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>pstar__Gender__c</fullName>
-    <label>Gender</label>
+    <fullName>pstar__Prefers_to_Meet__c</fullName>
+    <label>Prefers to Meet</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>true</trackHistory>
+    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
@@ -12,25 +12,19 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Male</fullName>
+                <fullName>In Person</fullName>
                 <default>false</default>
-                <label>Male</label>
+                <label>In Person</label>
             </value>
             <value>
-                <fullName>Female</fullName>
+                <fullName>Telehealth Phone</fullName>
                 <default>false</default>
-                <label>Female</label>
+                <label>Telehealth Phone</label>
             </value>
             <value>
-                <fullName>Unknown</fullName>
+                <fullName>Telehealth with Camera</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
-                <label>Unknown</label>
-            </value>
-            <value>
-                <fullName>Prefer not to say</fullName>
-                <default>false</default>
-                <label>Prefer not to say</label>
+                <label>Telehealth with Camera</label>
             </value>
         </valueSetDefinition>
     </valueSet>

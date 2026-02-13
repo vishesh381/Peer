@@ -1,0 +1,79 @@
+<template>
+    <lightning-card title="Doctor Details" icon-name="standard:service_resource">
+        <div class="slds-grid slds-wrap slds-gutters slds-p-around_medium">
+            <!-- PCP Tile -->
+            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                <div class="doctor-tile slds-box slds-box_link slds-theme_default" onclick={handleTileClick} data-type="PCP">
+                    <div class="slds-p-around_small">
+                        <lightning-icon icon-name="standard:people" size="medium" class="slds-m-bottom_x-small"></lightning-icon>
+                        <h3 class="slds-text-heading_small slds-m-top_x-small">PCP</h3>
+                        <template if:true={pcpName}>
+                            <p class="slds-text-body_small slds-m-top_xx-small slds-truncate">{pcpName}</p>
+                            <p class="slds-text-body_small slds-text-color_weak slds-truncate">{pcpPhone}</p>
+                        </template>
+                        <template if:false={pcpName}>
+                            <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">Click to add</p>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <!-- Psychiatrist Tile -->
+            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                <div class="doctor-tile slds-box slds-box_link slds-theme_default" onclick={handleTileClick} data-type="Psychiatrist">
+                    <div class="slds-p-around_small">
+                        <lightning-icon icon-name="standard:medication" size="medium" class="slds-m-bottom_x-small"></lightning-icon>
+                        <h3 class="slds-text-heading_small slds-m-top_x-small">Psychiatrist</h3>
+                        <template if:true={psychiatristName}>
+                            <p class="slds-text-body_small slds-m-top_xx-small slds-truncate">{psychiatristName}</p>
+                            <p class="slds-text-body_small slds-text-color_weak slds-truncate">{psychiatristPhone}</p>
+                        </template>
+                        <template if:false={psychiatristName}>
+                            <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">Click to add</p>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <!-- Therapist Tile -->
+            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                <div class="doctor-tile slds-box slds-box_link slds-theme_default" onclick={handleTileClick} data-type="Therapist">
+                    <div class="slds-p-around_small">
+                        <lightning-icon icon-name="standard:care_plan_template" size="medium" class="slds-m-bottom_x-small"></lightning-icon>
+                        <h3 class="slds-text-heading_small slds-m-top_x-small">Therapist</h3>
+                        <template if:true={therapistName}>
+                            <p class="slds-text-body_small slds-m-top_xx-small slds-truncate">{therapistName}</p>
+                            <p class="slds-text-body_small slds-text-color_weak slds-truncate">{therapistPhone}</p>
+                        </template>
+                        <template if:false={therapistName}>
+                            <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">Click to add</p>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+
+    <!-- Modal -->
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={closeModal}>
+                    <lightning-icon icon-name="utility:close" alternative-text="Close" size="small" variant="inverse"></lightning-icon>
+                </button>
+                <div class="slds-modal__header">
+                    <h2 class="slds-modal__title slds-hyphenate">{modalTitle}</h2>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-input label="Name" value={modalName} onchange={handleFieldChange} data-field="name" class="slds-m-bottom_small"></lightning-input>
+                    <lightning-input label="Phone" type="tel" value={modalPhone} onchange={handleFieldChange} data-field="phone" class="slds-m-bottom_small"></lightning-input>
+                    <lightning-textarea label="Address" value={modalAddress} onchange={handleFieldChange} data-field="address" class="slds-m-bottom_small"></lightning-textarea>
+                    <lightning-input label="Email" type="email" value={modalEmail} onchange={handleFieldChange} data-field="email" class="slds-m-bottom_small"></lightning-input>
+                </div>
+                <div class="slds-modal__footer">
+                    <lightning-button label="Cancel" onclick={closeModal} class="slds-m-right_x-small"></lightning-button>
+                    <lightning-button label="Save" variant="brand" onclick={handleSave} disabled={isSaving}></lightning-button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

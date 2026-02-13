@@ -97,6 +97,43 @@ public with sharing class ReferralController {
         return new ReferralCard(opp);
     }
 
+    // ==================== DOCTOR DETAILS ====================
+
+    /**
+     * @description Save doctor details for a referral
+     * @param referralId Opportunity Id
+     * @param doctorType Type of doctor (PCP, Psychiatrist, Therapist)
+     * @param name Doctor name
+     * @param phone Doctor phone
+     * @param address Doctor address
+     * @param email Doctor email
+     * @return Success status
+     */
+    @AuraEnabled
+    public static Boolean saveDoctorDetails(Id referralId, String doctorType, String name, String phone, String address, String email) {
+        Opportunity opp = new Opportunity(Id = referralId);
+
+        if (doctorType == 'PCP') {
+            opp.pstar__Primary_Care_Physician__c = name;
+            opp.pstar__PCP_Phone__c = phone;
+            opp.pstar__PCP_Address__c = address;
+            opp.pstar__PCP_Email__c = email;
+        } else if (doctorType == 'Psychiatrist') {
+            opp.pstar__Psychiatrist__c = name;
+            opp.pstar__Psychiatrist_Phone__c = phone;
+            opp.pstar__Psychiatrist_Address__c = address;
+            opp.pstar__Psychiatrist_Email__c = email;
+        } else if (doctorType == 'Therapist') {
+            opp.pstar__Therapist_Name__c = name;
+            opp.pstar__Therapist_Phone__c = phone;
+            opp.pstar__Therapist_Address__c = address;
+            opp.pstar__Therapist_Email__c = email;
+        }
+
+        update opp;
+        return true;
+    }
+
     // ==================== INTAKE CHECKLIST (#7) ====================
 
     /**
@@ -156,12 +193,10 @@ public with sharing class ReferralController {
         }
 
         // Define required documents
-        docs.add(new DocumentStatus('Script/Prescription', opp.pstar__Script_Received__c, 'script', attachedDocs));
-        docs.add(new DocumentStatus('Release of Information (ROI)', opp.pstar__ROI_Analysis_Completed__c, 'roi', attachedDocs));
+        docs.add(new DocumentStatus('Consent to Collect Medical Records', false, 'consent', attachedDocs));
+        docs.add(new DocumentStatus('Script', opp.pstar__Script_Received__c, 'script', attachedDocs));
+        docs.add(new DocumentStatus('ID', false, 'id', attachedDocs));
         docs.add(new DocumentStatus('Insurance Card', false, 'insurance', attachedDocs));
-        docs.add(new DocumentStatus('Photo ID', false, 'id', attachedDocs));
-        docs.add(new DocumentStatus('Eligibility Verification', opp.pstar__Eligibility_Verified__c, 'eligibility', attachedDocs));
-        docs.add(new DocumentStatus('Initial Recovery Plan (IRP)', opp.pstar__IRP_Completed__c, 'irp', attachedDocs));
 
         return docs;
     }

@@ -8,13 +8,302 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>pstar__Referral_Contact_Type__c</controllingField>
+        <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
+            <!-- Inpatient subtypes -->
+            <value>
+                <fullName>Reg Hospital</fullName>
+                <default>false</default>
+                <label>Reg Hospital</label>
+            </value>
+            <value>
+                <fullName>Psych Hospital</fullName>
+                <default>false</default>
+                <label>Psych Hospital</label>
+            </value>
+            <value>
+                <fullName>Psych Rehab</fullName>
+                <default>false</default>
+                <label>Psych Rehab</label>
+            </value>
+            <value>
+                <fullName>Detox</fullName>
+                <default>false</default>
+                <label>Detox</label>
+            </value>
+            <!-- Senior Living subtypes -->
+            <value>
+                <fullName>Nursing Home</fullName>
+                <default>false</default>
+                <label>Nursing Home</label>
+            </value>
+            <value>
+                <fullName>Assisted Living</fullName>
+                <default>false</default>
+                <label>Assisted Living</label>
+            </value>
+            <value>
+                <fullName>Independent Living</fullName>
+                <default>false</default>
+                <label>Independent Living</label>
+            </value>
+            <value>
+                <fullName>Adult Daycare</fullName>
+                <default>false</default>
+                <label>Adult Daycare</label>
+            </value>
+            <value>
+                <fullName>Senior Center</fullName>
+                <default>false</default>
+                <label>Senior Center</label>
+            </value>
+            <!-- Community subtypes -->
+            <value>
+                <fullName>VA</fullName>
+                <default>false</default>
+                <label>VA</label>
+            </value>
+            <value>
+                <fullName>Therapist</fullName>
+                <default>false</default>
+                <label>Therapist</label>
+            </value>
+            <value>
+                <fullName>Social Worker</fullName>
+                <default>false</default>
+                <label>Social Worker</label>
+            </value>
+            <value>
+                <fullName>Case Manager</fullName>
+                <default>false</default>
+                <label>Case Manager</label>
+            </value>
+            <value>
+                <fullName>PCP</fullName>
+                <default>false</default>
+                <label>PCP</label>
+            </value>
+            <value>
+                <fullName>Psychiatrist</fullName>
+                <default>false</default>
+                <label>Psychiatrist</label>
+            </value>
+            <value>
+                <fullName>Drop in Center</fullName>
+                <default>false</default>
+                <label>Drop in Center</label>
+            </value>
+            <value>
+                <fullName>Shelter</fullName>
+                <default>false</default>
+                <label>Shelter</label>
+            </value>
+            <value>
+                <fullName>Support Coordinator</fullName>
+                <default>false</default>
+                <label>Support Coordinator</label>
+            </value>
+            <value>
+                <fullName>Community Action</fullName>
+                <default>false</default>
+                <label>Community Action</label>
+            </value>
+            <value>
+                <fullName>County BH/ID</fullName>
+                <default>false</default>
+                <label>County BH/ID</label>
+            </value>
+            <!-- Judicial System subtypes -->
+            <value>
+                <fullName>Jail Diversion</fullName>
+                <default>false</default>
+                <label>Jail Diversion</label>
+            </value>
+            <value>
+                <fullName>Jail Re-entry</fullName>
+                <default>false</default>
+                <label>Jail Re-entry</label>
+            </value>
+            <value>
+                <fullName>DOC</fullName>
+                <default>false</default>
+                <label>DOC</label>
+            </value>
+            <value>
+                <fullName>Parole/Probation</fullName>
+                <default>false</default>
+                <label>Parole/Probation</label>
+            </value>
+            <value>
+                <fullName>DA Provider</fullName>
+                <default>false</default>
+                <label>DA Provider</label>
+            </value>
+            <!-- Individual subtypes -->
+            <value>
+                <fullName>Peerstar Staff</fullName>
+                <default>false</default>
+                <label>Peerstar Staff</label>
+            </value>
+            <value>
+                <fullName>Sibling</fullName>
+                <default>false</default>
+                <label>Sibling</label>
+            </value>
+            <value>
+                <fullName>Parent</fullName>
+                <default>false</default>
+                <label>Parent</label>
+            </value>
+            <value>
+                <fullName>Friend</fullName>
+                <default>false</default>
+                <label>Friend</label>
+            </value>
+            <value>
+                <fullName>Self</fullName>
+                <default>false</default>
+                <label>Self</label>
+            </value>
+            <!-- Shared -->
             <value>
                 <fullName>Other</fullName>
                 <default>false</default>
                 <label>Other</label>
             </value>
         </valueSetDefinition>
+        <!-- Inpatient -->
+        <valueSettings>
+            <controllingFieldValue>Inpatient</controllingFieldValue>
+            <valueName>Reg Hospital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Inpatient</controllingFieldValue>
+            <valueName>Psych Hospital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Inpatient</controllingFieldValue>
+            <valueName>Psych Rehab</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Inpatient</controllingFieldValue>
+            <valueName>Detox</valueName>
+        </valueSettings>
+        <!-- Senior Living -->
+        <valueSettings>
+            <controllingFieldValue>Senior Living</controllingFieldValue>
+            <valueName>Nursing Home</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Senior Living</controllingFieldValue>
+            <valueName>Assisted Living</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Senior Living</controllingFieldValue>
+            <valueName>Independent Living</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Senior Living</controllingFieldValue>
+            <valueName>Adult Daycare</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Senior Living</controllingFieldValue>
+            <valueName>Senior Center</valueName>
+        </valueSettings>
+        <!-- Community -->
+        <valueSettings>
+            <controllingFieldValue>Community</controllingFieldValue>
+            <valueName>VA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community</controllingFieldValue>
+            <valueName>Therapist</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community</controllingFieldValue>
+            <valueName>Social Worker</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community</controllingFieldValue>
+            <valueName>Case Manager</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community</controllingFieldValue>
+            <valueName>PCP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community</controllingFieldValue>
+            <valueName>Psychiatrist</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community</controllingFieldValue>
+            <valueName>Drop in Center</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community</controllingFieldValue>
+            <valueName>Shelter</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community</controllingFieldValue>
+            <valueName>Support Coordinator</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community</controllingFieldValue>
+            <valueName>Community Action</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community</controllingFieldValue>
+            <valueName>County BH/ID</valueName>
+        </valueSettings>
+        <!-- Judicial System -->
+        <valueSettings>
+            <controllingFieldValue>Judicial System</controllingFieldValue>
+            <valueName>Jail Diversion</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Judicial System</controllingFieldValue>
+            <valueName>Jail Re-entry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Judicial System</controllingFieldValue>
+            <valueName>DOC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Judicial System</controllingFieldValue>
+            <valueName>Parole/Probation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Judicial System</controllingFieldValue>
+            <valueName>DA Provider</valueName>
+        </valueSettings>
+        <!-- Individual -->
+        <valueSettings>
+            <controllingFieldValue>Individual</controllingFieldValue>
+            <valueName>Peerstar Staff</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Individual</controllingFieldValue>
+            <valueName>Sibling</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Individual</controllingFieldValue>
+            <valueName>Parent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Individual</controllingFieldValue>
+            <valueName>Friend</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Individual</controllingFieldValue>
+            <valueName>Self</valueName>
+        </valueSettings>
+        <!-- Other shows for both Community and Individual -->
+        <valueSettings>
+            <controllingFieldValue>Community</controllingFieldValue>
+            <controllingFieldValue>Individual</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>

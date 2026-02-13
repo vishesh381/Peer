@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>pstar__MAID__c</fullName>
-    <externalId>false</externalId>
-    <label>Medicaid ID</label>
-    <length>255</length>
+    <fullName>pstar__Psychiatrist_Address__c</fullName>
+    <label>Psychiatrist Address</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>TextArea</type>
 </CustomField>
