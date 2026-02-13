@@ -2,6 +2,9 @@ import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { updateRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { refreshApex } from '@salesforce/apex';
+import getUploadedFiles from '@salesforce/apex/ReferralController.getUploadedFiles';
+import deleteFile from '@salesforce/apex/ReferralController.deleteFile';
 
 import ELIGIBILITY_VERIFIED from '@salesforce/schema/Opportunity.Eligibility_Verified__c';
 import ID_FIELD from '@salesforce/schema/Opportunity.Id';
@@ -15,12 +18,31 @@ export default class InsuranceVerification extends LightningElement {
     isSaving = false;
     verificationStatus = 'Verified';
     notes = '';
+    uploadedFiles = [];
+    wiredFilesResult;
 
     @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
     record;
 
+    @wire(getUploadedFiles, { recordId: '$recordId' })
+    wiredFiles(result) {
+        this.wiredFilesResult = result;
+        if (result.data) {
+            this.uploadedFiles = result.data.map(f => ({
+                documentId: f.documentId,
+                title: f.title,
+                fileType: f.fileType,
+                createdDate: f.createdDate
+            }));
+        }
+    }
+
     get isVerified() {
         return getFieldValue(this.record.data, ELIGIBILITY_VERIFIED);
+    }
+
+    get hasFiles() {
+        return this.uploadedFiles && this.uploadedFiles.length > 0;
     }
 
     get statusOptions() {
@@ -52,12 +74,32 @@ export default class InsuranceVerification extends LightningElement {
     }
 
     handleUploadFinished(event) {
-        const uploadedFiles = event.detail.files;
+        const files = event.detail.files;
         this.dispatchEvent(new ShowToastEvent({
             title: 'Success',
-            message: `${uploadedFiles.length} file(s) uploaded`,
+            message: `${files.length} file(s) uploaded`,
             variant: 'success'
         }));
+        return refreshApex(this.wiredFilesResult);
+    }
+
+    async handleDeleteFile(event) {
+        const docId = event.currentTarget.dataset.id;
+        try {
+            await deleteFile({ documentId: docId });
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Success',
+                message: 'File deleted',
+                variant: 'success'
+            }));
+            return refreshApex(this.wiredFilesResult);
+        } catch (error) {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: error.body?.message || 'Could not delete file',
+                variant: 'error'
+            }));
+        }
     }
 
     async handleSave() {

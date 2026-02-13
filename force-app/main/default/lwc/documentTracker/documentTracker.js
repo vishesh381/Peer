@@ -10,7 +10,7 @@ export default class DocumentTracker extends LightningElement {
     isLoading = true;
     wiredDocumentsResult;
 
-    @wire(getDocumentChecklist, { recordId: '$recordId' })
+    @wire(getDocumentChecklist, { referralId: '$recordId' })
     wiredDocuments(result) {
         this.wiredDocumentsResult = result;
         const { error, data } = result;

@@ -201,6 +201,34 @@ public with sharing class ReferralController {
         return docs;
     }
 
+    // ==================== FILE MANAGEMENT ====================
+
+    @AuraEnabled
+    public static List<Map<String, String>> getUploadedFiles(Id recordId) {
+        List<Map<String, String>> files = new List<Map<String, String>>();
+        for (ContentDocumentLink cdl : [
+            SELECT ContentDocumentId, ContentDocument.Title, ContentDocument.FileType,
+                   ContentDocument.ContentSize, ContentDocument.CreatedDate
+            FROM ContentDocumentLink
+            WHERE LinkedEntityId = :recordId
+            ORDER BY ContentDocument.CreatedDate DESC
+        ]) {
+            Map<String, String> f = new Map<String, String>();
+            f.put('documentId', cdl.ContentDocumentId);
+            f.put('title', cdl.ContentDocument.Title);
+            f.put('fileType', cdl.ContentDocument.FileType);
+            f.put('createdDate', String.valueOf(cdl.ContentDocument.CreatedDate));
+            files.add(f);
+        }
+        return files;
+    }
+
+    @AuraEnabled
+    public static void deleteFile(Id documentId) {
+        ContentDocument doc = [SELECT Id FROM ContentDocument WHERE Id = :documentId LIMIT 1];
+        delete doc;
+    }
+
     // ==================== REFERRAL AGING (#9) ====================
 
     /**
